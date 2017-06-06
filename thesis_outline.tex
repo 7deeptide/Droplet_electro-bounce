@@ -1,0 +1,106 @@
+% This is file JFM2esam.tex
+% first release v1.0, 20th October 1996
+%       release v1.01, 29th October 1996
+%       release v1.1, 25th June 1997
+%       release v2.0, 27th July 2004
+%       release v3.0, 16th July 2014
+%   (based on JFMsampl.tex v1.3 for LaTeX2.09)
+% Copyright (C) 1996, 1997, 2014 Cambridge University Press
+
+\documentclass{jfm}
+\usepackage{graphicx}
+\usepackage{epstopdf, epsfig}
+
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+
+\shorttitle{Droplet electro-bounce}
+\shortauthor{E. S. Schmidt and M. W. Weislogel}
+
+\title{Spontaneous Droplet Jump with Electro-bouncing}
+
+\author{Erin S. Schmidt\aff{1}
+  \corresp{\email{esch2@pdx.edu}},
+ \and M. W.  Weislogel\aff{1}}
+
+\affiliation{\aff{1}Department of Mechanical Engineering, Portland State University,
+Portland, OR 97211, USA
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We investigate the dynamics of water droplet jumps from superhydrophobic surfaces in the presence of an electric field during a step reduction in gravity level. In the brief free-fall environment of a drop tower, when a strong non-homogeneous electric field (with a measured strength between $0.39$ and $2.36$ kV/cm) is imposed, body forces acting on the jumped droplets are primarily supplied by polarization stress and Coulombic attraction instead of gravity. The droplet charge, measured to be on the order of $2.3 \cdot(10^{-11})$ C, originates by electro-osmosis of charged species at the (PTFE coated) hydrophobic surface interface. This electric body force leads to a droplet bouncing behavior similar to well-known phenomena in 1-g, though occurring for larger drops $\sim \! \!$ 0.1 mL for a given range of impact Weber numbers, $\mathbf{We} < 20$. In 1-g, for $\mathbf{We} > 0.4$, impact recoil behavior on a super-hydrophobic surface is normally dominated by damping from contact line hysteresis and by air-layer interactions. However, in the strong electric field, the droplet bounce dynamics additionally include electrohydrodynamic effects on wettability and Cassie-Wenzel transition. This is qualitatively discussed in terms of coefficients of restitution and trends in contact time. \end{abstract}
+
+\section{Introduction}\label{sec:intro}
+\begin{itemize}
+\item Bouncing droplets, impacts on S.H. surfaces
+\item Motivation: phase change devices, substitute body force
+\item Spontaneous droplet jump
+\item DDT Spurrious forces
+\end{itemize}
+
+\subsection{Experiment description}
+Study of the electrostatically bounced droplets in $/mu$-gravity conditions on square and rectangular superhydrophobic surfaces. Parametric variation in droplet volume, and surface charge density.
+
+\section{Analytics}
+\begin{itemize}
+\item Full Navier-Stokes EHD
+\item Low current assumptions
+\item Charging time assumptions
+\item Free surface damping assumptions
+\item Water as a dielectric medium
+\item Equation of motion
+\item Far field: Coulombic with image charges
+\item Near field: Spherical conductor, pane of charge
+\item Near field: Legendre polynomials
+\item Near field: Dielectrophoresis
+\item Characteristic time scales
+\item Poisson solver for potential, \emph{Gerris}
+\item Reduced Bouncing model, stability, bifurcation
+\item Mechanism for discharging, simulation
+\end{itemize}
+
+\section{Methods}
+Description of drop tower operations.
+ 
+\subsection{Superhydrophobic surfaces}
+Wetting hystersis. Methods of fabrication, comparison of wetting properties. Methods for determination of properties, roll-off angle, contact angle using \emph{SE-FIT}. Cassie-wenzel transition. Damping.
+\subsection{Charge}
+Method of charging insulators. Surface charge density via electrostatic fieldmeter, transformations for finite surfaces, estimate of error. Milikans experient. Direct measurement of droplet charge using Faraday cup and high impedence electrometer. Sources of charge (electro-osmosis, induced charge). In-site high-precision techniques limited in drop tower context (15-g deceleration).
+\subsection{Conductor experiment}
+Measurement of fluid properties, red-dye, viscosity (per Al Jubari, un-published. Circuit diagrams. Microcontroller logic. Verification of low current $>>$ 1 $\mu$A. Filming at high speed. Camera, LED panel, high shutter speed. Machined Rayleigh-plateau breakup system.
+\subsection{Data Reduction}
+Particle tracking methods using ImageJ. Data reduction (filtering, polynomial fitting, finite derivatives).
+
+
+
+\section{Results}
+\begin{itemize}
+\item Comparison of jump velocities between surfaces.
+\item Qualitative discussion of bounces
+\item Qualitative discussion of multi-drop interactions
+\item Validity of the stability model
+\item Composite images
+\item ANOVA to compare variance of jump velocity to variance in charge or nonuniformity of field between tests.
+\end{itemize}
+
+\section{Notes}
+\subsection{Bouncing on thin air}
+\subsection{Electric field makes Leidenfrost droplets take a leap}
+\subsection{Experimental Determination of the Charge Induced on Water Drops}
+\begin{itemize}
+\item Use of a ring shaped induction electrode. Droplet charges are a function of the electrode potential, as measured using a pico-ampmeter.
+\item The electric field attracts free charge in a continuous conductor, which leads to net charged drops by mass separations (e.g. induced charge) during droplet breakup. This requires that the time interval between breakups is sufficient for charge redistribution in the source liquid. This is distinct from net charge separation by breakup of a electric double layer. So the net charged droplets are the result of the interplay between the external electric field, free charge in a conductive stream, and the Rayleigh-Plateau instability.
+\item 
+\end{itemize}
+\citep{magarvey_experimental_1962} 
+
+\bibliographystyle{jfm}
+%\citep{magarvey_experimental_1962}
+% Note the spaces between the initials
+\bibliography{test}
+
+\end{document}
