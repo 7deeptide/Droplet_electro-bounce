@@ -3,12 +3,18 @@ Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
 The top-level auxiliary file: thesis_outline.aux
 The style file: jfm.bst
 Database file #1: test.bib
+Warning--I didn't find a database entry for "Manzello:2004dg"
+Warning--I didn't find a database entry for "Stevenson:2015dg"
+Warning--I didn't find a database entry for "Attari:2015dg"
+Warning--I didn't find a database entry for "Choi:2013dg"
+Warning--I didn't find a database entry for "Miljkovic:2013dg"
+Warning--I didn't find a database entry for "Moreno-Villa:1998dg"
 Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Warning--empty year in magarvey_experimental_1962; set to ????
 Warning--empty journal in magarvey_experimental_1962
 You've used 1 entry,
             3068 wiz_defined-function locations,
-            685 strings with 5311 characters,
+            697 strings with 5491 characters,
 and the built_in function-call counts, 561 in all, are:
 = -- 50
 > -- 18
@@ -47,4 +53,4 @@ warning$ -- 2
 while$ -- 5
 width$ -- 0
 write$ -- 14
-(There were 2 warnings)
+(There were 8 warnings)
