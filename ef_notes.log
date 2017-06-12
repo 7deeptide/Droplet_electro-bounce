@@ -1,0 +1,254 @@
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  12 JUN 2017 00:40
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**ef_notes.tex
+(./ef_notes.tex
+LaTeX2e <2017/01/01> patch level 3
+Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/article.cls
+Document Class: article 2014/09/29 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2014/09/29 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count79
+\c@section=\count80
+\c@subsection=\count81
+\c@subsubsection=\count82
+\c@paragraph=\count83
+\c@subparagraph=\count84
+\c@figure=\count85
+\c@table=\count86
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/changepage/changepage.sty
+Package: changepage 2009/10/20 v1.0c check page and change page layout
+\c@cp@cntr=\count87
+\cp@tempcnt=\count88
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics-def/pdftex.def
+File: pdftex.def 2017/01/12 v0.06k Graphics/color for pdfTeX
+
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2016/05/16 v1.4 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2016/05/16 v1.23 LaTeX kernel commands for general use (HO)
+)
+\Gread@gobject=\count89
+))
+(/usr/local/texlive/2016/texmf-dist/tex/latex/soul/soul.sty
+Package: soul 2003/11/17 v2.4 letterspacing/underlining (mf)
+\SOUL@word=\toks14
+\SOUL@lasttoken=\toks15
+\SOUL@cmds=\toks16
+\SOUL@buffer=\toks17
+\SOUL@token=\toks18
+\SOUL@spaceskip=\skip43
+\SOUL@ttwidth=\dimen103
+\SOUL@uldp=\dimen104
+\SOUL@ulht=\dimen105
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/listings/listings.sty
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks19
+)
+\lst@mode=\count90
+\lst@gtempboxa=\box26
+\lst@token=\toks20
+\lst@length=\count91
+\lst@currlwidth=\dimen106
+\lst@column=\count92
+\lst@pos=\count93
+\lst@lostspace=\dimen107
+\lst@width=\dimen108
+\lst@newlines=\count94
+\lst@lineno=\count95
+\lst@maxwidth=\dimen109
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count96
+\lst@skipnumbers=\count97
+\lst@framebox=\box27
+)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/abstract/abstract.sty
+Package: abstract 2009/06/08 v1.2a configurable abstracts
+\abstitleskip=\skip44
+\absleftindent=\skip45
+\absrightindent=\skip46
+\absparindent=\skip47
+\absparsep=\skip48
+)
+(./ef_notes.aux)
+\openout1 = `ef_notes.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
+LaTeX Font Info:    ... okay on input line 19.
+
+(/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count98
+\scratchdimen=\dimen110
+\scratchbox=\box28
+\nofMPsegments=\count99
+\nofMParguments=\count100
+\everyMPshowfont=\toks21
+\MPscratchCnt=\count101
+\MPscratchDim=\dimen111
+\MPnumerator=\count102
+\makeMPintoPDFobject=\count103
+\everyMPtoPDFconversion=\toks22
+)
+\c@lstlisting=\count104
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <20.74> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <14.4> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <7> on input line 20.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 29.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 29.
+ [1
+
+{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+[2]
+
+LaTeX Warning: Reference `fig:fiji' on page 3 undefined on input line 65.
+
+[3] [4]
+Overfull \hbox (4.13063pt too wide) in paragraph at lines 76--77
+[]\OT1/cmr/m/n/12 The clas-si-cal Korteweg-Helmholtz force den-sity for-mu-la-t
+ion of the Maxwell
+ []
+
+[5] [6]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 133.
+
+ (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 133.
+ [7]
+[8]
+
+LaTeX Warning: Reference `fig:filters' on page 9 undefined on input line 146.
+
+
+LaTeX Warning: Reference `fig:power_spectra' on page 9 undefined on input line 
+146.
+
+
+Overfull \hbox (13.95645pt too wide) in paragraph at lines 162--163
+\OT1/cmr/m/n/12 out over-fit-ting of oth-er-wise mis-rep-re-sent-ing the un-der
+-ly-ing sig-nal. The Savitsky-
+ []
+
+[9]
+
+LaTeX Warning: Reference `fig:surface_voltage' on page 10 undefined on input li
+ne 180.
+
+[10] [11]
+
+LaTeX Warning: Reference `fig:millikan' on page 12 undefined on input line 197.
+
+
+
+LaTeX Warning: Reference `fig:drop_charge' on page 12 undefined on input line 2
+01.
+
+[12]
+
+LaTeX Warning: Citation `Choi:2013dg' on page 13 undefined on input line 220.
+
+
+LaTeX Warning: Reference `fig:chart1' on page 13 undefined on input line 220.
+
+
+LaTeX Warning: Reference `eqn:drag' on page 13 undefined on input line 222.
+
+[13]
+
+LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 228.
+
+
+LaTeX Warning: Citation `Miljkovic:2013dg' on page 14 undefined on input line 2
+28.
+
+
+LaTeX Warning: Citation `Moreno-Villa:1998dg' on page 14 undefined on input lin
+e 228.
+
+
+LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 228.
+
+
+LaTeX Warning: Reference `fig:electrometer' on page 14 undefined on input line 
+231.
+
+[14] (./ef_notes.aux)
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2526 strings out of 493013
+ 35466 string characters out of 6133328
+ 103426 words of memory out of 5000000
+ 6086 multiletter control sequences out of 15000+600000
+ 11950 words of font info for 41 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 26i,7n,32p,1734b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
+ocal/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/loca
+l/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/
+texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/t
+exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/tex
+live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
+ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
+e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on ef_notes.pdf (14 pages, 201380 bytes).
+PDF statistics:
+ 106 PDF objects out of 1000 (max. 8388607)
+ 75 compressed objects within 1 object stream
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+
