@@ -1,0 +1,3 @@
+notes
+
+07131, bad camera bracing first ~10 frames angular acceleration of the camera, electric field surface is larger than the model predicts?

@@ -1,0 +1,2 @@
+notes
+07131, bad camera bracing first ~10 frames angular acceleration of the camera
