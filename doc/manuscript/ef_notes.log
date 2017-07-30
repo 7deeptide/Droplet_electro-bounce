@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  12 JUN 2017 00:40
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  24 JUL 2017 17:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -88,6 +88,12 @@ File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
+(/usr/local/texlive/2016/texmf-dist/tex/latex/tools/verbatim.sty
+Package: verbatim 2014/10/28 v1.5q LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks21
+\verbatim@line=\toks22
+\verbatim@in@stream=\read1
+)
 (/usr/local/texlive/2016/texmf-dist/tex/latex/abstract/abstract.sty
 Package: abstract 2009/06/08 v1.2a configurable abstracts
 \abstitleskip=\skip44
@@ -99,18 +105,18 @@ Package: abstract 2009/06/08 v1.2a configurable abstracts
 (./ef_notes.aux)
 \openout1 = `ef_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 19.
-LaTeX Font Info:    ... okay on input line 19.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 20.
+LaTeX Font Info:    ... okay on input line 20.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -119,115 +125,115 @@ LaTeX Font Info:    ... okay on input line 19.
 \scratchbox=\box28
 \nofMPsegments=\count99
 \nofMParguments=\count100
-\everyMPshowfont=\toks21
+\everyMPshowfont=\toks23
 \MPscratchCnt=\count101
 \MPscratchDim=\dimen111
 \MPnumerator=\count102
 \makeMPintoPDFobject=\count103
-\everyMPtoPDFconversion=\toks22
+\everyMPtoPDFconversion=\toks24
 )
 \c@lstlisting=\count104
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <20.74> on input line 20.
+(Font)              <20.74> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 20.
+(Font)              <14.4> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 20.
+(Font)              <12> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 20.
+(Font)              <7> on input line 21.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 29.
+(Font)              <8> on input line 30.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 29.
+(Font)              <6> on input line 30.
  [1
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
 [2]
 
-LaTeX Warning: Reference `fig:fiji' on page 3 undefined on input line 65.
+LaTeX Warning: Reference `fig:fiji' on page 3 undefined on input line 66.
 
 [3] [4]
-Overfull \hbox (4.13063pt too wide) in paragraph at lines 76--77
+Overfull \hbox (4.13063pt too wide) in paragraph at lines 77--78
 []\OT1/cmr/m/n/12 The clas-si-cal Korteweg-Helmholtz force den-sity for-mu-la-t
 ion of the Maxwell
  []
 
-[5] [6]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 133.
+[5] [6] [7]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 159.
 
  (/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 133.
- [7]
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 159.
+
 [8]
 
-LaTeX Warning: Reference `fig:filters' on page 9 undefined on input line 146.
+LaTeX Warning: Reference `fig:filters' on page 9 undefined on input line 172.
 
 
 LaTeX Warning: Reference `fig:power_spectra' on page 9 undefined on input line 
-146.
+172.
 
 
-Overfull \hbox (13.95645pt too wide) in paragraph at lines 162--163
+Overfull \hbox (13.95645pt too wide) in paragraph at lines 188--189
 \OT1/cmr/m/n/12 out over-fit-ting of oth-er-wise mis-rep-re-sent-ing the un-der
 -ly-ing sig-nal. The Savitsky-
  []
 
-[9]
+[9] [10]
 
-LaTeX Warning: Reference `fig:surface_voltage' on page 10 undefined on input li
-ne 180.
+LaTeX Warning: Reference `fig:surface_voltage' on page 11 undefined on input li
+ne 206.
 
-[10] [11]
+[11]
 
-LaTeX Warning: Reference `fig:millikan' on page 12 undefined on input line 197.
+LaTeX Warning: Reference `fig:millikan' on page 12 undefined on input line 223.
 
 
 
 LaTeX Warning: Reference `fig:drop_charge' on page 12 undefined on input line 2
-01.
+27.
 
 [12]
 
-LaTeX Warning: Citation `Choi:2013dg' on page 13 undefined on input line 220.
+LaTeX Warning: Citation `Choi:2013dg' on page 13 undefined on input line 246.
 
 
-LaTeX Warning: Reference `fig:chart1' on page 13 undefined on input line 220.
+LaTeX Warning: Reference `fig:chart1' on page 13 undefined on input line 246.
 
 
-LaTeX Warning: Reference `eqn:drag' on page 13 undefined on input line 222.
+LaTeX Warning: Reference `eqn:drag' on page 13 undefined on input line 248.
 
 [13]
 
-LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 228.
+LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 254.
 
 
 LaTeX Warning: Citation `Miljkovic:2013dg' on page 14 undefined on input line 2
-28.
+54.
 
 
 LaTeX Warning: Citation `Moreno-Villa:1998dg' on page 14 undefined on input lin
-e 228.
+e 254.
 
 
-LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 228.
+LaTeX Warning: Citation `Choi:2013dg' on page 14 undefined on input line 254.
 
 
 LaTeX Warning: Reference `fig:electrometer' on page 14 undefined on input line 
-231.
+257.
 
-[14] (./ef_notes.aux)
+[14] [15] (./ef_notes.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2526 strings out of 493013
- 35466 string characters out of 6133328
- 103426 words of memory out of 5000000
- 6086 multiletter control sequences out of 15000+600000
+ 2555 strings out of 493013
+ 36018 string characters out of 6133328
+ 104066 words of memory out of 5000000
+ 6112 multiletter control sequences out of 15000+600000
  11950 words of font info for 41 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  26i,7n,32p,1734b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -245,10 +251,10 @@ exlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/tex
 live/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texli
 ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texliv
 e/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on ef_notes.pdf (14 pages, 201380 bytes).
+Output written on ef_notes.pdf (15 pages, 202220 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 75 compressed objects within 1 object stream
+ 109 PDF objects out of 1000 (max. 8388607)
+ 77 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
