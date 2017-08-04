@@ -23,4 +23,3 @@
 - Should I keep the double drop data?
 	- Only of qualitative interest. The field model is clearly broken for this case.
 - From now on keep the thesolded image series for each drop, for future reference.
-- Add a seperate axes to the munging plot.
