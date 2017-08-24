@@ -1,8 +1,12 @@
 - [x] Find contact time with ellipse fit parameters
 - [x] Check filtering dt --> resample with fft, or use a spline fit to make the data and time lists the same length
-- [] Add partitioning based on contact time --> make (greater/less than) minm a boolean mask and add to the contact mask
-- [x] Add absolute criteria for YM zero
+- [x] Add partitioning based on contact time --> make (greater/less than) minm a boolean mask and add to the contact mask
+- [] Count number of partitions, add acceleration plots for each
+- [] Finish functionalizing the munging
+- [] Add analytical functions for Re, tj vs. We
+- [x] Add absolute criteria for YM zero --> still need a plan for non-bounce ref. points
 - [] check savgol docs for suitability of other interpolation modes
 
 - [] Add numerical derivatives of del.E^2 for dielectrophoresis
-- [] Review parameter estimation
+- [] Plot all simulation forces on same (log) axis
+- [] Review parameter estimation - expected variance
