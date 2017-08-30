@@ -5,7 +5,7 @@
    
 - [x] Check filtering `dt`.
 
-   Resample with fft, or use a spline fit to make the data and time lists the same length. This is important because the Savitsky-Golay filter doenst allow non-constant `dt`.
+   Resample with fft, or use a spline fit to make the data and time arrays the same length. This is important because the Savitsky-Golay filter doesn't allow non-constant `dt`.
    
 - [x] Add partitioning based on contact time.
 
