@@ -1,9 +1,0 @@
-name,start,end,volume,surfaceV,frame_rate,outlier,double
-07131_1,5,1,0.092,310,120,True,True
-07131_2,5,1,0.092,246.7,120,True,True
-07132_1,0,1,0.0654,266.7,120,False,True
-07132_2,5,1,0.0654,263.3,120,False,True
-07133_1,0,1,0.0287,243.3,120,False,True
-07133_2,0,1,0.0287,230.0,120,False,True
-07135,1,1,0.04,396.7,120,False,False
-07136,0,1,0.05,307.5,120,False,False
