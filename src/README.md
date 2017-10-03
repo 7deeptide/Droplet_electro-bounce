@@ -19,8 +19,8 @@
 
    Going to use a cheesey approach, `while: True try: n=n+1 except:ValueError break`. Also `IndexError` and `UnboundLocalError`. I can catch the IndexErrors by counting the number of bounces in the drop prior to the exception (if `0` then it's a no-bounce drop, and the next `n+1` should drop an `UnboundLocalError`). *Still need this for contact time tj, but for now I'm only going to use the first drop in parameter estimation*.
    
-- [ ] Finish functionalizing the munging.
-- [ ] Add analytical functions for Re, tj vs. We.
+- [x] Finish functionalizing the munging.
+- [x] Add analytical functions for Re, tj vs. We.
 - [ ] Check `savgol` docs for suitability of other interpolation modes.
 
 - [ ] Add numerical derivatives of del.E^2 for dielectrophoresis.
@@ -29,3 +29,13 @@
 - [x] Review parameter estimation - expected variance, maximum likelyhood.
 
    The most promising approach is to minimize the objective function (the SSE or Chi^2 between the model and data), using a Nelder-Mead optimizer. Use as many parameters as possible (lest risk making the problem ill-posed), but constrain them using an exterior penalty function. The parameters can be constrained from theory, or from the mean +/- 2 standard deviation of the measured values, or from the measurement precision where applicable. The parameters with the most uncertainty are the surface potential, and the droplet charge. It's possible that good correspondence is not possible between the model and the data. This is especially true for cases where there is significant lateral migration of the droplets durin the drop. In this case the primary assumption of electric field as a function of z-position only breaks down. We can see this in the acceleration plots (as a sideways 'u' shape). 
+   
+- [ ] finish adding the exterior penalty function
+- [ ] add function to calculate sigma from surfaceV
+- [ ] doublecheck ODE flow
+- [ ] non-dimensionalize the ODE?
+- [ ] loop over all drops in the set and append the initial and final design vectors to a csv file
+- [ ] determine the appropriate electric parameter
+- [ ] move the impact plots to the bottom, and color the lines by an electric parameter
+- [ ] 'alldrops' trajectory plot colored by electric parameter
+- [x] fix drop.surfaceV datatype
