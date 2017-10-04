@@ -15,7 +15,7 @@
 
    Still need a plan for non-bounce ref. points. Probably the best way to do this is with a fiduciary marking in frame as a "cannonical zero" reference.
    
-- [ ] Count number of partitions, add acceleration plots for each.
+- [x] Count number of partitions, add acceleration plots for each.
 
    Going to use a cheesey approach, `while: True try: n=n+1 except:ValueError break`. Also `IndexError` and `UnboundLocalError`. I can catch the IndexErrors by counting the number of bounces in the drop prior to the exception (if `0` then it's a no-bounce drop, and the next `n+1` should drop an `UnboundLocalError`). *Still need this for contact time tj, but for now I'm only going to use the first drop in parameter estimation*.
    
@@ -30,7 +30,10 @@
 
    The most promising approach is to minimize the objective function (the SSE or Chi^2 between the model and data), using a Nelder-Mead optimizer. Use as many parameters as possible (lest risk making the problem ill-posed), but constrain them using an exterior penalty function. The parameters can be constrained from theory, or from the mean +/- 2 standard deviation of the measured values, or from the measurement precision where applicable. The parameters with the most uncertainty are the surface potential, and the droplet charge. It's possible that good correspondence is not possible between the model and the data. This is especially true for cases where there is significant lateral migration of the droplets durin the drop. In this case the primary assumption of electric field as a function of z-position only breaks down. We can see this in the acceleration plots (as a sideways 'u' shape). 
    
-- [ ] finish adding the exterior penalty function
+- [ ] finish adding the exterior penalty function.
+
+   The Nelder-Mead algorithem has very poor convergence when an exterior penalty function is used. Gradient based methods fail to minimize the objective function, and I cannot explicity compute the Hessian or Jacobians for the objective function. Sci-py does not allow me to impliment simple box constraints with Nelder-Mead. The chi-squared fucntion is somewhat noisey, but otherwise I'm not sure if the objective function is well posed (it is not an explicit function, because it is a comparison between noisey experiemental data and the solution to a non-linear ODE which is numerically integrated). The Chi-squared function seems to be overflowing very easily. The function call time could probably be dramatically improved.
+
 - [ ] add function to calculate sigma from surfaceV
 - [ ] doublecheck ODE flow
 - [ ] non-dimensionalize the ODE?
