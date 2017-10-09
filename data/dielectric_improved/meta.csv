@@ -7,3 +7,4 @@ name;start;end;volume;surfaceV;frame_rate;outlier;time;debias;first_frame
 07299;6;1;0.05;600,500;120;False;83;0;2
 07300;8;1;0.03;500,500;120;False;90;0;2
 07301;6;1;0.03;200,300;120;False;151;500;1
+07319;2;1;0.3;1400,1400;120;False;999;0;1
