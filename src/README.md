@@ -21,24 +21,21 @@
    
 - [x] Finish functionalizing the munging.
 - [x] Add analytical functions for Re, tj vs. We.
-- [ ] Check `savgol` docs for suitability of other interpolation modes.
+- [x] Check `savgol` docs for suitability of other interpolation modes.
 
-- [ ] Add numerical derivatives of del.E^2 for dielectrophoresis.
-- [ ] Extract simulation parameters from ODE solver.
-- [ ] Plot all simulation forces on same (log) axis.
+- [x] Add numerical derivatives of del.E^2 for dielectrophoresis.
+- [x] Extract simulation parameters from ODE solver and plot all simulation forces on same (log) axis.
 - [x] Review parameter estimation - expected variance, maximum likelyhood.
 
    The most promising approach is to minimize the objective function (the SSE or Chi^2 between the model and data), using a Nelder-Mead optimizer. Use as many parameters as possible (lest risk making the problem ill-posed), but constrain them using an exterior penalty function. The parameters can be constrained from theory, or from the mean +/- 2 standard deviation of the measured values, or from the measurement precision where applicable. The parameters with the most uncertainty are the surface potential, and the droplet charge. It's possible that good correspondence is not possible between the model and the data. This is especially true for cases where there is significant lateral migration of the droplets durin the drop. In this case the primary assumption of electric field as a function of z-position only breaks down. We can see this in the acceleration plots (as a sideways 'u' shape). 
    
-- [ ] finish adding the exterior penalty function.
+- [x] finish adding the exterior penalty function.
 
    The Nelder-Mead algorithem has very poor convergence when an exterior penalty function is used. Gradient based methods fail to minimize the objective function, and I cannot explicity compute the Hessian or Jacobians for the objective function. Sci-py does not allow me to impliment simple box constraints with Nelder-Mead. The chi-squared fucntion is somewhat noisey, but otherwise I'm not sure if the objective function is well posed (it is not an explicit function, because it is a comparison between noisey experiemental data and the solution to a non-linear ODE which is numerically integrated). The Chi-squared function seems to be overflowing very easily. The function call time could probably be dramatically improved.
 
-- [ ] add function to calculate sigma from surfaceV
-- [ ] doublecheck ODE flow
-- [ ] non-dimensionalize the ODE?
-- [ ] loop over all drops in the set and append the initial and final design vectors to a csv file
-- [ ] determine the appropriate electric parameter
-- [ ] move the impact plots to the bottom, and color the lines by an electric parameter
+- [x] add function to calculate sigma from surfaceV
+- [ ] non-dimensionalize the ODE/determine the appropriate electric parameter
+- [x] loop over all drops in the set and append the initial and final design vectors to a csv file
+- [x] move the impact plots to the bottom, and color the lines by an electric parameter
 - [ ] 'alldrops' trajectory plot colored by electric parameter
 - [x] fix drop.surfaceV datatype
