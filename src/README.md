@@ -37,5 +37,5 @@
 - [ ] non-dimensionalize the ODE/determine the appropriate electric parameter
 - [x] loop over all drops in the set and append the initial and final design vectors to a csv file
 - [x] move the impact plots to the bottom, and color the lines by an electric parameter
-- [ ] 'alldrops' trajectory plot colored by electric parameter
+- [x] 'alldrops' trajectory plot colored by electric parameter
 - [x] fix drop.surfaceV datatype
