@@ -1,0 +1,65 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{changepage}
+\usepackage{color,soul}
+\usepackage{listings}
+\usepackage{verbatim}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+\title{\textsf{\textbf{Droplet Electro-Bouncing in Low-Gravity}}}
+\vspace{-25mm}
+\author{Erin S. Schmidt, Mark M. Weislogel}
+\date{}
+
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent
+Notes on electric fields `n stuff.
+\end{abstract}
+
+\section{Overview}
+In design of fluidic systems for the environment of space we are often forced to deal with the inadequacy of our terrestrial born expectations about the behaviors of the physics of fluids.   
+
+\begin{itemize}
+\item In the absence of gravity the influence of usually negligible electrostatic forces can suprise the unready. We have observed electrostatic accelerations 0.5 $mL$ water droplets on the order of 10's of $cm/s^2$ in proximity to charged surfaces. It's quite easy to (accidentally) charge dielectric surfaces as well. Simply washing fluorinated surfaces with water can induce large surface potentials (hundreds of volts).
+
+\item We can harness these forces for useful applications in a low-gravity environment. This ties into the dreaded ``phase-separation'' problem of low-gravity which arises in the absence of a body force like gravity. Some decades of research has focused on the various manifestations of this problem (tank venting, propellant settling, gas ingestion during tank draining or PMD rewetting, mixing, etc.) and their means of resolution, usually by artifice of a susbstitute body force (such as electric forces). Applications for means of manipulating large droplets in microgravity include electrostatic precipitators, condensing heat exchanges, droplet radiators, droplet column reactors, and container-less processing.
+
+\item Mainly we are concerned about what parameters are important in electrostatic transport of relatively large (e.g. millimetric) droplets in low-gravity, and what the values of the respective dimensionless groups might be. This raises an interesting challenge; determination of net droplet electric charge beyond ideal cases we system capacitance is easily determined (such as between parallel plane electrodes).
+
+\end{itemize}
+\section{Methods}
+To find typical vales of these parameters we employed spontaneous droplet jumps on charged dielectric super-hydrophobic surfaces under low-gravity conditions in a 2.1 $s$ drop tower. Using high-speed video and image analysis software we captured the trajectories of the droplets. Then we solved the inverse problem to find the key parameters by minimizing the $\chi^2$ goodness-of-fit statistic between an observed trajectory and the trajectory predicted by a dynamical model given that certain set parameters. The best fit parameters obtained by direct-search are those corresponding to the maximum likelihood experimental values of the parameters subject to the validity of the assumptions encoded in the model, and the constraints set by the measurement precision of measured independent variables.
+
+\subsection{Experimental}
+\begin{itemize}
+\item A very low-tech superhydrophobic electret was produced, with surface potentials 0.7-4.0 $kV$ and contact angles $\sim 150^{\circ}$ with approximately $20^{\circ}$ contact angle hysteresis when uncharged. The dielectrics are a lamina of 3-4 corona charged 0.4 $mm$ PMMA sheets. The electric field scales with the number of dielectric lamina. The final, superhydropobic layer, is produced by laser etching PMMA, and depositing a thin layer of PTFE on the resulting roughness topology to increase the Young's angle. The surface charge density can be modulated during the experiment by means of a 0-2 $kV$ DC-DC converter, which can re-polarize the dielectric substrate by means of an embedded electrode, and the resulting bound charge partially or fully neutralizes the electric field due to the surface ions deposited by corona charging of the electret.
+\end{itemize}   
+
+\subsection{Parameter Estimation}
+\begin{itemize}
+\item The solution of the inverse problem  was achieved by direct search, using the \emph{Nelder-Mead} simplex algorithm. \emph{Nelder-Mead} is not robust to noise in the objective function so the experimental data and its approximate derivatives were interpolated by \emph{Savitsky-Golay} smoothing splines.
+\end{itemize}
+
+\section{Results}
+\begin{itemize}
+\item We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. We found the charge to be a function of droplet volume and surface potential of the dielectric substrate. A two-ways T-test with a charge distribution determined by a corollary experiment suggests that the droplet charge is induced by the electric field (rather than through contact charging on the PTFE layer).
+
+\item The bounce dynamics are controlled by a dimensionless ratio of electrostatic force to inertia. The dielectrophoretic force plays a very small role when droplets have net charge in a DC field.  
+
+\item Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (20-30 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
+
+\item Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
+
+\item We can extrapolate a simple rule if thumb in droplet ``escape velocity'' of impacts and time scales for returns.
+
+\end{itemize} 
+\end{document}
