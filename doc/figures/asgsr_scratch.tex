@@ -17,19 +17,19 @@ In the inertial limit, and with $y \ll L$,
 \subsection*{Parameter Estimation}
 We find the parameters $\mathbf{x}$ that solve the inverse problem $G(\mathbf{x}) = D$, using a direct search method (\emph{Nelder-Mead}). 
 \begin{equation*}
-\mbox{min} \hspace{2 mm} \chi^2 = \sum^n_{i=1} \frac{\left({yD(\mathbf{x})}_i - yG(\mathbf{x})_i \right)^2}{yG(\mathbf{x})_i}
+\mbox{min} \hspace{2 mm} \chi^2 = \mbox{min} \hspace{2 mm} \sum^n_{i=1} \frac{\left({yD(\mathbf{x})}_i - yG(\mathbf{x})_i \right)^2}{yG(\mathbf{x})_i}
 \end{equation*}
-\[\mbox{where} \hspace{2 mm} yG(\mathbf{x}) \hspace{2 mm} \mbox{is a solution of} \hspace{2 mm} m y'' = \frac{1}{2} \rho C_D A_d^2 {y'}^2 + q \mathbf{E}(y) + \frac{1}{2} \left| E(y) \right|^2 \nabla \epsilon\]
+\[\mbox{where} \hspace{2 mm} yG(\mathbf{x}) \hspace{2 mm} \mbox{is a solution of} \hspace{2 mm} m y'' = \frac{1}{2} \rho C_D A_d {y'}^2 + q E(y) + \frac{1}{4} \frac{K q^2}{y^2} + \frac{1}{2} {E(y)}^2 \nabla \epsilon\]
 \begin{eqnarray*} \mbox{} \hspace{2 mm} \begin{split} \mathbf{x} = \left\{ \begin{array}{ll}      & q\\
 		  &	V_d\\
           & \sigma 
           \end{array} \right. 
           \end{split} \hspace{2 mm} \mbox{subject to} \hspace{2 mm} \begin{split}
           g = \left\{ \begin{array}{ll}
-          & V_d \pm u_{exp}\\
-      	  & \sigma \pm u_{exp}\\
-      	  & y_0 \pm u_{exp}\\
-      	  & t_0 \pm u_{exp}\\
+           V_d &\pm \hspace{2 mm} u_{exp}\\
+      	   \sigma &\pm  \hspace{2 mm} u_{exp}\\
+      	   y_0 &\pm \hspace{2 mm} u_{exp}\\
+      	   t_0 &\pm \hspace{2 mm} u_{exp}\\
           \end{array} \right. 
           \end{split}
 \end{eqnarray*}

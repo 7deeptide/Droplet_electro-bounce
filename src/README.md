@@ -34,7 +34,7 @@
    The Nelder-Mead algorithem has very poor convergence when an exterior penalty function is used. Gradient based methods fail to minimize the objective function, and I cannot explicity compute the Hessian or Jacobians for the objective function. Sci-py does not allow me to impliment simple box constraints with Nelder-Mead. The chi-squared fucntion is somewhat noisey, but otherwise I'm not sure if the objective function is well posed (it is not an explicit function, because it is a comparison between noisey experiemental data and the solution to a non-linear ODE which is numerically integrated). The Chi-squared function seems to be overflowing very easily. The function call time could probably be dramatically improved.
 
 - [x] add function to calculate sigma from surfaceV
-- [ ] non-dimensionalize the ODE/determine the appropriate electric parameter
+- [x] non-dimensionalize the ODE/determine the appropriate electric parameter
 - [x] loop over all drops in the set and append the initial and final design vectors to a csv file
 - [x] move the impact plots to the bottom, and color the lines by an electric parameter
 - [x] 'alldrops' trajectory plot colored by electric parameter
