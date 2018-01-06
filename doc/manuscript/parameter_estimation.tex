@@ -1,5 +1,8 @@
-\documentclass[10pt,a4paper]{article}
+ \documentclass[10pt,a4paper]{article}
 \usepackage[utf8]{inputenc}
+%\usepackage{fontspec} % This line only for XeLaTeX and LuaLaTeX
+\usepackage{pgfplots}
+\usepackage{pgf}
 \usepackage[english]{babel}
 \usepackage{amsmath}
 \usepackage{amsfonts}
@@ -7,8 +10,16 @@
 \usepackage{graphicx}
 \usepackage{color,soul}
 \usepackage{listings}
+\usepackage{setspace}
 \author{Erin Schmidt}
+
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{7cm}
+\setlength\figurewidth{10cm}
+
 \begin{document}
+\onehalfspacing
 \section{Parameter Estimation}
 A non-dimensional number: $ {\mathbb{E}\mbox{u}}_e$.
 
@@ -132,23 +143,46 @@ In trying to recover the kinematic variables from the droplet trajectories we en
 
 Error sources include misalignment of the camera, perspective due to objects (subject or reference scale) being out of the photographic plane, precision limits in digitization. Some of these errors are systematic in origin and introduce consistent biases into the data (e.g. coherent spectral sources, rather than truly stochastic noise). These systematic sources of error include inaccurate scales among others. Data smoothing tends not to help with the systematic errors in that they are usually of lower frequency than the signal (and here we are trying specifically to filter high frequency noise). Random errors, by contrast, are assumed to have a Gaussian distribution (by the central limit theorem), and are independent of the signal (which inherently results from a deterministic process).
 
-In lieu of global polynomial fits we can attempt at finite differencing the data after the application of smoothing filters. Some of these approaches are global and/or recursive whereas other approaches are applied locally. Each approach has various natural advantages and disadvantages. A number of approaches were implimented in \emph{Python} or imported from the scientific computing package \emph{SciPy}[ref] and compared for a test set of trajectory data; these methods include convolution with the derivative of a Gaussian kernel, Wiener filtering, smoothing splines, Butterworth low-pass filtering, total-variance regularization, and Savitsky-Golay filtering. Qualitatively comparing these smoothing methods we find that we loose too many data points in the smoothing process, the variance remains large (especially in higher derivatives), large amplitudes are overly smoothed by repeated filtering passes, or there are significant end effects for most of these methods. A comparison of these smoothing approaches on a representative trajectory data set are shown in Figure \ref{fig:filters}. The power spectra for the same data are compared for these methods in Figure \ref{fig:power_spectra}.
+We experimented with a variety of filters implimented in the \verb|scipy.signal| \emph{SciPy}[ref] module using a represenative set of trajectory data; these methods include 1D Gaussian convolution, Wiener, Butterworth, and Savitsky-Golay filters. Qualitatively comparing these smoothing methods (by handtuning filter orders and window sizes) we find that we loose too many data points in the smoothing process, large amplitudes are overly smoothed by repeated filtering passes, or there are significant end effects for most of these methods. A comparison of these smoothing approaches on a representative trajectory data set are shown in Figure \ref{fig:filters}. The power spectra for the same data are compared for these methods in Figure \ref{fig:power_spectra}.
+
+%\begin{figure}[htb]
+%\centering
+%\resizebox{10cm}{!}{\input{../figures/y_filtered.tex}}
+%\caption{Power spectra of the filter methods compared.}\label{fig:myfigure}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\resizebox{10cm}{!}{\input{../figures/dy_filtered.tex}}
+%\caption{Power spectra of the filter methods compared.}\label{fig:myfigure}
+%\end{figure}
+
+%\begin{figure}[htb]
+%\centering
+%\resizebox{10cm}{!}{\input{../figures/power_spectra.tex}}
+%\caption{Power spectra of the filter methods compared.}\label{fig:myfigure}
+%\end{figure}
 
 \begin{figure}
-%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
-  \centerline{\includegraphics[height=7cm,width=7cm]{../figures/placeholder.png}}
-  \caption{Filtered or fitted droplet trajectories compared to raw data.}
-\label{fig:filters}
+    \centering
+    \input{../figures/power_spectra.pgf}
+    \caption{A simple EMA plot.\label{fig:ema1}}
 \end{figure}
 
 \begin{figure}
-%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
-  \centerline{\includegraphics[height=7cm,width=7cm]{../figures/placeholder.png}}
-  \caption{Power spectra of the filter methods compared.}
-\label{fig:power_spectra}
+    \centering
+    \input{../figures/y_filtered.pgf}
+       \caption{A simple EMA plot.\label{fig:ema2}}
 \end{figure}
 
-Savitsky-Golay filtering seems to produce the smoothest derivatives without overfitting of otherwise misrepresenting the underlying signal. 
+\begin{figure}
+    \centering
+    \input{../figures/dy_filtered.pgf}
+       \caption{A simple EMA plot.\label{fig:ema3}}
+\end{figure}
+
+
+Qualitively speaking, the 4th-order Savitsky-Golay, and Butterworth filters both produce the smooth derivatives we desire for for the optimization algorithem; but the small window-size needed for Butterworth filter tends to also prduce a noticible end effect. The Savitsky-Golay filter essentially uses a moving-window based on local least-squares polynomial approximations. It was shown that fitting a polynomial to a set of input samples and then evaluating the resulting polynomial at a single point within the approximation interval is equivalent to discrete convolution with a fixed impulse response \hl{[Savitsky, 1964]}. One property of this kind of low-pass filter is their tendency to respect waveform aplitudes, and so they are attractive in applications with having noisey signals with shaply pointed waveforms such as ultrsound or synthetic aperature radar \hl{[Schafer, 2011]}, however these filters tend to suffer from end-effects. Because Savitsky-Golay is a Finite Impulse Response (FIR) filter it requires datapoints to be equally spaced; to accomedate this we interpolate points between the small gaps which sometime occur in the tracking results from image analysis \hl{[ref]}. \hl{[Notes on window length, polynomial order]}.
 
 \subsection*{Numerical Solution to the Equation of Motion}
 The equation of motion behaves stiffly due to the large disparity in Coulombic, image charge, and dielectrophoretic lenghtscales. We integrate it numerically using the \verb|odeint| \emph{Scipy} module. This is a shake-and-bake Python wrapper for the vernerable 1982 \emph{netlib ODEPACK} library double-precision \verb|lsoda| (Livermore Solver for Ordinary Differential equations with Automatic method switching for stiff and nonstiff problems) integrator \hl{[ref]}. The function switches between Adams (nonstiff) and Backwards Differentiation Formulas (BDF, stiff) according to the dyanmic value of a set of stiffness eigenvalues.

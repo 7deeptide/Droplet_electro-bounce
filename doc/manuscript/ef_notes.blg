@@ -1,5 +1,5 @@
 [0] Config.pm:354> INFO - This is Biber 2.7
 [0] Config.pm:357> INFO - Logfile is 'ef_notes.blg'
-[30] biber:303> INFO - === Mon Oct 30, 2017, 15:28:42
-[145] Utils.pm:180> ERROR - Cannot find control file 'ef_notes.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
-[145] Biber.pm:113> INFO - ERRORS: 1
+[32] biber:303> INFO - === Thu Jan  4, 2018, 16:11:40
+[149] Utils.pm:180> ERROR - Cannot find control file 'ef_notes.bcf'! - did you pass the "backend=biber" option to BibLaTeX?
+[149] Biber.pm:113> INFO - ERRORS: 1
