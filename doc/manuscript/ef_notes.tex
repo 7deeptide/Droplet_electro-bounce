@@ -3,6 +3,7 @@
 \usepackage{color,soul}
 \usepackage{listings}
 \usepackage{verbatim}
+\usepackage{pgf}
 \lstset{
 basicstyle=\small\ttfamily,
 columns=flexible,
@@ -25,7 +26,7 @@ breaklines=true
 \noindent
 Notes on electric fields `n stuff.
 \end{abstract}
-\onehalfspacing
+\doublespacing
 \section{Introduction}
 \subsection{Spontaneous Droplet Jump}
 When a nonwetting, gravity dominated sessile drop or puddle initially at rest in the Cassie-Baxter state on a surface undergoes a large step reduction in Bond number, $\mathbf{Bo} = \rho g V_d^{2/3}/\sigma$, where $\rho$ is the liquid density, $g$ is the acceleration of gravity, $V_d$ is the droplet volume, and $\sigma$ is the liquid surface tension, it will spontaneously jump away from the surface. This was first observed experimentally by Kirko \emph{et al.} in 1970 [ref] and later by Wollman \emph{et al.} in 2006 in a set of experiments conducted using a $\mu$-gravity drop tower \hl{[ref]}. The kinetic energy of the jump is supplied by the defect in free surface energy as the new minimum energy surface equilibrium has approximately constant curvature \hl{[ref]}. If the viscous energy losses by shear, and internal flows during roll up are neglected, as well as energy lost due to the hysteresis of the dynamic contact line, then the energy relation is given by 
@@ -147,6 +148,12 @@ The non-homogoneous part of the Poisson's equation for the electrostatic potenti
 \end{equation}
 Using the identity for the position vector $\nabla$
 
+\begin{figure}[htb]
+    \centering
+    \input{../figures/E0.pgf}
+    \caption{A simple EMA plot.\label{fig:E0}}
+\end{figure}
+
 \section{A Simple Dynamical Model}
 \subsection{Trajectory Equation}
 \subsection{Numerical Methods}
@@ -155,69 +162,6 @@ Using the identity for the position vector $\nabla$
 \section{Stability}
 \section{Conclusions}
 \appendix
-\section{\\Data Smoothing} \label{sec.smoothing}
-In trying to recover the kinematic variables from the droplet trajectories we encounter a difficulty in the noise of the position data:
-
-\begin{itemize}
-\item Notes from Wood, ``Data smoothing and Differentiation procedures in Biomechanics''
-
-\item Signal-to-noise ratio is $\mathcal{O}(f)$ for $\frac{df}{dt}$ and $\mathcal{O}(f^2)$ for $\frac{d^2f}{ft^2}$. Refs 5, 14, 49, 95.
-
-\item Error sources include misalignment of the camera, perspective due to objects (subject or reference scale) being out of the photographic plane, precision limits in digitization. Some of these errors are systematic in origin and introduce consistent biases into the data (e.g. coherent spectral sources, rather than truly stochastic noise). These systematic sources of error include inaccurate scales among others. Data smoothing tends not to help with the systematic errors in that they are usually of lower frequency than the signal (and here we are trying specifically to filter high frequency noise).
-
-\item Random errors are assumed to have a Gaussian distribution (by the central limit theorem), and are independent of the signal (which inherently results from a deterministic process).
-
-\item Central differences are usually a better approximation of the instantaneous value of the true derivative of the signal, as compared to forward differences. The finite differences are mathematically equivalent to passing a quadratic interpolating polynomial through the three points of the central difference (assuming the window size of the central difference is $N=3$, larger windows are possible). To obtain an approximation for the $m^{th}$ derivative of $f(x)$ at least an $m^{th}$ order polynomial is required.
-
-\item One straightforward approach to getting the position derivatives is to fit a least squares polynomial to the global position data, and analytically differentiate. This is a simple to apply, and therefore quite popular approach. The order of the polynomial is picked from theory, by ANOVA, or comparison of the residuals to determine goodness of fit for $m+1$. It should be stress that there are significant drawbacks with this approach: firstly is that when derived values depend on both accuracy of segmented displacement-time data and body segmental parameters (segmental masses and center of mass locations), then the errors are confounded and it is difficult to evaluate the accuracy of the derivative. Secondly, statistics used to asses agreement between curves are either in-appropriate because they aim to represent fundamentally deterministic processes in probabilistic ways (as would be the case using a product-moment correlation), or there is no test of significance (as is the case with a mean-errors correlation). Finally High order effects are easily lost by a global polynomial fit for time series containing multiple length scales or frequencies, as is the case here [ref].
-\end{itemize}
-
-In lieu of global polynomial fits we can attempt at finite differencing the data after the application of smoothing filters. Some of these approaches are global and/or recursive whereas other approaches are applied locally. Each approach has various natural advantages and disadvantages. A number of approaches were implimented in \emph{Python} or imported from the scientific computing package \emph{SciPy}[ref] and compared for a test set of trajectory data; these methods include convolution with the derivative of a Gaussian kernel, Wiener filtering, smoothing splines, Butterworth low-pass filtering, total-variance regularization, and Savitsky-Golay filtering. Qualitatively comparing these smoothing methods we find that we loose too many data points in the smoothing process, the variance remains large (especially in higher derivatives), large amplitudes are overly smoothed by repeated filtering passes, or there are significant end effects for most of these methods. A comparison of these smoothing approaches on a representative trajectory data set are shown in Figure \ref{fig:filters}. The power spectra for the same data are compared for these methods in Figure \ref{fig:power_spectra}.
-
-%\begin{figure}
-%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
- % \centerline{\includegraphics[height=7cm,width=7cm]{e88_1_thumb.jpg}}
-  %\caption{Filtered or fitted droplet trajectories compared to raw data.}
-%\label{fig:filters}
-%\end{figure}
-
-%\begin{figure}
-%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
- % \centerline{\includegraphics[height=7cm,width=7cm]{e88_1_thumb.jpg}}
-  %\caption{Power spectra of the filter methods compared.}
-%\label{fig:power_spectra}
-%\end{figure}
-
-Savitsky-Golay filtering seems to produce the smoothest derivatives without overfitting of otherwise misrepresenting the underlying signal. The Savitsky-Golay algorithm
-
-
-\section{\\Surface charge density}\label{sec.surface_charge}
-Since the laser-etched acrylic, and sandpaper superhydrophobic surfaces are both dielectric materials there are some additional considerations for determining the surface charge density. Firstly, for an insulated conductor $A$ with charge $q$, the charge distribution in equilibrium will be such that the field on the interior of the conductor is zero, with field lines being normal to the surface and the integral of the field strength $\mathbf{E}$ from any point $P$ in or on the conductor to a ground point $G$ is a constant given by
-\[ V = \int^G_P \mathbf{E} \cdot da, \]
-where $V$ is the voltage or potential of the conductor (or alternatively, the surface voltage potential). The voltage $V$ and the charge $q$ are proportional and $q$ is usually given by
-\[q = CV, \]
-where $C$ is the capacitance of the insulated conductor and is determined by the conductor's size and shape, and its placement relative to the conductors and ground. However, the case of a charged insulator departs significantly from that of the insulated conductor. Here we have the possibility of the density and net polarity of the charge varying as a function of position about the surface. The field of the interior may not be zero, and the field lines are not necessarily normal to the the surface. The integral of the field strength from a point on or in the insulator to ground is usually different from point to point. In general the surface voltages will vary from point to point on an insulator (including point on the interior of the insulator. Therefore it is not possible to uniquely define the voltage of a charged insulator, except in certain contrived cases (notably the the potential of a uniformly charged sphere positioned infinitely far away from any conductors). It follows that there is no definition for the capacitance of an insulator as well. Though insulative sheets may store charge and discharge in the manner of capacitors, this discharge is never particularly complete.
-
-There are two cases where we can make meaningful quantitative measurements of state variables for charged insulators: we can measure the electric field arising from the charge, and possible the total charge for uniformly charged free insulative sheets, and uniformly charged insulative sheets backed by a grounded conductor. To do this we can use field meters and non-contacting voltmeters. If the field strength indicated on the meter is $\mathbf{E}$, the charge density $\sigma$ on the part of the insulator in the front should be $\sigma = \epsilon_0 \mathbf{E}$. If a non-contacting voltmeter is placed a at a distance $d$ from the sheet, then the surface voltage $V_s$ indicated on the meter is given by 
-\[V_s = d \mathbf{E} = d \frac{\sigma}{\epsilon_0}. \]
-
-
-An ideal approach to determining surface charge on a dielectric surface is to screen perturbing effects of external electric fields. This is partly accomplished by grounding the fieldmeter, and by placing the dielectric sample on a grounded conductive plate backing. In this case the surface charge density is determined from
-
-\[ \sigma = \frac{V_s \epsilon}{l}, \]
-
-where $l$ and $\epsilon$ are the absolute permittivity and thickness of the dielectric surface respectively. The measured surface voltage is a function of position away from the charged dielectric. In most cases this function is relatively constant at a distance about 1-2 cm away from the surface (there is some measurement error in surface voltage due to small mispositioning of the electrostatic fieldmeter, say by $\pm$1 mm) and add it to the precision error of measurement in $V_s$. The measured surface voltage can also be compared to the analytically derived surface voltage determined from the analytical expression for the electric field from above, and to those determined from finite element solutions to poisson's equation on the domain in question. [Notes about \emph{Agros2D}] The surface voltage is shown schematically as a function of the measurement distance in Figure \ref{fig:surface_voltage} for a sample charge density $\sigma = $.
-
-%\begin{figure}
-%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
- % \centerline{\includegraphics[height=7cm,width=7cm]{e88_1_thumb.jpg}}
-  %\caption{Measured surface voltage versus position.}
-%\label{fig:surface_voltage}
-%\end{figure}
-
-A further consideration is the possibility of the change in total charge during a typical experimental timescale. If we consider the drop rig to be a ground (which seems reasonable given that the rig is isolated from true ground, but is at some reference voltage with respect to the surface charges on the dielectric, it also has an abundance of free charge carriers, that it, it is conductive), then there will be both bulk and surface decay of the charge on the dielectric. The evolution of the charge can be approximated by
-\[ \sigma = \sigma_0 e^{\frac{-t}{\epsilon \rho}}, \]
-where $\sigma_0$ is the initial surface charge density, and $\rho$ is the bulk resistivity (which can also be reframed in terms of conductivity by $\rho = 1/\gamma$, where $\gamma$ is the conductivity). For an example case of a surface with an initial surface charge density $\sigma = 2.4 \cdot (10^{-6})$ $C/m^2$, relative permittivity $\epsilon = 3.5$ and bulk resistivity $\rho = 1.6 \cdot (10^{16})$ $\Omega/cm$ such as with the case of 1/4'' continuous cast acrylic sheet, then the time constant $\tau = \epsilon \rho$ is approximately 5000 s, which is a great deal longer than the typical time period for of a drop tower experiment.
 
 \section{\\Droplet Charge} \label{sec.drop_charge}
 \subsection*{Parallel Plate Method}

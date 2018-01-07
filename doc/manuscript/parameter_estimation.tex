@@ -19,7 +19,7 @@
 \setlength\figurewidth{10cm}
 
 \begin{document}
-\onehalfspacing
+\doublespacing
 \section{Parameter Estimation}
 A non-dimensional number: $ {\mathbb{E}\mbox{u}}_e$.
 
@@ -51,7 +51,7 @@ In particular, it is impractical to directly measure the droplet net charge $q$,
 \item Slice droplet trajectories by their bounce minima, and apply a smoothing filter.
 \item Maximize the goodness of fit between the experimental trajectories and solutions of the equation of motion, by varying the design vector (which encodes the unkown parameters in the equation of motion) using a direct search optimizer. 
 \end{enumerate}
-\subsection*{Inverse Problems}
+\subsection{Inverse Problems}
 \begin{itemize}
 \item We have a dynamical model describing the droplet electro-bounce; we wish to find typical values of the key parameter, droplet net charge $q$. In general it is not always possible nor practicle to measure model parameters experimentally. They may be hard, expensive, time consuming or perhaps even impossible to measure. 
 \item A mathematical model designed to fit experiemental data so as to explicitly quantify physical parameters of interest.
@@ -83,7 +83,25 @@ where $| . |$ is the Euclidian norm. Therefore the parameter estimation problem 
 \item The process of fitting a function, defined by a collection of parameters, to a data set is called the discrete inverse, or parameter estimation problem (as opposed to the \emph{forward problem} to find $\mathbf{d}$ given $\mathbf{m}$ and $G(\mathbf{m})$).
 \end{itemize}
 
-\subsection*{Optimization}
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/jump_matrix.pgf}}
+    \caption{A simple EMA plot.\label{fig:trajectories}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/inverse_problem.pgf}}
+    \caption{A simple EMA plot.\label{fig:inverse_problem}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/convergence.pgf}}
+    \caption{A simple EMA plot.\label{fig:convergence}}
+\end{figure}
+
+\subsection{Optimization}
 Most generally the we state the constrained problem as 
 \[
 \begin{array}{lll}
@@ -108,16 +126,11 @@ x_n &
 
 Our specific optimization problem is non-convex, mixed discrete-continuously black-box (noisy), which is essentially the worst the worst case scenario. While in principle a gradient-based optimizer (such as ...) could be used by using finite-differences to obtain approximate gradients of the $\chi^2$ objective funtion, in practice doing so is problematic becasue the signal-to-noise ratio of the objective function scales like $\mathcal{O}(f)$ for $\frac{df}{dt}$ and $\mathcal{O}(f^2)$ for $\frac{d^2f}{ft^2}$ which will cause problems with our Hessians and Javobians respectively \hl{[Refs 5, 14, 49, 95.]}. As a further practical matter, given the relatively expensive function-calls (which requires solving a stiff, non-linear ODE) gradient-free approaches tend to offer better performence regardless. 
 
-\hl{[notes on gradient free optimization, Nelder-mead, sci-py ref]}
-\begin{itemize}
-\item We use the \emph{Nelder-Mead} algorithem to minimize the $\chi^2$ goodness-of-fit. \emph{Nelder-Mead}, sometimes called simplex-search or downhill-simplex, is a derivative-free direct search, LP method.
-\item \emph{Nelder-Mead} is well-established.
-\item A hueristic search method, with no guarantee of optimal solutions.
-\item Is based on the concept of a simplex, which is a special polytrop of $N + 1$ vertices in $N$ diemsions.
-\item Is derivative-free: does not use numerical or analytic gradients.
-\item Is implimented in the \emph{Scipy} package for Scientific computing in Python.
-\item \emph{Nelder-Mead} is very fast, but generally suitable for low-dimensional problems. Additionally convergence of the alogrithem is highly sensitive to the initial guess design vector $x_0$.
-\end{itemize}
+Mathematical optimization is the problem of finding minima of a function $f$. In this context the function in question is referred to as a cost, or objective function. The field of mathematical optimization is as old as calculus itself, and the number of particular optimization techniques is correspondingly myriad; particular techniques lend themselves well to particular types of optimization problems. The minima of the objective function $f$ is sought on a domain $A$ specified by the constraints of the problem, this is usually called the feasible region. Minima of objective function $f: A \rightarrow \mathbb{R}^n$ on $A$ are usually called feasible solutions. If the function $f$ is convex the feasible solution is the global minimum, otherwise additional local minima exist. The scale of the optimization problem is set ultimately by dimensionality of the objective function. Functions may not always be smooth in the sense of having continuous derivatives, this is problematic in that optimization methods fundimentally rely on gradients of the objective function. Problems with anisotropic objective functions in the sense that the gradient vector tends to differ significantly from the Newton direction ($-\mathbf{H}^{-1} f' ( \mathbf{x} )^T$, where $\mathbf{H}$ is the Hessian matrix) are considered ill-conditoned. In ill-conditioned problems gradient based deterministic search may be extremely slow. Numerical optimization may deal with black box functions (where we do not have an explicit mathematical expression of the function we are optimizing). Black box problems are challenging because we do not have access to analytic gradients of the objective function, and approximating them by finite-differences is slow and noisey. In general, noisey, black box, non-linear, non-quadratic, non-convex, constrained, ill-conditioned, high-dimensional objective functions are problematic to optimize. This is the practical essense of the parameter estimation problem. In particular there are few methods that work well with noisey, ill-conditioned problems. 
+
+We use a gradient-free, direct-search approach: Nelder-Mead \hl{[Nelder, 1965]} implimented in \verb|scipy.optimize| \hl{[Jones et al. 2001 --]}. Nelder-Mead is robust to noise (relatively speaking), and is relatively thrifty with our extremely expensive function-calls. \emph{Nelder-Mead}, sometimes called simplex-search or downhill-simplex, is a hueristic search method, with no guarantee of optimal solutions, but is well-established and widely used despite that. \emph{Nelder-Mead} is based on the concept of a $N$-simplex, which generalizes a triangle into higher dimensions as a polytrope of $N + 1$ vertices in $N$ dimensions. It uses only-function calls and expands or contracts the simplex according to the function values at its vertices in a way visually reminiscent (in $\mathbb{R}^2$) of the oscillations of the jumping droplets themselves (in fact \emph{Nelder-Mead} is sometimes also called the ``ameoba method'').
+
+Preconditioning, scaling the constraints in the penalty function.
 
 We do not have \emph{a priori} information regarding existence of true globality for our objective function. Perhaps more importantly, given the degrees-of-freedom in the parameter space there may be a multiplicity of local extrema of the $\chi^2$ hyper-response surface. \emph{Nelder-Mead} is not a global optimizer, though there are varients which use sequential local searches with probablistic restarts to achieve globality. However global optimization usually comes at a tremendous computational cost.
 
@@ -138,7 +151,7 @@ We see from Equation \ref{exterior} that there is no penalty if the constraints 
 The Exterior Penalty Function specifically (and all Penalty Function approaches in general) do have several drawbacks. Namely these include the possibility of the objective function being undefined outside of the set of feasible solutions. Additionaly, by naively ``encouraging'' feasibility of the solution using large values of the penalty parameter, $r_p$, we will tend to ill-condition the unconstrained formulation of the problem.
 \hl{[notes on choice of optimizer parameters, initial guesses, convergence, error estimates]}. Using penalty function methods tend to exascerbate the sensitivity of \emph{Nelder-Mead} solutions to the choice of intial guess vector \hl{[ref]}. 
 
-\subsection*{Smoothing}
+\subsection{Smoothing}
 In trying to recover the kinematic variables from the droplet trajectories we encounter a difficulty in the noise of the position data:
 
 Error sources include misalignment of the camera, perspective due to objects (subject or reference scale) being out of the photographic plane, precision limits in digitization. Some of these errors are systematic in origin and introduce consistent biases into the data (e.g. coherent spectral sources, rather than truly stochastic noise). These systematic sources of error include inaccurate scales among others. Data smoothing tends not to help with the systematic errors in that they are usually of lower frequency than the signal (and here we are trying specifically to filter high frequency noise). Random errors, by contrast, are assumed to have a Gaussian distribution (by the central limit theorem), and are independent of the signal (which inherently results from a deterministic process).
@@ -184,7 +197,7 @@ We experimented with a variety of filters implimented in the \verb|scipy.signal|
 
 Qualitively speaking, the 4th-order Savitsky-Golay, and Butterworth filters both produce the smooth derivatives we desire for for the optimization algorithem; but the small window-size needed for Butterworth filter tends to also prduce a noticible end effect. The Savitsky-Golay filter essentially uses a moving-window based on local least-squares polynomial approximations. It was shown that fitting a polynomial to a set of input samples and then evaluating the resulting polynomial at a single point within the approximation interval is equivalent to discrete convolution with a fixed impulse response \hl{[Savitsky, 1964]}. One property of this kind of low-pass filter is their tendency to respect waveform aplitudes, and so they are attractive in applications with having noisey signals with shaply pointed waveforms such as ultrsound or synthetic aperature radar \hl{[Schafer, 2011]}, however these filters tend to suffer from end-effects. Because Savitsky-Golay is a Finite Impulse Response (FIR) filter it requires datapoints to be equally spaced; to accomedate this we interpolate points between the small gaps which sometime occur in the tracking results from image analysis \hl{[ref]}. \hl{[Notes on window length, polynomial order]}.
 
-\subsection*{Numerical Solution to the Equation of Motion}
+\subsection{Numerical Solution to the Equation of Motion}
 The equation of motion behaves stiffly due to the large disparity in Coulombic, image charge, and dielectrophoretic lenghtscales. We integrate it numerically using the \verb|odeint| \emph{Scipy} module. This is a shake-and-bake Python wrapper for the vernerable 1982 \emph{netlib ODEPACK} library double-precision \verb|lsoda| (Livermore Solver for Ordinary Differential equations with Automatic method switching for stiff and nonstiff problems) integrator \hl{[ref]}. The function switches between Adams (nonstiff) and Backwards Differentiation Formulas (BDF, stiff) according to the dyanmic value of a set of stiffness eigenvalues.
 
 \end{document}

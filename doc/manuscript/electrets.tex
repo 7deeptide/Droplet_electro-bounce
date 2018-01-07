@@ -7,8 +7,11 @@
 \usepackage{graphicx}
 \usepackage{color,soul}
 \usepackage{listings}
+\usepackage{setspace}
+\usepackage{pgf}
 \author{Erin Schmidt}
 \begin{document}
+\doublespacing
 \section{Electrets}
 \begin{itemize}
 \item The method for determination of the evolution of the surface charge density for low conductivity polymers is described in \hl{[Davies, 1967]}. Surface charge in injected into the surface of the dielectric mounted on top of an grounded electrode. The charge decay is measured with a calibrated probe at periodic intervals.
@@ -43,4 +46,11 @@ where $l$ and $\epsilon$ are the absolute permittivity and thickness of the diel
 A further consideration is the possibility of the change in total charge during a typical experimental timescale. If we consider the drop rig to be a ground (which seems reasonable given that the rig is isolated from true ground, but is at some reference voltage with respect to the surface charges on the dielectric, it also has an abundance of free charge carriers, that it, it is conductive), then there will be both bulk and surface decay of the charge on the dielectric. The evolution of the charge can be approximated by
 \[ \sigma = \sigma_0 e^{\frac{-t}{\epsilon \rho}}, \]
 where $\sigma_0$ is the initial surface charge density, and $\rho$ is the bulk resistivity (which can also be reframed in terms of conductivity by $\rho = 1/\gamma$, where $\gamma$ is the conductivity). For an example case of a surface with an initial surface charge density $\sigma = 2.4 \cdot (10^{-6})$ $C/m^2$, relative permittivity $\epsilon = 3.5$ and bulk resistivity $\rho = 1.6 \cdot (10^{16})$ $\Omega/cm$ such as with the case of 1/4'' continuous cast acrylic sheet, then the time constant $\tau = \epsilon \rho$ is approximately 5000 s, which is a great deal longer than the typical time period for of a drop tower experiment. \hl{Add specific notes on charge measurement procedure}.
+
+\begin{figure}
+    \centering
+    \input{../figures/charge_decay.pgf}
+       \caption{Charge decay.\label{fig:charge_decay}}
+\end{figure}
+
 \end{document}

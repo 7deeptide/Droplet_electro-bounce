@@ -2,6 +2,7 @@
 \usepackage{changepage}
 \usepackage{color,soul}
 \usepackage{listings}
+\usepackage{pgf}
 \usepackage{verbatim}
 \lstset{
 basicstyle=\small\ttfamily,
@@ -12,7 +13,7 @@ breaklines=true
 \vspace{-25mm}
 \author{Erin S. Schmidt, Mark M. Weislogel}
 \date{}
-
+\usepackage{setspace}
 \usepackage{abstract}
 \renewcommand{\abstractnamefont}{\normalfont\bfseries}
 \renewcommand{\abstracttextfont}{\normalfont\small\itshape}
@@ -24,7 +25,7 @@ breaklines=true
 \noindent
 It's an abstract.
 \end{abstract}
-
+\doublespacing
 \section{Introduction}
 
 
@@ -63,6 +64,36 @@ To find typical vales of these parameters we employed spontaneous droplet jumps 
 \item Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
 
 \item By scale arguments and perturbation of solutions to the equations of motion we find several simple rules of thumb in droplet ``escape velocity'' of impacts, length scales and time scales for returns.
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/charge.pgf}
+    \caption{A simple EMA plot.\label{fig:charge}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series.pgf}
+    \caption{A simple EMA plot.\label{fig:series}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
+    \caption{A simple EMA plot.\label{fig:forces}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/contact.pgf}
+    \caption{A simple EMA plot.\label{fig:contact}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/restitution.pgf}
+    \caption{A simple EMA plot.\label{fig:restitution}}
+\end{figure}
 
 \end{itemize} 
 \end{document}
