@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  6 JAN 2018 22:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  7 JAN 2018 23:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1023,67 +1023,64 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 56.
  [2] [3]
 (../figures/jump_matrix.pgf
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 13420.
+LaTeX Font Info:    Calculating math sizes for size <14> on input line 13488.
 )
-Overfull \hbox (53.33917pt too wide) in paragraph at lines 88--89
+Overfull \hbox (53.34888pt too wide) in paragraph at lines 88--89
  [][] 
  []
 
 (../figures/inverse_problem.pgf)
-Overfull \hbox (53.33809pt too wide) in paragraph at lines 94--95
+Overfull \hbox (53.3408pt too wide) in paragraph at lines 94--95
  [][] 
  []
 
 (../figures/convergence.pgf)
-Overfull \hbox (53.33592pt too wide) in paragraph at lines 100--101
+Overfull \hbox (53.35529pt too wide) in paragraph at lines 100--101
  [][] 
  []
 
-[4]
-Overfull \hbox (1.36174pt too wide) in paragraph at lines 127--128
+[4] [5]
+Overfull \hbox (1.36174pt too wide) in paragraph at lines 132--133
 []\OT1/cmr/m/n/10 Our spe-cific op-ti-miza-tion prob-lem is non-convex, mixed d
 iscrete-continuously
  []
 
-[5] [6] [7] [8] [9]
+[6] [7] [8] [9]
 
-LaTeX Warning: Reference `fig:filters' on page 10 undefined on input line 159.
+LaTeX Warning: Reference `fig:filters' on page 10 undefined on input line 164.
 
 
 LaTeX Warning: Reference `fig:power_spectra' on page 10 undefined on input line
- 159.
+ 164.
 
 (../figures/power_spectra.pgf)
-Overfull \hbox (35.87865pt too wide) in paragraph at lines 1962--182
+Overfull \hbox (35.87865pt too wide) in paragraph at lines 1962--187
  [][] 
  []
 
 (../figures/y_filtered.pgf)
-Overfull \hbox (21.16792pt too wide) in paragraph at lines 1240--188
+Overfull \hbox (21.16792pt too wide) in paragraph at lines 1240--193
  [][] 
  []
 
 (../figures/dy_filtered.pgf)
-Overfull \hbox (22.57614pt too wide) in paragraph at lines 634--194
+Overfull \hbox (22.57614pt too wide) in paragraph at lines 634--199
  [][] 
  []
 
-[10] [11] [12] (./parameter_estimation.aux)
+[10] [11] [12] [13] (./parameter_estimation.aux)
 
 LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
  24265 strings out of 493013
  601129 string characters out of 6133328
- 2500497 words of memory out of 5000000
+ 2501093 words of memory out of 5000000
  27360 multiletter control sequences out of 15000+600000
  15150 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,18n,96p,2102b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 62i,18n,96p,2111b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx7.pfb></
@@ -1102,10 +1099,10 @@ ve/2016/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/
 texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2016/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2016/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on parameter_estimation.pdf (12 pages, 290349 bytes).
+Output written on parameter_estimation.pdf (13 pages, 289576 bytes).
 PDF statistics:
- 118 PDF objects out of 1000 (max. 8388607)
- 85 compressed objects within 1 object stream
+ 122 PDF objects out of 1000 (max. 8388607)
+ 88 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 

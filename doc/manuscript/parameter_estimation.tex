@@ -101,6 +101,11 @@ where $| . |$ is the Euclidian norm. Therefore the parameter estimation problem 
     \caption{A simple EMA plot.\label{fig:convergence}}
 \end{figure}
 
+\begin{itemize}
+\item We seek to maximize the likelyhood $L = k - \frac{\chi^2}{2}$, which is equivalent to maximizing $\chi^2$.
+\item Typically, each iteration evaluates the goal function only once or twice, which is why the Nelder-Mead algorithm is comparatively fast if goal function evaluation is the computational bottleneck (Singer and Mead, 2009).
+\end{itemize}
+
 \subsection{Optimization}
 Most generally the we state the constrained problem as 
 \[
