@@ -21,8 +21,6 @@
 \begin{document}
 \doublespacing
 \section{Parameter Estimation}
-A non-dimensional number: $ {\mathbb{E}\mbox{u}}_e$.
-
 We find the parameters $\mathbf{x}$ that solve the inverse problem $G(\mathbf{x}) = \mathbf{d}$, using a direct search method (\emph{Nelder-Mead}). 
 \[
 \mbox{min} \hspace{2 mm} \chi^2 = \mbox{min} \hspace{2 mm} \sum^n_{i=1} \frac{\left({y_d(\mathbf{x})}_i - y_G(\mathbf{x})_i \right)^2}{y_G(\mathbf{x})_i}
@@ -63,8 +61,6 @@ In particular, it is impractical to directly measure the droplet net charge $q$,
 
 \item Maximum likelihood estimation: not ``what is the probability that my set of model parameters is correct?'' but rather ``given my set of model parameters, what is the probability that this data set occurred (what is the likelihood of the parameters given the data)?''
 
-\item \hl{[notes on $\chi^2$ goodness-of-fit]} 
-
 \item Model parameter estimation is the process of indirect determination of unknown model parameters  from measurements of experiemental data.
 \item This is mathemetically challenging \hl{[ref]}. There are practical challenges as well, as experimental data tends to be noisey and sparse.
 \item In the most familliar sense determining model parameters is done using derivative based methods, essentially by estimating derivatives by finite differences (Euler's method) and fitting paramters using linear regression. However there are approaches to fitting any arbitrary function.
@@ -81,6 +77,27 @@ We wish to minimize an objection function which is the mean square error (or any
 \[ \mbox{obj}(\mathbf{p}) = \sum_{j=1}^k \left|\mathbf{y}(t_j; \mathbf{p}) - \mathbf{y_j} \right|^2,\]
 where $| . |$ is the Euclidian norm. Therefore the parameter estimation problem is a variety of optimization problem.
 \item The process of fitting a function, defined by a collection of parameters, to a data set is called the discrete inverse, or parameter estimation problem (as opposed to the \emph{forward problem} to find $\mathbf{d}$ given $\mathbf{m}$ and $G(\mathbf{m})$).
+
+\item By Bayes' Theorem
+\[\mbox{prob}(X|D, I) = \frac{\mbox{prob}(D|X,I) \times \mbox{prob}(X|I)}{\mbox{prob}(D|I)}\]
+where $\mbox{prob}(X|D, I)$ is the posterior probability density function that we want to estimate, $\mbox{prob}(D|X,I)$ is the likelihood function, $\mbox{prob}(X|I)$ is the prior probability density function that reflects our knowledge of the system, and $\mbox{prob}(D|I)$ is our evidence (the likelihood of the data based on our knowledge).
+\item The Maximum Likelyhood Estimate (MLE) for the the model prarameters $\mathbf{x_0}$, is given by the maximum of the posterior PDF, hwich is equivalent to the solution that produces the highest probability of the observed data. (The optimal parameter set is the one with the highest probability of
+observing the data and can be determined by maximizing the likelihood $\mathcal{L}$ of the data $y$ with respect to the parameter set $\mathbf{x}$).
+\item The log-likelihood is given by
+\[\mathcal{L} = \ln(\mbox{prob}(X|D, I)) = \mbox{const} - \frac{\chi^2}{2}\]
+so the maximum of the posterior will occur when $\chi^2$ is smallest, and the corresponding optimal solution $\mathbf{x_0}$ is then called the least-squares estimate.
+\item We precondition the problem by minimizing $\ln(\chi^2)$, and scaling our constraints by their initial guesses.Scaling can help solve convergence problems and improve numerical stability. Here is goal is to make the problem qually senstive to steps in any direction. We use a naieve scaling (scaling variables such that their magnitudes $\sim 1$).
+\item Open questions: given the structure of a model is it possible to uniquely estimate it's unknown parameters? What experimental data are required to achieve unique parameter identification? These questions are called the problem of identifiability. Global identifiability is a challenging problem, and even in cases where is the problem is shown to be structurally identifiable, the problem may yet be practically unidentifiable. Our general approach to satisfying the uniqueness of our estimates is instead based on sensitivy analysis.
+\item the Hessian matrix must be negative definite for $\mathcal{L}$ to have a maximum at $\mathbf{x_0}$.
+\item We can use the condition number
+\[ \mbox{cond} (A) = \frac{\mbox{max}[\mbox{eig}(A)]}{\mbox{min}[\mbox{eig}(A)]} \]
+as a means to evaluate to stability of our problem. We find typical conditon numbers $\sim \mathcal{O}(10^{27})$ which indicate the problem is strongly ill-conditoned near the mimima $\mathbf{x_0}$.
+\item We're intested in the variance and co-variance as a means to determine the quality if the parameter estimate.
+\item The $\left( i, j \right)$-th element of the matrix $\sigma (\mathbf{x}, \mathbf{y})$ is equal to the covariance $\mbox{cov}(X_i, Y_j)$ between the $i$-th scalar component of $\mathbf{x}$ and the $j$-th scalar component of $\mathbf{Y}$. 
+\item Here the concept of error bars in linear correllation associated with a covariance matrix are not suitable. We might try to generalize the idea of confidence intervals to a multidimensional space, but usually it will be hard to describe the surface of the (smallest) hypervolume containing 90\% of the probability in just a few numbers. The situation is worse if the probability density function has several maxima. However we notice that 
+\[ \left[\sigma^2 \right]_{ij} = -\left[ \left( \nabla \nabla \mathcal{L}\right)^{-1}\right]_{ij} = 2 \left[ \nabla \nabla \left( \chi^2\right)\right]_{ij}^{-1} = -\left[H^{-1} \right]_{ij}\]
+where $H$ refers to the Hessian matrix and $\left[\sigma^2 \right]_{ij}$ is the covariance matrix $C$. The likelhood function (and thus the postierior probability density function) are defined completely by the optimal solution $\mathbf{x}$ and the second derivative of $\mathcal{L}$ at the maximum, which corresponds to the covariance matrix $C$.
+\item The standard errors are the square roots of the diagonal of the covariance matrix. Our relative errors thus produced are extremely small ($> 1 \%$). Verification of the results is crucial, yet it has not be done yet. \hl{[Ref]} suggests verification by generation of Monte Carlo data sets. Does the estimation code recover the target parameters?
 \end{itemize}
 
 \begin{figure}[htb]
@@ -102,7 +119,7 @@ where $| . |$ is the Euclidian norm. Therefore the parameter estimation problem 
 \end{figure}
 
 \begin{itemize}
-\item We seek to maximize the likelyhood $L = k - \frac{\chi^2}{2}$, which is equivalent to maximizing $\chi^2$.
+\item We seek to maximize the likelyhood $\mathcal{L} = k - \frac{\chi^2}{2}$, which is equivalent to maximizing $\chi^2$.
 \item Typically, each iteration evaluates the goal function only once or twice, which is why the Nelder-Mead algorithm is comparatively fast if goal function evaluation is the computational bottleneck (Singer and Mead, 2009).
 \end{itemize}
 
@@ -133,9 +150,7 @@ Our specific optimization problem is non-convex, mixed discrete-continuously bla
 
 Mathematical optimization is the problem of finding minima of a function $f$. In this context the function in question is referred to as a cost, or objective function. The field of mathematical optimization is as old as calculus itself, and the number of particular optimization techniques is correspondingly myriad; particular techniques lend themselves well to particular types of optimization problems. The minima of the objective function $f$ is sought on a domain $A$ specified by the constraints of the problem, this is usually called the feasible region. Minima of objective function $f: A \rightarrow \mathbb{R}^n$ on $A$ are usually called feasible solutions. If the function $f$ is convex the feasible solution is the global minimum, otherwise additional local minima exist. The scale of the optimization problem is set ultimately by dimensionality of the objective function. Functions may not always be smooth in the sense of having continuous derivatives, this is problematic in that optimization methods fundimentally rely on gradients of the objective function. Problems with anisotropic objective functions in the sense that the gradient vector tends to differ significantly from the Newton direction ($-\mathbf{H}^{-1} f' ( \mathbf{x} )^T$, where $\mathbf{H}$ is the Hessian matrix) are considered ill-conditoned. In ill-conditioned problems gradient based deterministic search may be extremely slow. Numerical optimization may deal with black box functions (where we do not have an explicit mathematical expression of the function we are optimizing). Black box problems are challenging because we do not have access to analytic gradients of the objective function, and approximating them by finite-differences is slow and noisey. In general, noisey, black box, non-linear, non-quadratic, non-convex, constrained, ill-conditioned, high-dimensional objective functions are problematic to optimize. This is the practical essense of the parameter estimation problem. In particular there are few methods that work well with noisey, ill-conditioned problems. 
 
-We use a gradient-free, direct-search approach: Nelder-Mead \hl{[Nelder, 1965]} implimented in \verb|scipy.optimize| \hl{[Jones et al. 2001 --]}. Nelder-Mead is robust to noise (relatively speaking), and is relatively thrifty with our extremely expensive function-calls. \emph{Nelder-Mead}, sometimes called simplex-search or downhill-simplex, is a hueristic search method, with no guarantee of optimal solutions, but is well-established and widely used despite that. \emph{Nelder-Mead} is based on the concept of a $N$-simplex, which generalizes a triangle into higher dimensions as a polytrope of $N + 1$ vertices in $N$ dimensions. It uses only-function calls and expands or contracts the simplex according to the function values at its vertices in a way visually reminiscent (in $\mathbb{R}^2$) of the oscillations of the jumping droplets themselves (in fact \emph{Nelder-Mead} is sometimes also called the ``ameoba method'').
-
-Preconditioning, scaling the constraints in the penalty function.
+We use a gradient-free, direct-search approach: Nelder-Mead \hl{[Nelder, 1965]} implimented in \verb|scipy.optimize| \hl{[Jones et al. 2001 --]}. Nelder-Mead is robust to noise (relatively speaking), and is relatively thrifty with our extremely expensive function-calls. \emph{Nelder-Mead}, sometimes called simplex-search or downhill-simplex, is a hueristic search method, with no guarantee of optimal solutions, but is well-established and widely used despite that. \emph{Nelder-Mead} is based on the concept of a $N$-simplex, which generalizes a triangle into higher dimensions as a polytrope of $N + 1$ vertices in $N$ dimensions. It uses only-function calls and expands or contracts the simplex according to the function values at its vertices in a way visually reminiscent (in $\mathbb{R}^2$) of the oscillations of the jumping droplets themselves (in fact \emph{Nelder-Mead} is sometimes also called the ``ameoba method''). Very little is known about the convergence properties of the \emph{Nelder-Mead} algorithem in its classical form for non smooth objective functions (\hl{[Price and Coope, 2003]}), except that in general it doesnt satisfy the properties required for convergence by other direct search algorithems: that the simplex remains uniformly non-degenerate, and that some form of ``sufficient'' descent conditon for function values at the vertices is required at each iteration
 
 We do not have \emph{a priori} information regarding existence of true globality for our objective function. Perhaps more importantly, given the degrees-of-freedom in the parameter space there may be a multiplicity of local extrema of the $\chi^2$ hyper-response surface. \emph{Nelder-Mead} is not a global optimizer, though there are varients which use sequential local searches with probablistic restarts to achieve globality. However global optimization usually comes at a tremendous computational cost.
 
@@ -153,8 +168,10 @@ where $P \left( \mathbf{x} \right)$ the penalty function, is given by
 \end{equation}
 We see from Equation \ref{exterior} that there is no penalty if the constraints $g_j(\mathbf{x})$, and $h_k(\mathbf{x})$ are satisfied.
  
-The Exterior Penalty Function specifically (and all Penalty Function approaches in general) do have several drawbacks. Namely these include the possibility of the objective function being undefined outside of the set of feasible solutions. Additionaly, by naively ``encouraging'' feasibility of the solution using large values of the penalty parameter, $r_p$, we will tend to ill-condition the unconstrained formulation of the problem.
-\hl{[notes on choice of optimizer parameters, initial guesses, convergence, error estimates]}. Using penalty function methods tend to exascerbate the sensitivity of \emph{Nelder-Mead} solutions to the choice of intial guess vector \hl{[ref]}. 
+The Exterior Penalty Function specifically (and all Penalty Function approaches in general) do have several drawbacks. Namely these include the possibility of the objective function being undefined outside of the set of feasible solutions. Additionaly, by naively ``encouraging'' feasibility of the solution using large values of the penalty parameter, $r_p$, we will tend to ill-condition the unconstrained formulation of the problem (thoug in our implimentation the preconditoning tends to make the psuedo-objectibve function less and less sentive to the constraints as the likelihood is approaches a maximum).
+\hl{[notes on choice of optimizer parameters, initial guesses, convergence, error estimates]}. Using penalty function methods tend to exascerbate the sensitivity of \emph{Nelder-Mead} solutions to the choice of intial guess vector \hl{[ref]}.
+
+Despite their wide use in parameter estimation, there is very little known about convergence properties of \emph{Nelder-Mead}.The iterative procedure may thus converge very slowly near the optimum, unless the Hessian is "well-conditioned", i.e., the condition number is near one. However, if parameter estimates are highly correlated among themselves, the Fisher information matrix is near-singular and its inversion is either impossible or involves significant numerical error.  
 
 \subsection{Smoothing}
 In trying to recover the kinematic variables from the droplet trajectories we encounter a difficulty in the noise of the position data:
