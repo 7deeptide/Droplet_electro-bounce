@@ -1,2 +1,8 @@
 /src/.ipynb_checkpoints/
 /refs/
+/doc/*.gz
+/doc/*.aux
+/doc/*.bbl
+/doc/*.blg
+/doc/*.log
+

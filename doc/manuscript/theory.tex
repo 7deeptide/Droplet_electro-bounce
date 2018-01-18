@@ -1,0 +1,115 @@
+\documentclass[a4paper, 12pt]{article}
+\usepackage{changepage}
+\usepackage{color,soul}
+\usepackage{listings}
+\usepackage{verbatim}
+\usepackage{pgf}
+\lstset{
+basicstyle=\small\ttfamily,
+columns=flexible,
+breaklines=true
+}
+\title{\textsf{\textbf{Droplet Electro-Bouncing in $\mu$-Gravity}}}
+\vspace{-25mm}
+\author{Erin S. Schmidt, Mark M. Weislogel}
+\date{}
+
+\usepackage{abstract}
+\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+
+\usepackage{setspace}
+\begin{document}
+%\maketitle
+
+\doublespacing
+
+\section{Trajectory Model}
+As previously speculated the the force acting on the droplets as a surrogate for gravity are likely electrohydrodynamical in origin. In the hopes of unraveling the underlying mechanism for the electro-bouncing we turn to the electrodynamical approximation of fluids under the influence of electric fields. To that effect, what follows is a condensed overview of mathematical description of basic electrohydrodynamic flows. We first assume a DC electric field, such that $Re \langle \epsilon \rangle \approx  \mbox{constant}$, where $\epsilon$ is the dielectric permittivity of the respective media. We also assume that currents are small such that the effects of magnetic fields can be neglected. For the validity of this assumption to hold the characteristic time scale for electrical phenomena $\tau_e = \epsilon \epsilon_0/\sigma_e \ll 1$, where we note that $\tau$ is the ratio of absolute dielectric permittivity $\kappa = \epsilon \epsilon_0$, to conductivity $\sigma_e$, of the medium [ref]. Given the respective conductivity, and permittivity of air ($\sigma_e = 2.5 \cdot 10^{-16}$ $\Omega^{-1} cm^{-1}$), we estimate $\tau_e \approx 400$s. This assumption also allows us to assume that the net charge present in the medium surrounding the droplets remains approximately constant during the typical time interval of a $\mu$-gravity experiment, and no transfers of charge occur after the droplet leaves the surface. \hl{[lol, check these numbers...]}
+
+\subsection{Maxwell Stress}
+If we suppose that electrical forces acting on free charges and dipoles in a fluid are transferred directly to the fluid itself, then this overall electrical body force will be the the divergence of the Maxwell stress tensor $\tau_m $, by
+
+\[ \mathbf{F}_e = \nabla \cdot \tau_m = \nabla \cdot \left( \epsilon \epsilon_0 \mathbf{E} \mathbf{E} - \frac{1}{2} \epsilon \epsilon_0 \mathbf{E} \cdot \mathbf{E} \delta \right) ,\]
+where $\mathbf{F}_e$ is the electric body force per unit volume, \hl{$\rho_f$ is the free charge density}, and $\delta$ is the delta function. The product of the electric field vectors is the dyadic product.  
+
+The classical Korteweg-Helmholtz force density formulation of the Maxwell stress tensor is usually expressed as 
+\begin{equation}
+\mathbf{F}_e = \rho_f \mathbf{E} + \frac{1}{2} \left| \mathbf{E} \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| \mathbf{E} \right|^2 \right) ,
+\end{equation}
+and $\rho$ is the density of the dielectric fluid[ref].
+
+The first term in this expression, equivalently written as $q\mathbf{E}$, is the well known Coulombic force or electrophoretic force, which arises from the presence of free charge in an external electric field. The second term is the force arising from polarization stresses due to a nonuniform field acting across a gradient in permittivity. This force is widely termed the dielectrophoretic force (DEP). The third term describes forces due to electrostriction, however in our case $\left( \frac{\partial \epsilon}{\partial \rho} \right)_T = 0$ due to the  incompressibility of the fluid[ref]. While it is a relatively rigorous approach, and a useful conceptual model, evaluating the force density in this fashion can be somewhat onerous. 
+
+\subsection{Dielectrophoresis}
+An alternative approximation for the polarization stress is to idealize the droplet as a simple dipole using the effective dipole moment method first suggested by Pohl and Jones\hl{[ref][ref]}. This approach can be related back to the force density by means of a Taylor series expansion of $\mathbf{E}$ in the limit of a small gradient \hl{[ref]}. The DEP force is distinct from the Coulombic force in that net charge is not required, and that the force vector goes in the direction of steepest descent of the field, $\nabla \left| \mathbf{E} \right|^2$, rather than in the direction of $\mathbf{E}$. The DEP force is related to the dipole moment (induced or polarized) of polarizable media which has a tendency to align the dipole with the electric field. If there is a gradient in the field then for a finite separation of charge one end of the dipole will feel a stronger electric field than the other, resulting in a net force. Whether the force is positive or negative in the direction of the electric field gradient depends on the difference of dielectric permittivites between the fluids, rather than on the polarity of $\mathbf{E}$. It bears repeating that droplets will polarize in a uniform field, but since there is no gradient in the field the forces felt by the dipoles are symmetric and there is no net force. The dipole moment of a spherical dielectric particle immersed in a dielectric medium is given by
+\begin{equation} \label{dipole_m_1}
+\mu = V_d \mathbf{P} = \frac{4}{3} \pi R_d^3 \mathbf{P},
+\end{equation} 
+where $\mathbf{P} = \left(\kappa_1 - 1 \right) \epsilon_0 \mathbf{E}_{iz}$ is the polarization moment, and $R_d$ is the particle radius, \hl{($\kappa_1$ being the relative dielectric constant of the medium}, and $\mathbf{E}_{iz}$ is the $z$-coordinate component of the electric field internal to the sphere, assuming the external electric field to be oriented parallel to the $z$-axis). The excess polarization $\mathbf{P}_e$, in the sphere is given by
+\begin{equation} \label{polarization}
+\mathbf{P}_e = \left( \kappa_2 - \kappa_1 \right) \epsilon_0 \mathbf{E}_{iz} = \frac{3 \kappa_1}{\kappa_2 +2\kappa_1}\mathbf{E}_{iz},
+\end{equation}
+where $\kappa_2$ is the dielectric constant of the particle. Taking together equations \ref{dipole_m_1}, and \ref{polarization} we find that the effective dipole moment of the particle is given by 
+\begin{equation}\label{dipole_m_2}
+\mu = 4 \pi R_d^3 \left( \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1} \right) \kappa_1 \epsilon_0 \mathbf{E},
+\end{equation}
+and the force felt by the dipole is 
+\begin{eqnarray} \label{dep_force}
+\mathbf{F}_{dep} &=& \left( \mathbf{P}_e \cdot \nabla \right) \mathbf{E}\\
+&=& 2 \pi R_d^3 \kappa_1 \epsilon_0 \left( \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1} \right) \nabla E^2,
+\end{eqnarray}
+where it is a useful shorthand to refer to the permittivity ratio by $K = \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1}$, which is also known as the Clausius-Mossotti factor. In cases where $K < 0$, or $K>0$ the particle will be repelled or attracted to regions of strong field respectively. In our experiment, taking the relative dielectric constants to be $\kappa_1 \approx 1$ and $\kappa_2 \approx 80$, we have $K \approx 0.96$. One limitation of the effective dipole moment approximation of the DEP force is that it requires an assumption of small physical scale of the particle relative to the lengthscale of nonuniformity of the field, which in this case we take to be the length of the charged superhydrophobic surface ($L,H =25$mm $\gg a \approx 2.5$mm). Though the effective dipole moment is a successful model due in large part to its simplicity, it can be readily extended to include higher-order multipole effects, and non-spherical particles (oblate and prolate spheroids). An excellent summary of DEP theory in terms of the effective dipole moment is given in \hl{[ref]}. \hl{[Some notes on scaling ...]}
+
+\subsection{Forces due to Image Charges in the Dielectric}
+
+\section{The Electric Field}
+\begin{comment}
+Being thus armed with the assumption of a purely electrostatic problem (the electric field is conservative, that is $\nabla \times \mathbf{E} = 0$, where $\mathbf{E}$ is the electric field) we can describe the electric field by the Laplace equation for the electric potential. In the case of the volume charge density of the bulk medium to being zero, the divergence of the electric field is zero and we have
+
+\begin{eqnarray}
+\mathbf{E} &=& -\nabla \varphi \\
+\nabla \cdot \mathbf{E} &=& 0\\
+\nabla \cdot \mathbf{E} &=& - \nabla \cdot \nabla \varphi = \nabla^2 \varphi = 0,
+\end{eqnarray}
+it being convenient to solve the field in terms to $\varphi$ due to the form of the \emph{boundary conditions} usually given by
+\begin{enumerate}
+\item For finite charge distributions, the potential $\varphi$ goes to zero at infinity, is constant throughout a conductors, and is continuous across physical boundaries.
+\item The normal component of the displacement vector $\mathbf{D}$, differs on two sides of a boundary by the free charge density $\rho_f$ residing on the boundary.
+\item The tangential component of the field intensity $\mathbf{E}$ is continuous across a boundary.
+\end{enumerate}
+
+The in lieu to an analytical solution to Laplace's equation on a dielectric half-space domain by separation of variables or other methods we might try modeling the static charge distribution by a series of Dirac delta funtions after the fasion of a Green's function. In the 2D case we have,
+\begin{equation}
+\varphi(x,z) = \frac{z}{\pi}\int^\infty_{-\infty} \frac{\rho(x^\prime)}{(x-x^\prime)^2 + z^2}dx^\prime
+\end{equation}
+\end{comment}
+We are faced with the need to compute the total electric field arising from the presence of free charge on the surface of a polarizable dielectric. In the electrostatic case we have
+\begin{eqnarray}
+\nabla \times \mathbf{E(r)}&=&0 \\
+\nabla \cdot \mathbf{D(r)}&=&\rho(\mathbf{r}).
+\end{eqnarray}
+If the dielectric is linear and isotropic then the displacement field is 
+\begin{equation}\label{displacement}
+\mathbf{D(r)} = \epsilon(\mathbf{r})\mathbf{E}(\mathbf{r}).
+\end{equation}
+Given that the electric field is defined as the gradient of the scalar potential, $\mathbf{E}=-\nabla \varphi $, we can write equation \ref{displacement} as 
+\begin{equation}
+\nabla \cdot \left[\epsilon(\mathbf{r})\nabla \varphi (\mathbf{r}) \right] = -\rho (\mathbf{r}).
+\end{equation}
+This is a form of \emph{Poisson's equation}. Our general method for finding the electric field, will solve $\varphi (\mathbf{r})$ on a half-space domain with permittivities $\epsilon_1$, $\epsilon_2$ for a point source using the free-space \emph{Green's function}. We can then find the total electric field by superposition of the individual Green's functions by direct integration.
+
+The non-homogoneous part of the Poisson's equation for the electrostatic potential is a Green's function, denoted by $\mathbf{G}(\mathbf{r} | \mathbf{r^\prime})$, where $\mathbf{G}$ satisfies Poisson's equation at $\mathbf{r}$ when the point source is located at $\mathbf{r^\prime}$ such that
+\begin{equation}
+\nabla^2 \mathbf{G}(\mathbf{r} | \mathbf{r^\prime}) = -\delta( \mathbf{r} - \mathbf{r^\prime}).
+\end{equation}
+Using the identity for the position vector $\nabla$
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/E0.pgf}
+    \caption{A simple EMA plot.\label{fig:E0}}
+\end{figure}
+
+
+\end{document}
