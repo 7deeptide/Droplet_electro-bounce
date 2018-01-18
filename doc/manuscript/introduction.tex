@@ -1,0 +1,59 @@
+ \documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage{fontspec} % This line only for XeLaTeX and LuaLaTeX
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{color,soul}
+\usepackage{listings}
+\usepackage{setspace}
+\author{Erin Schmidt}
+
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{7cm}
+\setlength\figurewidth{10cm}
+
+\begin{document}
+\doublespacing
+\section{Introduction}
+When asked to name one of the biggest challenges to living in
+space, Astronaut Suni Williams replied that it is removing and
+dealing with bubbles in fluids systems.
+
+\begin{quote}
+``... multiphase systems and thermal transport processes are enabling for proposed human exploration by NASA.''
+- 2011 Decadal Survey
+\end{quote}
+
+\begin{quote}
+``When the influence of gravity on fluid behavior is diminished or removed, other forces, otherwise of small significance, can assume paramount roles.''
+- NRC Report to NASA, 2003
+\end{quote}
+
+Un-terrestrially large droplets are produces by a huge array of mechanisms in a low-gravity environemnt.
+
+Comprehensive list? of electrostatic applications particular to low-gravity:
+\begin{itemize}
+\item Spacecraft charging due to space environment. Surface charging largely due to low energy electrons (3-50 keV) which do not penetrate the surface of the spacecraft external stureture. This deposited charge accumulate  and can lead to significant potential differences between different parts of a spacecraft. Deep dielectric charging occurs when higher energy charged particles penetrate the surface of a dielectric material, which can also lead to large potential differences if the dielectric leakage is lower than the external charging rate. The ultimate sources of these charges are trapped charged particles of the van Allen radiation belts, galactic cosmic rays, and the solar wind. \hl{Which space environemts have higher charging risks, propellant deopt locations}. Venting, droplets.
+
+\item Active (but solid-state) phase seperation for ECLSS multiphase flows, espcially high void-fraction flows (dish washing, laundry, waste solids drying, food processing, Sabatier CO$_2$ reaction, possibly in vapor-compression cycle condensers). Phase separation is critical to high reliability and low power gas-liquid systems for used in thermal control and life support. Phase seperation for other disperse droplet flows include electrostatic droplet seperators for high-efficiency Rankine cycle turbines. Removal of satellite droplets produced during pippetting during wet-lab research outside of a glovebox environemnt aboard ISS.
+
+\item Electrostatic levitators for containerless processing, droplet combustion experiements. Containerless creatio, and collection of monodisperse spheres (dielectrics or conductor; the chargeing mechanism will vary).
+
+\item Electrospray-based fire suppression systems.
+
+\item EHD (dielectrophoretic) augmentation of convection (electroconvection, an analog of natural convection due to a dielectric permititivy gradient, which is a function of fluid temperature, int he presence of a body force field analog, in this case an electric field) and condensation heat transfer. Boiling heat transfer by promotion of bubble detachment and prevention of dryout (e.g. as a substitute for bouyancy).
+
+\item EHD heat pipes, which substitude an electrode structre for the capillary wicking structure of a conventional thermocapillary heat pipe can evade the wicking limit. Problematically restricted to the use of insulating dielectric liquids (which usually have relatively low thermal conductivity), but offer advantages in highly-reliable priming, bubble rejection, flow control, and low viscous losses.
+
+\item Dielectrophoretic settling of cryogenic propellants (in both total and partial communication configurations), slosh baffling, vent screening, mitigation of vapor pulltrough (and concomittent minimization of propellant residuals at burnout). Reduction in heat transfer by collecting propellants away from tank walls, reducing boiloff losses.
+
+\item High temperature liquid droplet radiators with electrostatic collection.
+\end{itemize}
+
+\end{document}

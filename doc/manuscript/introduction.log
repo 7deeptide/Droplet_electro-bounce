@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  13 JAN 2018 17:05
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2017.3.18)  14 JAN 2018 22:37
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**parameter_estimation.tex
-(./parameter_estimation.tex
+**introduction.tex
+(./introduction.tex
 LaTeX2e <2017/01/01> patch level 3
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/article.cls
@@ -908,8 +908,8 @@ Package: setspace 2011/12/19 v6.7a set line spacing
 \figureheight=\skip47
 \figurewidth=\skip48
 
-(./parameter_estimation.aux)
-\openout1 = `parameter_estimation.aux'.
+(./introduction.aux)
+\openout1 = `introduction.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 21.
 LaTeX Font Info:    ... okay on input line 21.
@@ -994,85 +994,47 @@ your preamble.
  on input line 21.
 
 \c@lstlisting=\count142
-LaTeX Font Info:    Try loading font information for U+msa on input line 24.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 42.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 42.
+LaTeX Font Info:    Try loading font information for U+msa on input line 44.
+
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 24.
+LaTeX Font Info:    Try loading font information for U+msb on input line 44.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-Package amsmath Warning: Cannot use `split' here;
-(amsmath)                trying to recover with `aligned' on input line 32.
-
-
-Package amsmath Warning: Cannot use `split' here;
-(amsmath)                trying to recover with `aligned' on input line 39.
-
-[1
+) [1
 
 {/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2] [3] [4] [5] [6] (../figures/convergence.pgf)
-Overfull \hbox (50.51878pt too wide) in paragraph at lines 1054--120
- [][] 
+Overfull \hbox (3.99132pt too wide) in paragraph at lines 46--47
+\OT1/cmr/m/n/10 ex-periements. Con-tain-er-less cre-atio, and col-lec-tion of m
+onodis-perse spheres
  []
 
-[7] [8] (../figures/y_filtered.pgf)
-Overfull \hbox (21.16792pt too wide) in paragraph at lines 1240--133
- [][] 
- []
-
-(../figures/dy_filtered.pgf)
-Overfull \hbox (22.57614pt too wide) in paragraph at lines 634--140
- [][] 
- []
-
-(../figures/power_spectra.pgf)
-Overfull \hbox (51.79909pt too wide) in paragraph at lines 866--146
- [][] 
- []
-
-[9] [10] [11] [12] [13] [14] (../figures/jump_matrix.pgf
-LaTeX Font Info:    Calculating math sizes for size <14> on input line 12802.
-)
-(../figures/inverse_problem.pgf)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-[15] [16] (./parameter_estimation.aux) ) 
+[2] (./introduction.aux) ) 
 Here is how much of TeX's memory you used:
- 24246 strings out of 493013
- 600809 string characters out of 6133328
- 2380293 words of memory out of 5000000
- 27344 multiletter control sequences out of 15000+600000
- 15150 words of font info for 59 fonts, out of 8000000 for 9000
+ 24140 strings out of 493013
+ 598787 string characters out of 6133328
+ 753249 words of memory out of 5000000
+ 27270 multiletter control sequences out of 15000+600000
+ 6257 words of font info for 25 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 62i,18n,96p,2329b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2016/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2016/texmf-dist/font
-s/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmbx7.pfb></usr/local/texlive/2016/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmex10.pfb></usr/local/texlive/2016/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmmi10.pfb></usr/local/texlive/2016/texmf-dist/fonts/typ
-e1/public/amsfonts/cm/cmmi12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type
-1/public/amsfonts/cm/cmmi7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmr12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmr5.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/ams
-fonts/cm/cmr8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfon
-ts/cm/cmsy10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmsy8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmti10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmtt10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsfonts/symb
-ols/msbm10.pfb>
-Output written on parameter_estimation.pdf (16 pages, 296707 bytes).
+ 62i,5n,96p,889b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2016/texmf-dist/fonts/type1/publi
+c/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr7.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmsy10.pfb>
+Output written on introduction.pdf (2 pages, 50260 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 94 compressed objects within 1 object stream
+ 30 PDF objects out of 1000 (max. 8388607)
+ 21 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
