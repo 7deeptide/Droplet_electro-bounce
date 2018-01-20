@@ -3,7 +3,14 @@
 \usepackage{color,soul}
 \usepackage{listings}
 \usepackage{verbatim}
+\usepackage{pgfplots}
 \usepackage{pgf}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{setspace}
 \lstset{
 basicstyle=\small\ttfamily,
 columns=flexible,
@@ -25,91 +32,212 @@ breaklines=true
 \doublespacing
 
 \section{Trajectory Model}
-As previously speculated the the force acting on the droplets as a surrogate for gravity are likely electrohydrodynamical in origin. In the hopes of unraveling the underlying mechanism for the electro-bouncing we turn to the electrodynamical approximation of fluids under the influence of electric fields. To that effect, what follows is a condensed overview of mathematical description of basic electrohydrodynamic flows. We first assume a DC electric field, such that $Re \langle \epsilon \rangle \approx  \mbox{constant}$, where $\epsilon$ is the dielectric permittivity of the respective media. We also assume that currents are small such that the effects of magnetic fields can be neglected. For the validity of this assumption to hold the characteristic time scale for electrical phenomena $\tau_e = \epsilon \epsilon_0/\sigma_e \ll 1$, where we note that $\tau$ is the ratio of absolute dielectric permittivity $\kappa = \epsilon \epsilon_0$, to conductivity $\sigma_e$, of the medium [ref]. Given the respective conductivity, and permittivity of air ($\sigma_e = 2.5 \cdot 10^{-16}$ $\Omega^{-1} cm^{-1}$), we estimate $\tau_e \approx 400$s. This assumption also allows us to assume that the net charge present in the medium surrounding the droplets remains approximately constant during the typical time interval of a $\mu$-gravity experiment, and no transfers of charge occur after the droplet leaves the surface. \hl{[lol, check these numbers...]}
+\subsection{Forces and the Equation of Motion}
+Treating a droplet as a particle, with radius $R_d$, the  equation of motion for a charged droplet translating vertically along the central axis of a finite square charged dielectric sheet is given by
+\begin{equation}
+m y'' = - \mathbf{F}_D - \mathbf{F}_E, \hspace{5 mm} y(0) = R_d, \hspace{5 mm} y'(0) = U_0,
+\label{gov_eqn}
+\end{equation}
+where $m$ is the droplet mass, $y'' = \frac{d^2 y}{d t^2}$ is the droplet acceleration, $\mathbf{F}_D$ is the drag force, and $\mathbf{F}_E$ is the electrostatic force. The initial conditions are such that the droplet leaves its resting position $R_d$ at $t=0$, with initial velocity $U_0$. The signs of the forces on the right side of Equation \ref{gov_eqn} indicate that they act in the opposite direction of the droplet motion. In this section we aim specifiy models for the various forces in this equation.
 
-\subsection{Maxwell Stress}
+If we assume an intermediate range of Reynolds numbers $\mathbb{R}\mbox{e} \equiv \frac{2UR_d}{\nu}$, $1 <\mathbb{R}\mbox{e} < 1000 $ then the drag is quadratic,
+\begin{equation*}\label{drag_force}
+\mathbf{F}_D = \frac{1}{2}C_D \rho A {y'}^2,
+\end{equation*}
+where $C_D$ is the drag coefficient, $\rho$ is the density of the sorrounding fluid medium (air, in this case), and $A$ is the frontal area of the droplet. For this range of Reynolds numbers we may also approximate the drag coefficient by the well known Abraham correlation \hl{ref.}
+\[C_D = \frac{24}{9.06^2} \left( 1 + \frac{9.06}{\sqrt{\mathbb{R}\mbox{e}}} \right)^2\]
+
+Modeling the electrostatic force is somehwhat more involved, but we will adopt the standard electrohydrodynamic (EHD) approximation model because of the dramatic simplifications it offers \hl{ref}. We first assume a DC electric field, such that $Re \langle \epsilon \rangle \approx  \mbox{constant}$, where $\epsilon$ is the dielectric permittivity of the respective media. We also assume that currents are small such that the effects of magnetic fields can be neglected. For the validity of this assumption to hold the characteristic time scale for electrical phenomena $\tau_e = \epsilon \epsilon_0/\sigma_e \ll 1$, where $\tau$ is the ratio of absolute dielectric permittivity $\kappa = \epsilon \epsilon_0$, to conductivity $\sigma_e$, of the medium [ref]. \hl{Given the respective conductivity, and permittivity of water ($\sigma_e = 2.5 \cdot 10^{-4}$ $\Omega^{-1} \mbox{cm}^{-1}$), we estimate $\tau_e \approx 7 \times 10^{-8}$ s}. This assumption also allows us to assume that the net charge present in the medium surrounding the droplets remains approximately constant during the typical time interval of a low-gravity experiment, and no transfers of charge occur after the droplet leaves the surface.
+
 If we suppose that electrical forces acting on free charges and dipoles in a fluid are transferred directly to the fluid itself, then this overall electrical body force will be the the divergence of the Maxwell stress tensor $\tau_m $, by
 
-\[ \mathbf{F}_e = \nabla \cdot \tau_m = \nabla \cdot \left( \epsilon \epsilon_0 \mathbf{E} \mathbf{E} - \frac{1}{2} \epsilon \epsilon_0 \mathbf{E} \cdot \mathbf{E} \delta \right) ,\]
-where $\mathbf{F}_e$ is the electric body force per unit volume, \hl{$\rho_f$ is the free charge density}, and $\delta$ is the delta function. The product of the electric field vectors is the dyadic product.  
+\[ \mathbf{F}_E = \nabla \cdot \tau_m = \nabla \cdot \left( \epsilon \epsilon_0 \mathbf{E} \mathbf{E} - \frac{1}{2} \epsilon \epsilon_0 \mathbf{E} \cdot \mathbf{E} \delta \right) ,\]
+where $\mathbf{F}_E$ is the electric body force per unit volume, and $\delta$ is the delta function. The product of the electric field vectors is the dyadic product.  
 
-The classical Korteweg-Helmholtz force density formulation of the Maxwell stress tensor is usually expressed as 
-\begin{equation}
-\mathbf{F}_e = \rho_f \mathbf{E} + \frac{1}{2} \left| \mathbf{E} \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| \mathbf{E} \right|^2 \right) ,
+The classical Korteweg-Helmholtz force density formulation of the Maxwell stress tensor is usually expressed as \hl{[ref]}
+\begin{equation}\label{force_density}
+\mathbf{F}_E = \rho_f \mathbf{E} + \frac{1}{2} \left| \mathbf{E} \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| \mathbf{E} \right|^2 \right) .
 \end{equation}
-and $\rho$ is the density of the dielectric fluid[ref].
 
-The first term in this expression, equivalently written as $q\mathbf{E}$, is the well known Coulombic force or electrophoretic force, which arises from the presence of free charge in an external electric field. The second term is the force arising from polarization stresses due to a nonuniform field acting across a gradient in permittivity. This force is widely termed the dielectrophoretic force (DEP). The third term describes forces due to electrostriction, however in our case $\left( \frac{\partial \epsilon}{\partial \rho} \right)_T = 0$ due to the  incompressibility of the fluid[ref]. While it is a relatively rigorous approach, and a useful conceptual model, evaluating the force density in this fashion can be somewhat onerous. 
+The first term in this expression, equivalently written as $q\mathbf{E}$, is the well known Coulombic force or electrophoretic force, which arises from the presence of free charge in an external electric field. The second term is the force arising from polarization stresses due to a nonuniform field acting across a gradient in permittivity. This force is widely termed the dielectrophoretic force (DEP). The third term describes forces due to electrostriction. It has been noted by Melcher and Hurwitz that the electrostriction term is the gradient of a scalar and can thus be cannononically lumped togeather with the hydrostatic pressure for incompressible fluids)\hl{[ref]}; we neglect it in our analysis. 
 
-\subsection{Dielectrophoresis}
-An alternative approximation for the polarization stress is to idealize the droplet as a simple dipole using the effective dipole moment method first suggested by Pohl and Jones\hl{[ref][ref]}. This approach can be related back to the force density by means of a Taylor series expansion of $\mathbf{E}$ in the limit of a small gradient \hl{[ref]}. The DEP force is distinct from the Coulombic force in that net charge is not required, and that the force vector goes in the direction of steepest descent of the field, $\nabla \left| \mathbf{E} \right|^2$, rather than in the direction of $\mathbf{E}$. The DEP force is related to the dipole moment (induced or polarized) of polarizable media which has a tendency to align the dipole with the electric field. If there is a gradient in the field then for a finite separation of charge one end of the dipole will feel a stronger electric field than the other, resulting in a net force. Whether the force is positive or negative in the direction of the electric field gradient depends on the difference of dielectric permittivites between the fluids, rather than on the polarity of $\mathbf{E}$. It bears repeating that droplets will polarize in a uniform field, but since there is no gradient in the field the forces felt by the dipoles are symmetric and there is no net force. The dipole moment of a spherical dielectric particle immersed in a dielectric medium is given by
+It is common to approximate the polarization stress by idealizing the droplet as a simple dipole using the effective dipole moment method first suggested by Pohl and Jones\hl{[ref][ref]}. This approach can be related back to the force density by means of a Taylor series expansion of $\mathbf{E}$ in the limit of a small gradient \hl{[ref]}. The DEP force is distinct from the Coulombic force in that net charge is not required, and that the force vector goes in the direction of the gradient of the field, $\nabla \left| \mathbf{E} \right|^2$, rather than in the direction of $\mathbf{E}$. The DEP force is related to the dipole moment (induced or permanent) of polarizable media which has a tendency to align the dipole with the electric field. If there is a gradient in the field then for a finite separation of charge one end of the dipole will feel a stronger electric field than the other, resulting in a net force. Whether the force is positive or negative in the direction of the electric field gradient depends on the difference of dielectric permittivites between the fluids, rather than on the polarity of $\mathbf{E}$ itself. It bears repeating that droplets will polarize in a uniform field, but since there is no gradient in the field the forces felt by the dipoles are symmetric and there is no net force. The dipole moment of a spherical linear-dielectric particle immersed in a dielectric medium is given by
 \begin{equation} \label{dipole_m_1}
 \mu = V_d \mathbf{P} = \frac{4}{3} \pi R_d^3 \mathbf{P},
 \end{equation} 
-where $\mathbf{P} = \left(\kappa_1 - 1 \right) \epsilon_0 \mathbf{E}_{iz}$ is the polarization moment, and $R_d$ is the particle radius, \hl{($\kappa_1$ being the relative dielectric constant of the medium}, and $\mathbf{E}_{iz}$ is the $z$-coordinate component of the electric field internal to the sphere, assuming the external electric field to be oriented parallel to the $z$-axis). The excess polarization $\mathbf{P}_e$, in the sphere is given by
+where $\mathbf{P} = \left(\kappa_1 - 1 \right) \epsilon_0 \mathbf{E}_{iz} = \chi_e \epsilon_0 \mathbf{E}_{iz}$ is the polarization moment, and $R_d$ is the particle radius, \hl{$\kappa_1 = \frac{\epsilon}{\epsilon_0}$ being the relative dielectric constant of the medium (air in this case)}, $\chi_e = \kappa_1 - 1$ being the electric susceptibility of the dielectric medium, and $\mathbf{E}_{iz}$ is the $z$-coordinate component of the electric field internal to the sphere, assuming the external electric field to be oriented parallel to the $z$-axis. The excess polarization $\mathbf{P}_e$, in the sphere is given by
 \begin{equation} \label{polarization}
 \mathbf{P}_e = \left( \kappa_2 - \kappa_1 \right) \epsilon_0 \mathbf{E}_{iz} = \frac{3 \kappa_1}{\kappa_2 +2\kappa_1}\mathbf{E}_{iz},
 \end{equation}
-where $\kappa_2$ is the dielectric constant of the particle. Taking together equations \ref{dipole_m_1}, and \ref{polarization} we find that the effective dipole moment of the particle is given by 
+where $\kappa_2$ is the relative dielectric constant of the spherical particle. Taking together equations \ref{dipole_m_1}, and \ref{polarization} we find that the effective dipole moment of the particle is given by 
 \begin{equation}\label{dipole_m_2}
 \mu = 4 \pi R_d^3 \left( \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1} \right) \kappa_1 \epsilon_0 \mathbf{E},
 \end{equation}
 and the force felt by the dipole is 
 \begin{eqnarray} \label{dep_force}
-\mathbf{F}_{dep} &=& \left( \mathbf{P}_e \cdot \nabla \right) \mathbf{E}\\
-&=& 2 \pi R_d^3 \kappa_1 \epsilon_0 \left( \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1} \right) \nabla E^2,
+\mathbf{F}_{DEP} &=& \left( \mathbf{P}_e \cdot \nabla \right) \mathbf{E} \nonumber \\
+&=& 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2,
 \end{eqnarray}
-where it is a useful shorthand to refer to the permittivity ratio by $K = \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1}$, which is also known as the Clausius-Mossotti factor. In cases where $K < 0$, or $K>0$ the particle will be repelled or attracted to regions of strong field respectively. In our experiment, taking the relative dielectric constants to be $\kappa_1 \approx 1$ and $\kappa_2 \approx 80$, we have $K \approx 0.96$. One limitation of the effective dipole moment approximation of the DEP force is that it requires an assumption of small physical scale of the particle relative to the lengthscale of nonuniformity of the field, which in this case we take to be the length of the charged superhydrophobic surface ($L,H =25$mm $\gg a \approx 2.5$mm). Though the effective dipole moment is a successful model due in large part to its simplicity, it can be readily extended to include higher-order multipole effects, and non-spherical particles (oblate and prolate spheroids). An excellent summary of DEP theory in terms of the effective dipole moment is given in \hl{[ref]}. \hl{[Some notes on scaling ...]}
+where it is an asthetically pleasing shorthand to refer to the permittivity ratio by $K = \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1}$, which is also known as the Clausius-Mossotti factor. In cases where $K <$ 0, or $K>$ 0 the particle will be repelled or attracted to regions of strong field respectively. In our experiment, taking the relative dielectric constants to be $\kappa_1 \approx$ 1 and $\kappa_2 \approx$ 80, we have $K \approx$ 0.96. We also note that the equivalent dipole approximation requires an assumption of small physical scale of the particle relative to the lengthscale of nonuniformity of the field, which in this case we take to be the length of the charged superhydrophobic surface ($L =$ 25 mm $\gg a \approx$ 2.5 mm).
 
-\subsection{Forces due to Image Charges in the Dielectric}
+When the droplet is close to the dielectric surface, the net charge on the droplet will tend to polarize the dielectric, perturbing the electric field. The polarization bound charge in the dielectric will be of the opposite sign of the net droplet charge and thus there will be a force of attraction. This so-called image force is a correction to the Colomb force due to the external electric field only, and can be found by the method of images \hl{ref}. The image force $\mathbf{F}_I$, is given by
 
-\section{The Electric Field}
-\begin{comment}
-Being thus armed with the assumption of a purely electrostatic problem (the electric field is conservative, that is $\nabla \times \mathbf{E} = 0$, where $\mathbf{E}$ is the electric field) we can describe the electric field by the Laplace equation for the electric potential. In the case of the volume charge density of the bulk medium to being zero, the divergence of the electric field is zero and we have
+\begin{equation}
+\mathbf{F}_I = \frac{k q^2}{16 \pi \epsilon_0} y^{-2} \hat{\mathbf{j}},
+\label{image_force}
+\end{equation}
+where the factor $k$ is a function of the dielectric surface susceptibility $k = \frac{\chi_e}{\chi_e + 2}$, and $\hat{\mathbf{j}}$ is a unit vector normal to the dielectric surface.
 
+By substituting Equations \ref{dep_force}, \ref{image_force} into Equation \ref{force_density} we have
+\begin{eqnarray*}
+ \mathbf{F}_E &=& q \mathbf{E} + \mathbf{F}_{DEP} + \mathbf{F}_I \\
+ &=& q \mathbf{E} + \frac{k q^2}{16 \pi \epsilon_0 } y^{-2} \hat{\mathbf{j}} + 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2, 
+\end{eqnarray*}
+
+and the 1-D governing equation becomes
+\begin{eqnarray} \label{gov_eqn_subs}
+&m y'' = - \frac{1}{2} C_D \rho A {y'}^2 - q E - \frac{k q^2}{16 \pi \epsilon_0} y^{-2}- 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2,& \nonumber \\
+&y(0) = R, \hspace{1 mm} y'(0) = U_0 .&
+\end{eqnarray}
+
+By comparing DEP and Coulombic terms in Equation \ref{gov_eqn_subs}, we note that a condition to neglect the DEP term is
 \begin{eqnarray}
-\mathbf{E} &=& -\nabla \varphi \\
-\nabla \cdot \mathbf{E} &=& 0\\
-\nabla \cdot \mathbf{E} &=& - \nabla \cdot \nabla \varphi = \nabla^2 \varphi = 0,
+1 &\gg& \frac{R_d^2 \kappa_2 \epsilon_0 K E_0}{q} \nonumber
 \end{eqnarray}
-it being convenient to solve the field in terms to $\varphi$ due to the form of the \emph{boundary conditions} usually given by
-\begin{enumerate}
-\item For finite charge distributions, the potential $\varphi$ goes to zero at infinity, is constant throughout a conductors, and is continuous across physical boundaries.
-\item The normal component of the displacement vector $\mathbf{D}$, differs on two sides of a boundary by the free charge density $\rho_f$ residing on the boundary.
-\item The tangential component of the field intensity $\mathbf{E}$ is continuous across a boundary.
-\end{enumerate}
+As this condition holds in all cases under study we herefore neglect the DEP force in our analysis.
 
-The in lieu to an analytical solution to Laplace's equation on a dielectric half-space domain by separation of variables or other methods we might try modeling the static charge distribution by a series of Dirac delta funtions after the fasion of a Green's function. In the 2D case we have,
-\begin{equation}
-\varphi(x,z) = \frac{z}{\pi}\int^\infty_{-\infty} \frac{\rho(x^\prime)}{(x-x^\prime)^2 + z^2}dx^\prime
-\end{equation}
-\end{comment}
-We are faced with the need to compute the total electric field arising from the presence of free charge on the surface of a polarizable dielectric. In the electrostatic case we have
-\begin{eqnarray}
-\nabla \times \mathbf{E(r)}&=&0 \\
-\nabla \cdot \mathbf{D(r)}&=&\rho(\mathbf{r}).
-\end{eqnarray}
-If the dielectric is linear and isotropic then the displacement field is 
-\begin{equation}\label{displacement}
-\mathbf{D(r)} = \epsilon(\mathbf{r})\mathbf{E}(\mathbf{r}).
-\end{equation}
-Given that the electric field is defined as the gradient of the scalar potential, $\mathbf{E}=-\nabla \varphi $, we can write equation \ref{displacement} as 
-\begin{equation}
-\nabla \cdot \left[\epsilon(\mathbf{r})\nabla \varphi (\mathbf{r}) \right] = -\rho (\mathbf{r}).
-\end{equation}
-This is a form of \emph{Poisson's equation}. Our general method for finding the electric field, will solve $\varphi (\mathbf{r})$ on a half-space domain with permittivities $\epsilon_1$, $\epsilon_2$ for a point source using the free-space \emph{Green's function}. We can then find the total electric field by superposition of the individual Green's functions by direct integration.
 
-The non-homogoneous part of the Poisson's equation for the electrostatic potential is a Green's function, denoted by $\mathbf{G}(\mathbf{r} | \mathbf{r^\prime})$, where $\mathbf{G}$ satisfies Poisson's equation at $\mathbf{r}$ when the point source is located at $\mathbf{r^\prime}$ such that
+\subsection{The Electric Field}
+If we consider the charged dielectric surface of our experiments to be a square sheet of charge lying in the $xz$-plane with width $L$, the symmetry of the problem happily lets us obtain the $y$-component of the electric field $\mathbf{E}_y$ by direct integration \hl{ref}. In particular it is easy to constuct the electric field due to a finite plane of charge by supoerposition of the electric fields of a series of line charges. By symmetry the electric field points along the y-axis; for a point along the $y$-axis the position vector is $\mathbf{r} = \left( x^2 + y^2 + z^2 \right)^{1/2} \hat{\mathbf{r}}$. The $y$-component of $\mathbf{E}$ is given by $\mathbf{E}_y \cos \theta = \mathbf{E}_y y/ \mathbf{r}$. Then if the charge in an element of area, $dx dz$ is $\sigma dx dz$ the electric field $\mathbf{E}_y$ is
+\[ \mathbf{E}_y = \frac{\sigma y}{4 \pi \epsilon_0} \int^{L/2}_{L/2} \int^{L/2}_{L/2} \left( x^2 + y^2 + z^2 \right)^{3/2} dx dz \hspace{1mm}\hat{\mathbf{r}} 
+,\]
+where $\sigma$ is the surface charge density. This can be easily integrated to obtain an expression for the electric field in terms of $y$, 
 \begin{equation}
-\nabla^2 \mathbf{G}(\mathbf{r} | \mathbf{r^\prime}) = -\delta( \mathbf{r} - \mathbf{r^\prime}).
-\end{equation}
-Using the identity for the position vector $\nabla$
+\mathbf{E}_y = \frac{\sigma y}{ \pi \epsilon_0} \tan^{-1} \left( \frac{L^2}{y \sqrt{2L^2 + y^2}}\right)
+.\end{equation}
 
+By taking Taylor series expansions in large and small limits we can intuit a bit about the behavior of this field. In the limit $L \rightarrow \infty, \hspace{1mm} y \ll L$ the argument of the function tends towards infinity and
+\[ \lim_{x\to\infty} \tan^{-1}(x) = \frac{\pi}{2}
+,\]
+and thus
+\begin{equation}
+\mathbf{E}_y \approx \frac{\sigma}{4 \pi \epsilon_0} \hat{\mathbf{j}} \hspace{10mm} y \ll L
+,\end{equation}
+which is constant, and equivalent to the electric field due to an infinite plane of charge. In the limit of $y \gg L$, the argument of the arctangent function can be approximated by
+\[ \frac{L^2}{2 y \left( 2 L^2 + 4 y^2\right)^{1/2}} = \frac{L^2}{4 y^2 \left( 1 + L^2/2y^2 \right)^{1/2}} \approx \frac{L^2}{4 y^2}
+.\]
+For small $x$, $\tan^{-1}(x) \sim x$ and we thus find the familiar electric field due to a point charge
+\begin{equation}
+\mathbf{E}_y \approx \frac{\sigma L^2}{4 \pi \epsilon_0} y^{-2} \hat{\mathbf{j}} \hspace{10mm} y \gg L
+.\end{equation}
+With the characteristic electric field given by $E_0 = \frac{\sigma}{4 \pi \epsilon_0}$, both these regiemes can be clearly seen in the plot of $\mathbf{E}_y$ shown in Figure \ref{fig:E0}.
 \begin{figure}[htb]
     \centering
     \input{../figures/E0.pgf}
-    \caption{A simple EMA plot.\label{fig:E0}}
+    \caption{A log-log plot of the magnitude of the non-dimensional electric field, $\mathbf{E}_y$.\label{fig:E0}}
 \end{figure}
 
 
+
+\subsection{Scaling}
+Introducing scaled variables
+\[ \bar{t} = \frac{t}{t_c}, \hspace{10 mm} \bar{y} = \frac{y}{y_c}, \]
+where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the cooridnate transformation $y(0) - R = 0$, the governing equation becomes
+\begin{eqnarray}
+& \bar{y}'' = - \frac{1}{2} \frac{C_D \rho A y_c}{m} \bar{y}'^2
+- \frac{q E_0 t_c^2}{m y_c} \bar{E} 
+- \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c} \frac{1}{\left( \frac{y_c}{R} \bar{y} + 1 \right)^2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = \frac{U_0 t_c}{y_c} .&
+\end{eqnarray}
+We note several dimensionless groups
+\[ \mathbf{\Pi}_1 = \frac{C_D \rho A y_c}{2 m}, \hspace{5 mm}
+\mathbf{\Pi}_2 = \frac{q E_0 t_c^2}{m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_3 = \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_4 = \frac{y_c}{R}.\]
+
+\subsubsection{Inertial Electro-Image Limit}
+In the limit of small $y, \hspace{1mm} t$ we expect intertia to scale as Coulombic and image force. With $y_c \sim U_0 t_c$ and picking $t_c$ such that Coulombic force is $\mathcal{O}(1)$
+\[ t_c \sim \frac{m U_0}{q E_0}, \hspace{5 mm}
+y_c \sim \frac{m U_0^2}{q E_0} .
+\]
+With these scales the governing equation then becomes
+\begin{eqnarray}
+& \bar{y}'' = -1 - \mathbb{I}\mbox{m} \frac{1}{\left( \mathbb{E}\mbox{u}\bar{y} + 1 \right)^2} ,& \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 .&
+\end{eqnarray} 
+with 
+\[ \mathbb{I}\mbox{m} \equiv \frac{k q}{16 \pi \epsilon_0 R_d^2 E_0} = \mathbf{\Pi}_3, \hspace{5 mm}
+\mathbb{E}\mbox{u} \equiv \frac{m U_0^2}{q E_0} = \mathbf{\Pi}_4 ,
+\]
+where $\mathbb{I}\mbox{m}$ is the Image number, and denotes the ratio of image forces to the Coulombic force of the unperturbed field, and where where $\mathbb{E}\mbox{u}$ is the electrostatic Euler number, and is a ratio of inertia to electrostatic force.
+
+\subsubsection{Inertial Electro-Viscous Limit}
+In the limit of large $y, \hspace{1mm} t$ we expect droplet inertia to scale as Coulombic force and drag. In this case there are several obvious choices of scales:
+\begin{enumerate}
+\item $y_c \sim U_0 t_c$ and make Coulomb force $\mathcal{O}(1)$.
+\item $y_c \sim R_d$ or $L$, $t_c \sim \frac{L}{U_0}$ but this makes the governing equation singular.
+\item $y_c \sim R_d$ or $L$, $t_c \sim \left( \frac{L m}{q E_0} \right)^{1/2}$.
+\item $y_c \sim R_d$ or $L$, and making Coulomb force $\mathcal{O}(1)$.
+\end{enumerate}
+
+In Case 3, the characterisitc time is $t_c \sim \left( \frac{4 \pi R_d^2}{q E_0 L} \right)^2 $ and the non-dimensional governing equation is given by
+\begin{eqnarray}
+&\bar{y}'' = - \frac{C_D \rho A L}{2 m} \bar{y}'^2 - \frac{1}{\left( \frac{L}{R} \bar{y} + 1\right)^2} ,& \nonumber \\
+& \bar{y}(0) = \frac{R}{L}, \hspace{5 mm} \bar{y}'(0) = \left( \frac{4 \pi U_0^2 R_d^2}{q E_0 L^3}\right)^{1/2} = \frac{R}{L} \sqrt{\mathbb{E}\mbox{u}_+}.& \nonumber
+\end{eqnarray}
+where $\mathbb{E}\mbox{u}_+ = \frac{4 \pi m U_0^2}{q E_0 L}$ is a long time scaled electrostatic Euler number. We prefer the approach with the greatest physical simplicity, fewest Pi terms, and has homogoenous initial conditions.
+
+In Case 1, the characteristic dimensions are
+\[ t_c \sim \frac{R^2}{L^2} \frac{4 \pi m U_0}{q E_0}, \hspace{5mm} y_c \sim \frac{R^2}{L^2} \frac{4 \pi m U_0^2}{q E_0}.
+\]
+With this scaling the non-dimensional governing equation is 
+\begin{eqnarray}
+&\bar{y}'' = - \mathbb{D}\mbox{g} \mathbb{E}\mbox{u}_+ \bar{y}'^2 - \frac{1}{\left( \mathbb{E}\mbox{u}_+ \bar{y} + 1 \right)^2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 & 
+\end{eqnarray}
+where $\mathbb{D}\mbox{g} = \frac{C_D \rho_a}{\rho_l}$. This is the preferred scaling.
+
+\subsection{Asymptotic Estimates}
+
+
+\subsubsection{Inertial Electro-Image Limit}
+With $\epsilon = \mathbb{E}\mbox{u}$, where $\epsilon$ is a small parameter, and $\alpha = \mathbb{I}\mbox{m}$,
+\begin{eqnarray*}
+&\bar{y}(\bar{t}) = \bar{t} + \frac{\bar{t}^{2}}{2} \left(-1 - \alpha\right) + \epsilon \left(\frac{\alpha \bar{t}^{3}}{3} + \frac{\alpha \bar{t}^{4}}{12} \left(-1 - \alpha\right)\right)& \\
+&+ \epsilon^{2} \left(- \frac{\alpha \bar{t}^{4}}{4} + \frac{\alpha \bar{t}^{5}}{60} \left(9 + 11 \alpha\right) + \frac{\alpha \bar{t}^{6}}{360} \left(-9 - 20 \alpha - 11 \alpha^{2}\right)\right) + \mathcal{O}(\epsilon^3)&
+\end{eqnarray*}
+
+\newpage
+\begin{figure}[htb]
+    \centering
+    \resizebox{1\textwidth}{!}{\input{../figures/short_times.pgf}}
+    \caption{Text.}
+    \label{fig:short_times}
+\end{figure}
+
+\subsubsection{Inertial Electro-Viscous Limit}
+Asymptotic estimate of the trajectory. With $\epsilon = {\mathbb{E}\mbox{u}}_+$, where $\epsilon$ is a small parameter, and $\beta = \mathbb{D}\mbox{g}$,
+\begin{eqnarray*}
+&\bar{y}(\bar{t}) = \bar{t} - \frac{\bar{t}^{2}}{2} + \epsilon \left(\frac{\bar{t}^{3}}{3} \left(1 + \beta\right) + \frac{\bar{t}^{4}}{12} \left(-1 - \beta\right) - \frac{\beta \bar{t}^{2}}{2}\right)&  \\
+&+ \epsilon^{2} \left(\frac{\bar{t}^{4}}{12} \left(-3 - 3 \beta - 4 \beta^{2}\right) + \frac{\bar{t}^{5}}{60} \left(11 + 10 \beta + 8 \beta^{2}\right)+ \frac{\bar{t}^{6}}{360} \left(-11 - 10 \beta - 8 \beta^{2}\right) + \frac{\beta^{2} \bar{t}^{3}}{3}\right)& \\
+ &+ \mathcal{O}(\epsilon^3)&
+\end{eqnarray*}
+
+\newpage
+\begin{figure}[htb]
+    \centering
+    \input{../figures/long_times.pgf}
+    \caption{Text.}
+     \label{fig:long_times}
+\end{figure}
+
+Times for returns
+\[t_c = 2 + \epsilon \left(\frac{4}{3} - \frac{2 \beta}{3}\right) + \epsilon^{2} \left(\frac{4}{5} - \frac{4 \beta}{3} + \frac{2 \beta^{2}}{5}\right)
+\]
+\begin{figure}[htb]
+    \centering
+    \input{../figures/drag.pgf}
+    \caption{Text.}
+    \label{fig:drag}
+\end{figure}
 \end{document}
