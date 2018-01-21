@@ -678,7 +678,7 @@
 \pgftext[x=5.214660in,y=0.424381in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 180\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.889660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \theta_a\)}%
+\pgftext[x=2.889660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \theta\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%

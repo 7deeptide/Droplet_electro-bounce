@@ -401,6 +401,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{0.776024in}{1.810196in}}%
 \pgfpathlineto{\pgfqpoint{0.784651in}{1.633070in}}%
@@ -429,9 +430,11 @@
 \pgfsetmiterjoin%
 \definecolor{currentfill}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{-0.000000in}{-0.041667in}}%
@@ -521,6 +524,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{0.776024in}{2.430137in}}%
 \pgfpathlineto{\pgfqpoint{0.784651in}{2.872952in}}%
@@ -550,9 +554,11 @@
 \pgfsetroundjoin%
 \definecolor{currentfill}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{0.000000in}{-0.041667in}}%
@@ -652,6 +658,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{0.776024in}{3.050078in}}%
 \pgfpathlineto{\pgfqpoint{0.784651in}{3.404331in}}%
@@ -683,9 +690,11 @@
 \pgfsetmiterjoin%
 \definecolor{currentfill}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{-0.041667in}{-0.041667in}}%
@@ -853,6 +862,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{4.142707in}{3.359691in}}%
 \pgfpathlineto{\pgfqpoint{4.420484in}{3.359691in}}%
@@ -863,9 +873,11 @@
 \pgfsetmiterjoin%
 \definecolor{currentfill}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.750000,0.750000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{-0.000000in}{-0.041667in}}%
@@ -888,6 +900,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{4.142707in}{3.153867in}}%
 \pgfpathlineto{\pgfqpoint{4.420484in}{3.153867in}}%
@@ -898,9 +911,11 @@
 \pgfsetroundjoin%
 \definecolor{currentfill}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{0.000000,0.000000,1.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{0.000000in}{-0.041667in}}%
@@ -929,6 +944,7 @@
 \pgfsetlinewidth{1.505625pt}%
 \definecolor{currentstroke}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{4.142707in}{2.948044in}}%
 \pgfpathlineto{\pgfqpoint{4.420484in}{2.948044in}}%
@@ -939,9 +955,11 @@
 \pgfsetmiterjoin%
 \definecolor{currentfill}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
 \pgfsetlinewidth{1.003750pt}%
 \definecolor{currentstroke}{rgb}{1.000000,0.000000,0.000000}%
 \pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
 \pgfsys@defobject{currentmarker}{\pgfqpoint{-0.041667in}{-0.041667in}}{\pgfqpoint{0.041667in}{0.041667in}}{%
 \pgfpathmoveto{\pgfqpoint{-0.041667in}{-0.041667in}}%
