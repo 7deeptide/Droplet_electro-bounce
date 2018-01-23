@@ -1,0 +1,102 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+%\usepackage{fontspec} % This line only for XeLaTeX and LuaLaTeX
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\graphicspath{ {../figures/} }
+%\usepackage{svg}
+\usepackage{verbatim}
+\usepackage{color,soul}
+\usepackage{listings}
+\usepackage{setspace}
+\author{Erin Schmidt}
+
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{7cm}
+\setlength\figurewidth{10cm}
+
+\begin{document}
+
+\doublespacing
+\section{Overview}
+\begin{itemize}
+\item We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. We found the charge to be a function of droplet volume and surface potential of the dielectric substrate. A two-ways T-test with a charge distribution determined by a corollary experiment suggests that the droplet charge is induced by the electric field (rather than through contact charging on the PTFE layer).
+
+\item The bounce dynamics are controlled by a dimensionless ratio of electrostatic force to inertia. The dielectrophoretic force plays a very small role when droplets have net charge in a DC field.  
+
+\item Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (20-30 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
+
+\item Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
+
+\item By scale arguments and perturbation of solutions to the equations of motion we find several simple rules of thumb in droplet ``escape velocity'' of impacts, length scales and time scales for returns.
+\end{itemize}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/charge.pgf}
+    \caption{A simple EMA plot.\label{fig:charge}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series.pgf}
+    \caption{A simple EMA plot.\label{fig:series}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
+    \caption{A simple EMA plot.\label{fig:forces}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/contact.pgf}
+    \caption{A simple EMA plot.\label{fig:contact}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/restitution.pgf}
+    \caption{A simple EMA plot.\label{fig:restitution}}
+\end{figure}
+
+\newpage
+\appendix
+
+\section{\\Droplet Charge} \label{sec.drop_charge}
+\subsection*{Parallel Plate Method}
+Since, by the earlier scaling, we presuppose the source of the droplet bouncing behavior to be primarily Coulombic in origin (as opposed to dielectrophoretic), the droplet must have some free charge in addition to the charge induced by the electric field. To measure this charge concurrent methodologies were used. The first method of determining the droplet free charge is observation of the deflection of the droplets in the region of a known uniform field in a fashion inspired by Millikan's famous experiment to determine the fundamental charge of the electron [ref].
+
+Droplets were jumped in freefall from a sandpaper superhydrophobic surface placed between the plates of a parallel plate capacitor of known uniform electric field. The surface was first deionized using a balanced \emph{Ptec} IN5120 DC air-ionizer to remove the effect of surface charge of the superhydrophobic surface from perturbing the otherwise uniform field set up between the parallel plates. A schematic of the parallel plate drop apparatus is shown in Figure \ref{fig:millikan}. Since the droplet initial velocity $U_0$ is parallel to the electric field, the droplets are inertial in the direction of the electric force, and neglecting the effect of image charges mirrored across the conductors, we can determine the magnitude of the droplet charge by a balance of Coulombic force and inertia given by the equation of motion
+
+\[ \frac{d^2y}{dt^2} = q\mathbf{E}. \]
+
+Since the drag is negligible in the inertial limit we can find the charge $q$ by fitting a second-order least squares polynomial to the measured droplet positions, equating the $t^2$ term to the constant acceleration, and dividing by the known, constant magnitude of the electric field. From a survey of literature we suppose the droplet charge, if they are indeed charged by contact with PTFE, to be some function of the droplet volume and the residence time on the superhydrophobic surface. However, sweeping though droplet volumes over a series of drop tower experiments we find little correlation between droplet volume  and free droplet charge. This is shown in figure \ref{fig:drop_charge}.
+
+A 200-880 VAC source with a full wave bridge rectifier circuit was prototyped on perf-board for initial experiments to measure droplet charge. The circuit was analyzed on an laboratory oscilloscope to verify that the AC component of the signal was appropriately small (13 mV at 35 kHz). Current was determined to be a relatively low 80 $\mu$A. The high-voltage source terminals were led to two parallel polished 150x150 mm aluminum plate electrodes. The electrodes were mounted on an insulated 80/20 extruded aluminum rail for ease of adjustment. All droplet charge experiments were conducted with an electrode spacing of 28.30 mm. With this spacing the calibrated electric field between the plates was $\mathbf{E} \approx 35$kV/m. The electrodes were electrically isolated from the drop rig by two alternating layers of 4 mm thick laser cut acrylic sheet and Kapton tape. Potential across the plates was measured periodically with a load-impedance corrected multimeter to account for battery depletion. The typical capacitor rise time of the plates was measured to be 1.4 s, thus to make the most economical use of the brief window a micro-gravity a weighted switch was set by hand prior to the drop to close the high-voltage circuit, but which passively safed the system at the resumption of 1-g conditions in the tower. The drop apparatus is shown in Fig.
+
+
+%\begin{figure}
+%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
+ % \centerline{\includegraphics[height=7cm,width=7cm]{e88_1_thumb.jpg}}
+  %\caption{Parallel plate experimental apparatus.}
+%\label{fig:millikan}
+%\end{figure} 
+
+%\begin{figure}
+%  \centerline{\includegraphics[height=7cm,width=13cm]{modes.eps}}
+ % \centerline{\includegraphics[height=7cm,width=7cm]{e88_1_thumb.jpg}}
+  %\caption{Parallel plates: Droplet free charge vs volume.}
+%\label{fig:drop_charge}
+%\end{figure}
+
+A brief screening experiment was conducted which alternated the polarity of the field by switching the positive and negative terminal leads between plates. Qualitative observations of droplet electrode preference seem to indicate that the assumption of small polarization stress was well founded. Following this a orthogonal array $3^2$ factorial design experiment with two replicates was conducted to test the effect of varying droplet volume and surface stay time on free charge at the time of jumping. It was hypothesized in accordance with previous studies \cite{Choi:2013dg}, that free charge would increase for levels of both factors. The results of the factorial experiment are presented in Fig. \ref{fig:chart1}. ANOVA analysis in \emph{R} of the linear multiple regression model for the data set indicates that neither droplet volume ($p=0.105$), nor surface stay time ($p=0.358$) is significant at the 95\% confidence level. The overall model F-statistics (2.177 in 2 and 13 degrees of freedom), and coefficients of determination ($r^2 = 0.2509$) indicate that the linear model neither fits the data particularly well, nor does it offer an improvement over the mean model. The mean charge was determined to be positive $2.3 \cdot 10^{-11}$ C, with a standard deviation of $1.8 \cdot 10^{-11}$ C.
+
+\end{document}
