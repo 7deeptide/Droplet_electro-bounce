@@ -21,55 +21,106 @@
 \setlength\figureheight{7cm}
 \setlength\figurewidth{10cm}
 
+\let\pgfimageWithoutPath\pgfimage 
+\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[#1]{../figures/#2}}
+
+\usepackage[
+backend=biber,
+style=phys,
+sorting=none
+]{biblatex}
+\addbibresource{thesis.bib}
+
 \begin{document}
 
 \doublespacing
-\section{Overview}
-\begin{itemize}
-\item We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. We found the charge to be a function of droplet volume and surface potential of the dielectric substrate. A two-ways T-test with a charge distribution determined by a corollary experiment suggests that the droplet charge is induced by the electric field (rather than through contact charging on the PTFE layer).
-
-\item The bounce dynamics are controlled by a dimensionless ratio of electrostatic force to inertia. The dielectrophoretic force plays a very small role when droplets have net charge in a DC field.  
-
-\item Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (20-30 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
-
-\item Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
-
-\item By scale arguments and perturbation of solutions to the equations of motion we find several simple rules of thumb in droplet ``escape velocity'' of impacts, length scales and time scales for returns.
-\end{itemize}
-
+\section{Charge Estimates}
+We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. A covariance plot of the model variables is shown in Figure \ref{fig:scatter}. The multicollinear dependence of charge on droplet surface area, $A$, and the characteristic electric field, $E_0$, is evident. Assuming the main effect is the interaction between charge and electric field, a Robust Least Squares model fit $q \sim kAE_0$ (using the Python \verb|statsmodels.formula.api.RLM| function), with the non-linear transformation $A = V_d^{2/3}$, found that $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ with $R^2 = 0.946$. This model uses Huber's T norm, median absolute scaling, and H1 covariance estimation. A contour plot showing the estimated droplet free charge as a function of $V_d$ and $\varphi_s$ is shown in Figure \ref{fig:charge}.
+\begin{figure}[htb]
+    \centering
+    \resizebox{12cm}{!}{\input{../figures/scatter.pgf}}
+    \caption{A simple EMA plot.\label{fig:scatter}}
+\end{figure}
 \begin{figure}[htb]
     \centering
     \input{../figures/charge.pgf}
     \caption{A simple EMA plot.\label{fig:charge}}
 \end{figure}
 
+A two-ways T-test comparison of charge distributions between the droplet bounce experiment and a corollary experiment with zero electric field at the time of droplet deposition on the superhydrophobic surface suggests that the droplet charge is induced by the electric field, rather than through contact charging on the PTFE layer ($t = 5.11, p = 0.0002$). The T-test informs us that the charge distribution  are about 5 times more different from each other as they are within each other, and there is a 0.02$\%$ probability that this result happened by chance. This corollary experiment is documented in Appendix \ref{sec.drop_charge}.
+
+The model $q \sim kAE_0$ is incidentally very similar to the classical solution for the surface charge density of a half-spherical conductor with a field induced dipole \cite{david_j._griffiths_introduction_1999}
+\begin{eqnarray*}
+q &=& 3 \epsilon_0 E_0 \int_A \cos \theta dA \\
+&=& 3 \pi^{1/3} 6 \left(6 V_d \right)^{2/3} \epsilon_0 E_0 \int^{4 \pi/2}_{\pi / 2} \cos \theta d\theta \\
+&=& k E_0 V_d^{2/3}
+\end{eqnarray*}
+with $k \approx 1.3 \times 10^{-10}$. This is also of a similar form to the charge found by Takamatsu and coauthors for droplets falling from a grounded nozzle in an external electric field \cite{takamatsu_theoretical_1981}
+\[q = 4 \pi \epsilon_0 \beta E_0 R_d^2 \]
+with $\beta \approx 2.63$.
+
+\section{Scale Quantities}
+The dielectrophoretic force plays a very small role when droplets have net charge in a DC field; the condition to neglect the DEP force was satisfied for all experiments in the dataset. Dimensional droplet apoapses scale closely with $\mathbb{E}\mbox{u}$ as seen in Figure \ref{fig:series_s_eu}. The relative magnitudes of the simulated forces felt by the droplets is shown in Figure \ref{fig:forces}. Forces acting on the drops vary in magnitude between $\mathcal{O}(10^{-6})-\mathcal{O}(10^{-4})$ N. We see that, of the drops in the experimental dataset only the two with the largest $\mathbb{E}\mbox{u}$, $\mathbb{E}\mbox{u} \sim \mathcal{O}(1)$ could appropriately be said to be in the inertial electro-viscous regime. In all other cases image forces are much stronger than drag. For these drops $\mathbb{E}\mbox{u} \gg 1/8 \pi$, and are likely on escape trajectories. The image forces themselves rapidly become small compared to Coulomb forces for drops with apoapses $\mbox{max}\left( y\right) \gtrapprox L$, thus it is reasonable to claim that for intermediate drops Coulomb force scales as inertia, and we can neglect the effects of drag and image forces.
+
 \begin{figure}[htb]
     \centering
-    \input{../figures/series.pgf}
-    \caption{A simple EMA plot.\label{fig:series}}
+    \input{../figures/series_s_eu.pgf}
+    \caption{Droplet trajectories as a function of $\mathbb{E}\mbox{u}$.\label{fig:series_s_eu}}
+\end{figure}
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
+    \caption{Simulated forces acting on the droplet. Experiments are shown by order of increasing apoapse.\label{fig:forces}}
+\end{figure}
+
+In the non-dimensional trajectories with short-time scaling shown in Figure \ref{fig:series_s_ds}, we see that the trajectory apoapses are consistently $\mathcal{O}(1)$, but most trajectories overshoot their characteristic time scale (which predicts returns at $\bar{t}  =2$ to the first order). We also observe that that $\mathbb{E}\mbox{u}$ is not typically a small number in this regime, imperiling our use of asymptotic estimates in this regime. We can perhaps gain some insight by comparing the asymptotic estimate for return times to the scaled experiemental return times. We see in Figure \ref{fig:times} that the long-time scaled non-dimensional time of first bounce in the experiment $t_b / t_c$, compares poorly to the asymptotic estimate for returns $t_f$ as $\mathbb{E}\mbox{u}_+$ becomes large. This is very much as we'd expect, but it is also unfortunate; for small $\mathbb{E}\mbox{u}$ the asymptotic length scale could be used to improve the characteristic length scale by $t_a = t_c t_f$. We also notice a two-tailed effect in the data; for the small $\mathbb{E}\mbox{u}$ droplets, the long-time scaling distorts the return times considerably.   
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series_s_ds.pgf}
+    \caption{Non-dimensional trajectories with the short-time scaling.\label{fig:series_s_ds}}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
-    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
-    \caption{A simple EMA plot.\label{fig:forces}}
+    \input{../figures/times.pgf}
+    \caption{.\label{fig:times}}
 \end{figure}
+
+The covariance of $\mathbb{I}\mbox{m}$ with $\mathbb{E}\mbox{u}$ is shown in Figure \ref{fig:dnumbs}. Predictably, there is quite strong correlation between the dimensionless groups. We also see that $\mathbb{I}\mbox{m} < 1$ for all drops. Using an OLS regression, we find the model $\mathbb{I}\mbox{m} \sim (0.012 \pm 0.003) \mathbb{E}\mbox{u} + (0.212 \pm 0.036) $ with $R^2 =0.59$.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/dnumbs.pgf}
+    \caption{.\label{fig:dnumbs}}
+\end{figure}
+
+Finally we show several trajectories in the long-time scaled regime in Figure \ref{fig:series_l_ds}.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series_l_ds.pgf}
+    \caption{Non-dimensional trajectories with the long-time scaling as a function of ${\mathbb{E}\mbox{u}}_+$.\label{fig:series_l_ds}}
+\end{figure}
+We should note that there are several kinds of systematic error that influence our data. We assume that droplet translate purely along the central axis of the electric field, but in practice, despite the improvement in surface charge density uniformity produced by corona charging, there are still local areas of especially high charge density. In principle, this kind of error should become small for droplets which are far enough away from the charge distribution, that the geometry of the charge distribution disappears, and the electric field looks like that due to a point charge. Another form of error is in the initial velocity as it appears in $\mathbb{E}\mbox{u}$. Because we usually lose the first few frames of video due to camera shake transients at the start of the low-gravity experiment, we will consistently underestimate $U_0$ because the droplet will already have decelerated significantly during that period of time. The primary sources of random error are the effect of contact line hysteresis on the droplet initial velocity, and of the variance in the MLE parameter estimates.
+\newpage
+
+\section{Impact Dynamics \hl{[placeholder section]}}
+Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (20-30 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
+
+Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
 
 \begin{figure}[htb]
     \centering
     \input{../figures/contact.pgf}
-    \caption{A simple EMA plot.\label{fig:contact}}
+    \caption{.\label{fig:contact}}
 \end{figure}
 
 \begin{figure}[htb]
     \centering
     \input{../figures/restitution.pgf}
-    \caption{A simple EMA plot.\label{fig:restitution}}
+    \caption{.\label{fig:restitution}}
 \end{figure}
 
 \newpage
 \appendix
-
 \section{\\Droplet Charge} \label{sec.drop_charge}
 \subsection*{Parallel Plate Method}
 Since, by the earlier scaling, we presuppose the source of the droplet bouncing behavior to be primarily Coulombic in origin (as opposed to dielectrophoretic), the droplet must have some free charge in addition to the charge induced by the electric field. To measure this charge concurrent methodologies were used. The first method of determining the droplet free charge is observation of the deflection of the droplets in the region of a known uniform field in a fashion inspired by Millikan's famous experiment to determine the fundamental charge of the electron [ref].
@@ -99,4 +150,5 @@ A 200-880 VAC source with a full wave bridge rectifier circuit was prototyped on
 
 A brief screening experiment was conducted which alternated the polarity of the field by switching the positive and negative terminal leads between plates. Qualitative observations of droplet electrode preference seem to indicate that the assumption of small polarization stress was well founded. Following this a orthogonal array $3^2$ factorial design experiment with two replicates was conducted to test the effect of varying droplet volume and surface stay time on free charge at the time of jumping. It was hypothesized in accordance with previous studies \cite{Choi:2013dg}, that free charge would increase for levels of both factors. The results of the factorial experiment are presented in Fig. \ref{fig:chart1}. ANOVA analysis in \emph{R} of the linear multiple regression model for the data set indicates that neither droplet volume ($p=0.105$), nor surface stay time ($p=0.358$) is significant at the 95\% confidence level. The overall model F-statistics (2.177 in 2 and 13 degrees of freedom), and coefficients of determination ($r^2 = 0.2509$) indicate that the linear model neither fits the data particularly well, nor does it offer an improvement over the mean model. The mean charge was determined to be positive $2.3 \cdot 10^{-11}$ C, with a standard deviation of $1.8 \cdot 10^{-11}$ C.
 
+\printbibliography
 \end{document}

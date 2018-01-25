@@ -112,7 +112,7 @@ As this condition likely holds in our experiments we henceforth neglect the DEP 
 
 \subsection{The Electric Field}
 
-If we consider the charged dielectric surface of our experiments to be a square sheet of charge lying in the $xz$-plane with width $L$, the symmetry of the problem happily lets us obtain the $y$-component of the electric field $\mathbf{E}$ by direct integration. In particular it is easy to constuct the electric field due to a finite plane of charge by supoerposition of the electric fields of a series of line charges. By symmetry the electric field points along the $y$-axis; for a point along the $y$-axis the position vector is $\mathbf{r} = \left( x^2 + y^2 \right)^{1/2} \hat{\mathbf{r}}$ to the center of a line charge in the $xz$-plane. The $y$-component of $d\mathbf{E}$ is found by $d E_r = d E_y \cos \theta = d E_y y/ r$, where $\theta$ is the angle made between the $y$-axis and the position vector $\mathbf{r}$. If the charge in a line element, $dx$ is $\sigma L dx$, where $\sigma$ is the average surface charge density, the electric field of a line charge is given by \cite{david_j._griffiths_introduction_1999}
+If we consider the charged dielectric surface of our experiments to be a square sheet of charge lying in the $xz$-plane with width $L$, the symmetry of the problem happily lets us obtain the $y$-component of the electric field $\mathbf{E}$ by direct integration. In particular it is easy to constuct the electric field due to a finite plane of charge by superposition of the electric fields of a series of line charges. By symmetry the electric field points along the $y$-axis; for a point along the $y$-axis the position vector is $\mathbf{r} = \left( x^2 + y^2 \right)^{1/2} \hat{\mathbf{r}}$ to the center of a line charge in the $xz$-plane. The $y$-component of $d\mathbf{E}$ is found by $d E_r = d E_y \cos \theta = d E_y y/ r$, where $\theta$ is the angle made between the $y$-axis and the position vector $\mathbf{r}$. If the charge in a line element, $dx$ is $\sigma L dx$, where $\sigma$ is the average surface charge density, the electric field of a line charge is given by \cite{david_j._griffiths_introduction_1999}
 \[d E_r = \frac{k \sigma L dx}{4 \pi \epsilon_0 r \sqrt{r^2 + L^2/4}}.
 \]
 The $y$-component of the electric field $E_y$, is then
@@ -149,13 +149,13 @@ Both of these regimes can be clearly seen in the plot of $E_y$ shown in Figure \
 
 \subsection{Scaling}
 
-The equation of motion is non-linear, non-homogenous and is best solved numerically, but nevertheless we are curious if we can obtain approximate solutions to the equation analytically using perturbation methods. This is aided by non-dimensionalizing the governing equations, and seeing if any dimensionless groups exist, and whether any are particualy small or large, and whether any fortuitous opportunities for simplifcation appear. Introducing the scaled variables
+The equation of motion is non-linear, non-homogeneous and is best solved numerically, but nevertheless we are curious if we can obtain approximate solutions to the equation analytically using perturbation methods. This is aided by non-dimensionalizing the governing equations, and seeing if any dimensionless groups exist, and whether any are particularly small or large, and whether any fortuitous opportunities for simplification appear. Introducing the scaled variables
 \begin{equation}
  \bar{t} = \frac{t}{t_c}, \hspace{10 mm} \bar{y} = \frac{y}{y_c}, \end{equation}
-where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the cooridnate transformation $y(0) - R = 0$, the governing equation becomes
+where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the coordinate transformation $y(0) - R = 0$, the governing equation becomes
 \begin{eqnarray}
 & \bar{y}'' = - \frac{1}{2} \frac{C_D \rho A y_c}{m} \bar{y}'^2
-- \frac{q E_0 t_c^2}{m y_c} \bar{E} 
+- \frac{q E_0 t_c^2}{m y_c} \bar{E} ( \bar{y} ) 
 - \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c} \left( \frac{y_c}{R} \bar{y} + 1 \right)^{-2}, & \nonumber \\
 & \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = \frac{U_0 t_c}{y_c} .& \label{scaled_eqn}
 \end{eqnarray}
@@ -168,7 +168,7 @@ We note the existence of several dimensionless groups
 
 \subsubsection{Inertial Electro-Image Limit}
 
-In the limit of small $y$ and $t$ we expect intertia to scale as Coulombic and image force. In this limit we can approximate the electric field as the constant, $E_0$. One possible characteristic lengthscale is $y_c \sim R_d$, however this ultimately is a poor choice. With $y_c \sim U_0 t_c$ and picking $t_c$ such that Coulombic force is $\mathcal{O}(1)$, the intrinsic scales become
+In the limit of small $y$ and $t$ we expect inertia to scale as Coulombic and image force. In this limit we can approximate the electric field as the constant, $E_0$. One possible characteristic length scale is $y_c \sim R_d$, however this ultimately is a poor choice. With $y_c \sim U_0 t_c$ and picking $t_c$ such that Coulombic force is $\mathcal{O}(1)$, the intrinsic scales become
 \[ t_c \sim \frac{m U_0}{q E_0}, \hspace{5 mm}
 y_c \sim \frac{m U_0^2}{q E_0} .
 \]
@@ -199,7 +199,7 @@ In the limit of large $y$ and $t$ we expect droplet inertia to scale as Coulombi
 %\end{eqnarray}
 %where $\mathbb{E}\mbox{u}_+ = \frac{4 \pi m U_0^2}{q E_0 L}$ is a long time scaled electrostatic Euler number. 
 
-We prefer the approach with the greatest physical simplicity, fewest Pi terms, and that has homogenous initial conditions. We choose Case 1, where the intrinsic scales are given by
+We prefer the approach with the greatest physical simplicity, fewest Pi terms, and that has homogeneous initial conditions. We choose Case 1, where the intrinsic scales are given by
 \[ t_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0}{q E_0}, \hspace{5mm} y_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0^2}{q E_0}.
 \]
 With this scaling the non-dimensional governing equation is 
@@ -207,7 +207,7 @@ With this scaling the non-dimensional governing equation is
 &\bar{y}'' = - \mathbb{D}\mbox{g} \mathbb{E}\mbox{u}_+ \bar{y}'^2 - \left( \mathbb{E}\mbox{u}_+ \bar{y} + 1 \right)^{-2}, & \nonumber \\
 & \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 & \label{drag_limit}
 \end{eqnarray}
-where we call $\mathbb{D}\mbox{g}$ the drag number, $\mathbb{D}\mbox{g} \equiv \frac{C_D \rho_a}{\rho_l}$ and $\mathbb{E}\mbox{u}_+ = 4 \pi \frac{R_d^2}{L^2} \mathbb{E}\mbox{u}$.
+where we call $\mathbb{D}\mbox{g}$ the drag number, $\mathbb{D}\mbox{g} \equiv \frac{C_D \rho_a}{\rho_l} = \mathbf{\Pi}_1 {\mathbb{E}\mbox{u}}_+^{-1}$ and $\mathbb{E}\mbox{u}_+ = 4 \pi \frac{R_d^2}{L^2} \mathbb{E}\mbox{u}$.
 
 \subsection{Asymptotic Estimates}
 \subsubsection{Inertial Electro-Image Limit}
@@ -230,7 +230,7 @@ In fact we, for somewhat arbitrary reasons, computed an $\mathcal{O}(\epsilon^5)
 \begin{figure}[htb]
     \centering
     \resizebox{1\textwidth}{!}{\input{../figures/short_times.pgf}}
-    \caption{Non-dimensional droplet trajectories for various values of $\mathbb{E}\mbox{u}=\epsilon$, $\mathbb{I}\mbox{m}=\alpha$. The trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of $\alpha$. It should be noted that despite what is implied by these plots $\alpha$ is not neccisarily completely independent of $\epsilon$, as they share $q$, and $E_0$ as common factors, $U_0 \sim R_d^2$, and $m \sim R_d^3$.}
+    \caption{Non-dimensional droplet trajectories for various values of $\mathbb{E}\mbox{u}=\epsilon$, $\mathbb{I}\mbox{m}=\alpha$. The trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of $\alpha$. It should be noted that despite what is implied by these plots $\alpha$ is not necessarily completely independent of $\epsilon$, as they share $q$, and $E_0$ as common factors, $U_0 \sim R_d^2$, and $m \sim R_d^3$.}
     \label{fig:short_times}
 \end{figure}
 These plots show a trend of decreasing time-of-flight (the time for the droplet to return to the origin, or complete a single ``bounce''), and height at apoapse with increasing values of the Image number $\alpha$. When $\alpha = 1$ the time of flight is exactly half of characteristic time scale in this regime. In the limit of small $\epsilon$ the trajectories collapse to the $\mathcal{O}(1)$ solution regardless of the Image number. In principle there is some coupling between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{m}$; notably this relationship does not depend on the electric field $E_0$ but on a charge to mass ratio. The effect of contact line hysteresis on the initial jump velocity $U_0$ will also tend to independently decohere the natural covariance between these parameters.
@@ -250,9 +250,9 @@ This trajectory given by this solution is shown in Figure \ref{fig:long_times}. 
     \caption{Non-dimensional droplet trajectories for various values of $\mathbb{E}\mbox{u}=\epsilon$.}
      \label{fig:long_times}
 \end{figure}
-Again, the trajectory seemingly reduces to the classical $\mathcal{O}(1)$ solution for small values of of $\epsilon$. We also note that the effect of drag is very slight, despite the fact that it appears explicity in the $\mathcal{O}(1)$ solution; the apoapse is very nearly equal to half the characteristic length scale. In practical terms this linearizing effect of small $\beta$ may dissapear if the fluid density is much less than that of water, as in our experiements.
+Again, the trajectory seemingly reduces to the classical $\mathcal{O}(1)$ solution for small values of of $\epsilon$. We also note that the effect of drag is very slight, \hl{despite the fact that it appears explicitly in the $\mathcal{O}(1)$ solution [it does not]}; the apoapse is very nearly equal to half the characteristic length scale. In practical terms this linearizing effect of small $\beta$ may disappear if the fluid density is much less than that of water, as in our experiments.
  
-By again appying a regular perturbation to the asymptotic solution with the expansion
+By again applying a regular perturbation to the asymptotic solution with the expansion
 \[ \bar{t} \sim \bar{t}_0 + \epsilon \bar{t}_1 + \epsilon^2 \bar{t}_2 \ldots \epsilon^n\bar{t}_n  
 ,\]
 and solving for the roots (that is, the times when $\bar{y} = 0$), we find an asymptotic estimate for the time-of-flight, $t_f$. The $\mathcal{O}(\epsilon^2)$ accurate time-of-flight estimate is given by
@@ -268,8 +268,7 @@ In Figure \ref{fig:drag} we look at the effect of increasing values of ${\mathbb
     \caption{Droplet time-of-flight as a function of $\epsilon = {\mathbb{E}\mbox{u}}_+$.}
     \label{fig:drag}
 \end{figure}
-
-We see that as $\epsilon$ grows to be no longer small, the time-of-flight grows rapidly, but this behaviour appears to have an asymptote at a certain critical velocity as $\mathcal{O}({\mathbb{E}\mbox{u}}_+) \rightarrow \mathcal{O}(1)$; this is an electrostatic escape velocity, $U_e$. We can find the escape velocity by solving a modified version of the equation of motion,
+We see that as $\epsilon$ grows to be no longer small, the time-of-flight grows rapidly, but this behavior appears to have an asymptote at a certain critical velocity as $\mathcal{O}({\mathbb{E}\mbox{u}}_+) \rightarrow \mathcal{O}(1)$; this is an electrostatic escape velocity, $U_e$. We can find the escape velocity by solving a modified version of the equation of motion,
 \[ m u' = - \frac{q E_0}{y^2}, \]
 where $u = \frac{d y}{d t}$ is the droplet velocity. Integrating between the respective limits,
 \[m \int^{u(y)}_{U_0} u du = -q E_0 \int^y_{R_d} \frac{dy}{y^2} ,\]

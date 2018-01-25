@@ -1,0 +1,784 @@
+\documentclass[12pt,a4paper,oneside]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[english]{babel}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+%\usepackage{fontspec} % This line only for XeLaTeX and LuaLaTeX
+\usepackage{pgfplots}
+\usepackage{pgf}
+\graphicspath{ {../figures/} }
+%\usepackage{svg}
+\usepackage{verbatim}
+\usepackage{color,soul}
+\usepackage{listings}
+\usepackage{setspace}
+\newlength\figureheight
+\newlength\figurewidth
+\setlength\figureheight{7cm}
+\setlength\figurewidth{10cm}
+\usepackage[
+backend=biber,
+style=phys,
+sorting=none
+]{biblatex}
+\addbibresource{thesis.bib}
+\usepackage{import}
+\let\pgfimageWithoutPath\pgfimage 
+\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[#1]{../figures/#2}}
+\usepackage{array} 
+\usepackage{appendix}
+\usepackage{makeidx}
+\makeindex
+
+\title{\textsf{\textbf{Droplet Electro-Bouncing in Low-Gravity}}}
+\vspace{-25mm}
+\author{Erin S. Schmidt, Mark M. Weislogel}
+\date{}
+
+%\usepackage{abstract}
+%\renewcommand{\abstractnamefont}{\normalfont\bfseries}
+%\renewcommand{\abstracttextfont}{\normalfont\small\itshape}
+
+\raggedbottom
+\usepackage{setspace}
+\usepackage{afterpage}
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+\begin{document}
+%\frontmatter
+%\maketitle
+%\afterpage{\blankpage}
+\begin{titlepage}
+\doublespacing
+
+\centering %\vspace*{-10ex}
+{\large \textsf{\textbf{Droplet Electro-Bouncing in Low-Gravity}}}
+
+\vspace{15ex}
+by\\
+Erin Stivers Schmidt
+
+\vspace{15ex}
+\singlespacing
+A thesis submitted in partial fulfillment of the\\
+requirements for the degree of
+
+\vspace{11ex}
+Master of Science\\
+in\\
+Mechanical Engineering
+
+\vspace{12ex}
+Thesis Committee:\\
+Mark Weislogel, Chair\\
+Ra\'ul Bayo\'an Cal\\
+Gerry Recktenwald\\
+
+
+\vfill
+\vspace{2ex}
+Portland State University\\%[8pt]
+{\number\year}
+\end{titlepage}
+
+
+\doublespacing
+\clearpage
+
+\frontmatter
+
+\doublespacing
+\section*{Abstract}
+\addcontentsline{toc}{chapter}{\numberline{Abstract}}
+\noindent
+We investigate the dynamics of spontaneous jumps of water droplets from electrically charged superhydrophobic dielectric surfaces during a sudden step reduction in gravity level. In the brief free-fall environment of a drop tower, with a non-homogeneous external electric field (with strengths ~0.39-2.36 kV/cm) arising due to dielectric surface charges, body forces acting on the jumped droplets are primarily supplied by polarization stress and Coulombic attraction instead of gravity. This electric body force leads to a droplet bouncing behavior similar to well-known phenomena in 1-g, though occurring for much larger droplets ($\sim$ 0.5 mL). We show a simple model for the phenomenon, its scaling, and asymptotic estimates for droplet time of flight. The droplet net charge, estimated to be on the order of $1 \times 10^{-9}$ C, is field induced rather than by contact charging at the (PTFE coated) hydrophobic interface. In 1-g, for Weber numbers $>$ 0.4, impact recoil behavior on a super-hydrophobic surface is normally dominated by damping from contact line hysteresis. However, at the low Bond and Ohnesorge numbers occurring in free-fall, the droplet impact dynamics additionally include electrohydrodynamic surface wettability effects. This is qualitatively discussed in terms of trends in coefficients of restitution and dimensionless contact time.
+
+\clearpage
+% ========================================
+
+%\vspace*{8ex}
+\vspace*{\fill}
+%\section*{Dedication}
+%\addcontentsline{toc}{chapter}{\numberline{Dedication}}
+
+\emph{To Mom, Laura, and the DDT team.}\\
+\vspace*{\fill}
+
+\clearpage
+
+% ========================================
+
+%\vspace*{8ex}
+\vspace*{\fill}
+\section*{Acknowledgements}
+\addcontentsline{toc}{chapter}{\numberline{Acknowledgements}}
+
+This work was supported primarily by NASA Cooperative Agreement NNX12A047A. I am also greatly indebted to Andrew Greenberg for his frequent and sage technical advice, and to Joe Shields for his assistance with drop tower experiments. \\ 
+\vspace*{\fill}
+\clearpage
+
+\tableofcontents
+\afterpage{\blankpage}
+\listoffigures
+\afterpage{\blankpage}
+
+\mainmatter
+\chapter{Introduction}
+\begin{quote}
+``When the influence of gravity on fluid behavior is diminished or removed, other forces, otherwise of small significance, can assume paramount roles.''
+- NRC Report to NASA, 2003  \cite{motil_priorities_2012}
+\end{quote}
+
+Our terrestrially born intuition about how liquids flow is easily confounded in a low-gravity environment. This should come as little surprise, as we are creatures evolved at the bottom of a steep gravity well; gravity is natural to us. However when the magnitude of the gravity body-force becomes small, other forces come into play in fluid dynamics which are otherwise negligible, relatively speaking, under normal circumstances in 1-g. This 1-g cognitive bias leads to a plethora of problems which are both trivially easy to solve in 1-g, and which despite decades of study continue to elude solutions in a low-gravity context. One example of these problems is the so-called ``phase separation'' problem of separating a gas phase from a multi-phase flow (or the reverse case), without the aid of gravitational buoyancy. Sans buoyancy otherwise mundane activities such as venting a gas or settling a liquid in a tank become problematic \cite{petrash_controlling_1964}. Trapped bubbles can vapor lock ECLSS (Environmental Control and Life Support), power, or propulsion systems \cite{jenson_passive_2014}. Issues of phase separation have so bedeviled human endeavors in space that an entire Apollo Saturn 1B mission (AS-203) was earmarked to study them \cite{hastings_[saturn_1965}. This problem has for some time motivated a quest for substitute body forces, and the present work follows in that august tradition.
+
+Considering the scope of this problem of poor low-gravity intuition, we would profit by identifying a scale to quantify how wrong our intuition is. First, let's clear up a common misnomer about the state of ``zero-gravity''. The theory of general relativity is based on the fundamental equivalence of gravity and acceleration. There is no known way to determine whether one is in gravity-free space or free-falling in a gravitational field (or conversely whether or not we are uniformly accelerating, or standing at rest in a gravitational field). This is sometimes called the equivalence principle of general relativity (e.g. the equivilence of gravitational and inertial mass). In theoretical terms a zero-g experiment performed in a drop tower on the surface of the Earth is equivalent to the same experiment performed in the nearly gravity-free deep space between galaxies, despite the fact that the drop tower itself is in a 1-g gravity field. At the orbital altitude of the International Space Station (ISS) the gravity level is still nearly 90\% of its value at sea-level on Earth, but the astronauts aboard ISS feel weightlessness because they are free-falling. In a practical sense there is never true zero-g, even in the aforementioned dark space between galaxies, as there are always small, but nonetheless, measurable forces to accelerate any body. For instance in low-Earth orbit, accelerations due to drag in the tenuous outer atmosphere are on the order of $1 \times 10^{-6}$ g, hence the term ``microgravity''. This small acceleration provides an ersatz gravity, but there are also other forces present. Foremost of these are capillary forces. 
+
+Capillary forces are due to the cumulative effect of a large number of very short range molecular interactions and in a 1-g context are usually quite weak, relatively speaking. However, in a low-gravity environment these are nearly the only forces present, and are therefore strong in a relative sense. In comparing the relative magnitudes of gravity and the unusually strong capillary force we arrive at a useful figure of merit for assessing how wrong our fluid mechanical intuition is likely to be in a low-gravity context. This figure of merit is the Bond number dimensionless group
+\[ \mathbb{B}\mbox{o} \equiv \frac{g R^2 \Delta \rho}{\gamma} 
+\]
+where $g$ is the acceleration, $R$ is the interfacial radius of curvature, $\Delta \rho$ is the difference in densities across the interface (which simplifies to $\rho$, for large $\Delta \rho$, as in the case of a air-water interface), and where $\gamma$ is the surface tension. In cases where $\mathbb{B}\mbox{o}$ is small, a liquid is effectively in low-gravity regardless of the nominal local gravity level. Very small droplets ($R < 1$ mm), for instance, are in low-gravity for all intents and purposes and have nearly spherical shapes. Contrarily, in a space environment in cases where $R$ becomes large, such as with the case of large diameter spacecraft propellant tanks then $ \mathbb{B}\mbox{o} \gg 1$ even though the acceleration is small. As a corollary to this discussion we note that on the basis of dimensional similarity, we can accurately simulate the low-gravity fluid mechanics of large propellant tanks even in small drop towers simply by scaling dimensionless groups like the Bond number. 
+
+As with surface tension, electrostatic forces also have useful applications as substitutes for gravity. Electrohydrodynamic (EHD) body forces have been suggested to combat thermal stratification of propellants under low-g conditions where bouyancy induced natural convection is very small \cite{blackmon_collection_1965}. In this case electro-convection is an analog of natural convection due to a dielectric permitivity gradient (as opposed to a fluid density gradient), which is a function of fluid temperature, in the presence of a body force field (in this case an electric field). The study also suggested applications in cryogenic tank vent screening, and in reducing heat transfer to cryogenic propellants (and thus boiloff losses) by dielectrophoretically positioning ullage vapors around the tank walls as a thermal barrier. EHD forces have been studied for enhancing boiling heat transfer by promotion of bubble detachment and prevention of dryout (again as an ersatz bouyancy) \cite{snyder_dielectrophoresis_2001} \cite{di_marco_influence_2003} \cite{marco_use_2012}. EHD heat pipes, which substitute an electrode structure for the capillary wicking structure of a conventional thermocapillary heat pipe can evade the wicking limit \cite{jones_electrohydrodynamic_1973}. These are restricted to the use of insulating dielectric liquids (which usually have relatively low thermal conductivity), but are highly robust against dryout, support active flow control, and have low viscous losses. Dielectrophoretic settling of cryogenic propellants (in both total and partial communication configurations), has been studied analytically in both static \cite{hurwitz_electrohydrodynamic_1966} and dynamic cases \cite{koval_dynamics_1967}, and in drop tower experiments \cite{fax_dielectrophoretic_1969}. EHD forces have also beeen suggested for low-g slosh baffling \cite{boretz_orbital_1970} \cite{petrash_use_1968} \cite{hurwitz_dielectrophoretic_1968}, and studied extensively for the mitigation of vapor pullthrough during tank emptying (and concomittent minimization of propellant residuals at burnout) in a series of experiments at the NASA Lewis (now Glenn) Research Center 2.2 s drop tower facillity \cite{berenyi_dielectrophoretic_1970}. 
+
+\section{Spontaneous Droplet Jump}
+Low-gravity droplet dynamics, and the dynamics and applications of the so-called spontaneous droplet jump, is an active area of study at the Portland State University Dryen Drop Tower labratory (DDT). When a nonwetting, gravity dominated sessile droplet (e.g. a puddle), initially at rest in the Cassie-Baxter state undergoes a large step reduction in $\mathbb{B}\mbox{o}$ it will spontaneously jump away from the surface. The Cassie-Baxter state is a metastable non-wetting state on a textured surface, sometimes also known as the Fakir state. This was first observed experimentally by Kirko \emph{et al.} \cite{kirko_phenomenon_1970} in 1970 and later by Wollman \emph{et al.} in 2016 in a set of experiments conducted using a low-gravity drop tower \cite{wollman_more_2016}. The kinetic energy of the jump is supplied by the defect in free surface energy as the new minimum energy surface equilibrium has approximately constant curvature. If the viscous energy losses by shear, and internal flows during roll up are neglected, as well as energy lost due to the hysteresis of the dynamic contact line, then the available kinetic energy is given by
+\[KE = SE_2 -SE_1 = [(\sigma A)_{gl} + (\sigma A)_{sg}]_2 - [(\sigma A)_{ls} + (\sigma A)_{gl} + (\sigma A)_{sg}]_1. \]
+
+The droplet `rolls up' as it jumps away from the surface due to radial motion of a capillary wave away from the contact line. The characteristic time scale of the rolling up scales as $t_j \sim R_p/U ~(\rho H R^2_p/\sigma)^{1/2}$ \cite{attari_puddle_2016}, which resembles the contact time, $\tau \approx 2.6(\rho R^3_d/\sigma)^{1/2}$ reported by Richard \emph{et al.} in 2002 for the related problem of droplets impacting hydrophobic surfaces in 1-g \cite{richard_surface_2002}. For droplets with radial symmetry and sufficiently high initial $\mathbb{B}\mbox{o}$ these waves coalesce as a shock leading to geysering and creation of satellite drops by the Rayleigh-Plateau breakup of the geyser. In the case of smaller jumping droplets, the capillary waves do not lead to geysering, and are viscously damped to varying degrees during the brief free-fall period of the drop tower.
+
+The spontaneous droplet jump phenomenon provides a useful window though which to study the dynamics of large-length scale capillary dominated droplets. The physics of such massive droplets (far beyond the 1-g millimetric capillary length scale) utterly defy terrestrial expectations about the ways in which liquid droplets `should' behave, and also are of critical practical importance in a space systems setting where large capillary length scale multiphase flows are common.
+
+\section{Droplet Electro-Bounce}
+During `rolling-up' under ideal conditions, the droplet jump phenomenon is governed by a balance of inertia and surface tension forces, and once aloft the droplet motion is nominally in a regime of pure drag, however other forces can again come into play. 
+
+\emph{Occasionally we observe jumped droplets to decelerate and return to the superhydrophobic surface, rebounding multiple times after fashion of a rigid body bouncing on a surface under 1-g. The forces at work in this phenomenon are presumably electrostatic in origin.} This was unintended, but the phenomenon is interesting. Admittedly, there is a certain irony that this typical failure of low-gravity intuition come as any surprise to experienced low-gravity researchers. A time-lapsed composite image showing an example of the phenomenon is shown in Figure \ref{fig:bounce}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.75\textwidth]{bounce}
+\caption{The trajectory of a 0.5 mL droplet is captured in a composite image over a single bounce period ($\sim 1.25$ s). The surface potential of the superhydrophobic dielectric is $\varphi_s = 1.25 \pm 0.41$ kV. \label{fig:bounce}}
+\end{figure}
+
+This ``electro-bounce'' phenomenon is the subject of this thesis. We begin with some preliminary observations of the phenomenon:
+\begin{itemize}
+\item We have observed droplet accelerations on the order of 10's of cm/s$^2$ in proximity to charged surfaces for a range of droplet volumes $V_d \approx$ 0.01- 0.5 mL.
+\item Droplets appear to be attracted to regions of high electric field. The horizontal (surface plane parallel) components of the droplet trajectory usually oscillate about their initial position during drops (except in cases of nearly pure 1-D vertical translation). For especially small drops close to the spontaneous droplet jump limit ($V_d \sim$ 0.01 mL) the droplets do not jump, but translate across the surface in a hovering regime until either they reach a local maximum of the electric field, or until their motion is sufficiently damped by contact line hysteresis that pinning arrests their motion.
+\item Droplets appear to have net free charge. In cases of multiple simultaneous droplet jumps the droplets repel each other as they bounce or hover in orbital motion around regions of strong field.
+\item The magnitude of the droplet trajectory maxima (apoapses) appear to be related to the droplet volume (which affects their mass, and initial jump velocity, and thence their inertia), and to the electric field strength.
+\end{itemize}
+
+There are several potential origins of the electric charge responsible for this phenonenon. It is well known that water acquires free charge (usually positive) when in contact with certain polymers, especially polytetrafluoroethylene (PTFE) \cite{langmuir_surface_1938}, through a process called contact charging. The superhydrophobic surfaces used in the spontanous droplet jump experiments have thin PTFE coatings, and we observe that it is extremely easy to produce significant surface potentials ($\varphi_s \sim$ 100-500 V) by simply running streams of distilled water over them. A study of this water on PTFE contact charging phenomenon was done by Yatsuzuka \emph{et al.} \cite{yatsuzuka_electrification_1994}, who suggest this process results from formation of an electrical double layer formed by selective adsorption of ions at the polymer surface. They also found that the specific charge on the droplets in contact with the surface depends on their surface velocity and conductivity. New developments suggest that adsorption of $\mbox{OH}^-$ ions are the source of the double layer \cite{beattie_intrinsic_2006} \cite{strazdaite_water_2015}. This is the most likely accidental source of charge on the suphydrophobic surface. Given the large roughness (in the sense of the ratio of projected to actual surface area), of the superhydrophobic surfaces used in the experiment, and given that the droplets are initially in a Cassie-Baxter state, an electrically insulating air layer is maintained that prevents grounding of the droplets despite the large potential difference between them and and the surface charges. Ultimately it is this potential, in the energetic sense, that is responsible for the droplet bouncing motion we observe. 
+
+The source of the net free charge on the droplets is another issue. The droplet charge could also be due to this contact charging mechanism. For instance, in a 1996 paper, NASA flight engineer Don Pettit discusses the problem of flow induced charging of liquids in a low-gravity context, resulting ultimately from contact charging phenomenon \cite{pettit_donald_flow_????}. Another mechanism for the droplet charge is field induced charging. Field induced charging occurs due to physical breakup of a conductor having a field induced dipole. In our case this occurs when the droplet is deposited on the charged surface by a syringe. The metal syringe needle tip, and the liquid in the syrigne itself are essentially a ground connection which is broken when the syringe is removed. Field induced charging is at work in the famous Kevin thunderstorm, and is applied in inkjet, and electrospay technologies (where in each case the breakup is by the Rayleigh-Plateau instability). Notably, in Pettit's discussion of contact charging of liquids in low-g, he remarks on accidental electrostatic ``hula-ing'' of sillicon oil droplets when ejected from a syringe in the vicinity of a highly-charged polymer surface during an experiment conducted aboard STS-5 by mission specialist Joseph Allen. Depending on the (highly-variable) electrical conductivity of the sillicon oil, and the material of the syringe used in the experiment, the charge could as easily be field induced as due to contact charging. Relatedly, in a series of informal, and somewhat whimsical experiments Pettit electrostatically orbited small water droplets around a triboelectrically charged PTFE knitting needle while aboard ISS during expedition 30/31 \cite{stevenson_electrostatic_2015}. Again, in this case, the droplet charge is very likely field induced.  
+
+\section{Applications}
+Study of the droplet electro-bounce phenomenon may have results which can be extended to useful applications in a space environment.
+
+External surfaces of spacecraft tend to become charged with time due to the space environment itself. Surface charging largely occurs due to low energy electrons (3-50 keV) which do not penetrate the surface of the spacecraft external stucture \cite{czepiela_charging_1997}. The ultimate sources of these charges are trapped charged particles of the van Allen radiation belts, galactic cosmic rays, and the solar wind. This deposited charge accumulates and can lead to significant potential differences between different parts of a spacecraft, sometime leading to breakdown and discharge, called Paschen discharge. Deep dielectric charging occurs when higher energy charged particles penetrate the surface of a dielectric material, which can also lead to large potential differences if the dielectric leakage is lower than the external charging rate. In a fluid mechanical context, this accumulated charge could be problematic during any multiphase venting process, as might be expected to occur during autonomous satellite servicing refueling operations, or during boil-off venting of cryogens stored over long periods in a space environment (as in many crewed Mars mission scenarios, or in cryogenic propellant depot operations). Such venting, if occurring in a region of strong field, will also tend to produce a stream of charged droplets, which can then return and lead to contamination of the spacecraft surfaces.
+
+As previously noted, robust phase separation is critical to high reliability multiphase systems used in thermal control and life support. Active (but solid-state) phase seperation for ECLSS multiphase flows, espcially high void-fraction flows is a possible application of this work. Such flows pertain to dish washing, laundry, waste solids drying, food processing, the Sabatier CO$_2$ reaction, and possibly in vapor-compression cycle condensers. Phase seperation for other disperse droplet flows include electrostatic droplet seperators for high-efficiency Rankine-cycle turbines (which require a droplet-free vapor phase entering the turbine, but where convertional superheat approaches comes with severe mass penalties) \cite{unterberg_zero_1962}, or more speculatively, in high temperature liquid droplet radiators with electrostatic collection \cite{white_liquid_1987}. Removal of satellite droplets produced during pippetting in wet-lab research outside of a glovebox environment aboard ISS has also been recently suggested as a application of the work \hl{[ref, personal discussion with NASA MSFC folk at ASGSR17 conference]}. Droplets can become spontaneously charged by contact with standard micropipette tips \cite{choi_spontaneous_2013}, and this free charge can possibly be leveraged for the purposes of phase separation in low-gravity. 
+
+\section{Overview of this Thesis}
+This work primarily concerns itself with development of a simple model to aid in design of future electrostatic disperse droplet phase separators. To that end this work encompasses:
+\begin{enumerate}
+\item A simple mathematical model of droplet electro-bounce, its scale analysis, and asymptotic estimates for droplet apoapses and times-of-flight.
+\item The results of a controlled experiment, where the effect of key independent variables droplet volume $V_d$, and dielectric surface charge density $\sigma$, on droplet trajectories is tested.
+\item Science of opportunity comprising experimental data on droplet impacts at very low Weber and Ohnesorge numbers, for varying levels of electrostatic Bond number. 
+\end{enumerate}
+
+\chapter{Theory}
+\section{Forces and the Equation of Motion}
+This section will develop a simple, 1-dimensional model of the dynamics of droplets dominated by electrostatic forces. Treating a droplet as a particle, with radius $R_d$, the  equation of motion of charged droplets center of mass as it translates vertically along the central axis of a finite square charged dielectric sheet is given by
+\begin{equation}
+m y'' = - \mathbf{F}_D - \mathbf{F}_E, \hspace{5 mm} y(0) = R_d, \hspace{5 mm} y'(0) = U_0,
+\label{gov_eqn}
+\end{equation}
+where $m$ is the droplet mass, $y'' = \frac{d^2 y}{d t^2}$ is the droplet acceleration, $\mathbf{F}_D$ is the drag force, and $\mathbf{F}_E$ is the electrostatic force. The initial conditions are such that, when the $\mathbb{B}\mbox{o}$ is suddenly reduced at the start of the drop tower experiment, the droplet jumps with initial velocity $U_0$ from its 1-g resting position $R_d$ at $t=0$. The signs of the forces on the right side of Equation \ref{gov_eqn} indicate that they act in the opposite direction of the droplet motion. We need to specify models for the various forces in this equation to begin our analysis of the droplet dynamics.
+
+With the assumption of an intermediate range of Reynolds numbers $\mathbb{R}\mbox{e} \equiv \frac{2UR_d}{\nu}$, $1 \leq \mathbb{R}\mbox{e} \leq 5000 $ then the force of drag acting on the droplet will be quadratic,
+\begin{equation*}\label{drag_force}
+\mathbf{F}_D = \frac{1}{2}C_D \rho A {y'}^2,
+\end{equation*}
+where $C_D$ is the drag coefficient, $\rho$ is the density of the sorrounding fluid medium (air, in this case), and $A$ is the frontal area of the droplet. For this range of Reynolds numbers it is appropriate to approximate the drag coefficient by the well known Abraham correlation \cite{abraham_functional_1970}
+\[C_D = \frac{24}{9.06^2} \left( 1 + \frac{9.06}{\sqrt{\mathbb{R}\mbox{e}}} \right)^2 .\]
+
+Modeling the electrostatic force is somehwhat more involved, but we will start with the standard electrohydrodynamic (EHD) approximation \cite{saville_electrohydrodynamics:taylor-melcher_1997} as our model, and further simplify where possible. Under a DC electric field, we assume that the real part of the dielectric permitivity $\epsilon$, $Re \langle \epsilon \rangle \approx  \mbox{constant}$. We also assume that electric currents are small enough that the effects of magnetic fields can be neglected. The validity of this assumption rests on the size of the characteristic time scale for electrical phenomena $\tau_e = \epsilon \epsilon_0/\sigma_e \ll 1$, where $\tau_e$ is the ratio of absolute dielectric permittivity $\kappa = \epsilon \epsilon_0$, to conductivity $\sigma_e$, of the medium. This characteristic time $\tau_e$ is also known as the relaxation time, and is a measure of how quickly the polarization of a dielectric responds to a change in electric field. Given the respective conductivity, and permittivity of extremely-pure water ($ \kappa \sim 80$, $\sigma_e = 18.2 \times 10^{6}$ $\Omega\mbox{cm}$) \cite{yatsuzuka_electrification_1994}, we estimate $\tau_e \approx 4 \times 10^{-6}$ s. The relaxation time for the common distilled water that is actually used in the droplet experiments is undoubtedly even shorted (due to the presence of solvated ions). Neglecting the effects of a electric double layer on hydration of ions (in the water or the ambient atmosphere) due to the reletively massive size of the droplets studied, then the assumption of small relaxation time further implies that the free charge present in the droplets will remain approximately constant during the typical time interval of a low-gravity experiment.
+
+Supposing that electrical forces acting on free charges and dipoles in a fluid are transferred directly to the fluid itself, then this overall electrical body force will be the the divergence of the Maxwell stress tensor $\tau_m $, by
+\[ \mathbf{F}_E = \nabla \cdot \tau_m = \nabla \cdot \left( \epsilon \epsilon_0 \mathbf{E} \mathbf{E} - \frac{1}{2} \epsilon \epsilon_0 \mathbf{E} \cdot \mathbf{E} \delta \right) ,\]
+where $\mathbf{F}_E$ is the electric body force per unit volume, and $\delta$ is the delta function. The product of the electric field vectors is the dyadic product.  
+
+The classical Korteweg-Helmholtz force density formulation of the Maxwell stress tensor is usually expressed as \cite{melcher_continuum_????}
+\begin{equation}\label{force_density}
+\mathbf{F}_E = \rho_f \mathbf{E} + \frac{1}{2} \left| E \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| E \right|^2 \right) .
+\end{equation}
+The first term in this expression, equivalently written as $q\mathbf{E}$, is the well known Coulombic force or electrophoretic force, which arises from the presence of free charge in an external electric field. We expect this term to dominate the electric force in a DC field. The second term is the force arising from polarization stresses due to a nonuniform field acting across a gradient in permittivity. This force is widely termed the dielectrophoretic force (DEP). The third term describes forces due to electrostriction. It has been noted by Melcher and Hurwitz that the electrostriction term is the gradient of a scalar and can thus be cannononically lumped togeather with the hydrostatic pressure for incompressible fluids \cite{hurwitz_electrohydrodynamic_1966}; we neglect it in our analysis. 
+
+It is common to approximate the polarization stress by idealizing the droplet as a simple dipole using the effective dipole moment method first suggested by Pohl in 1958 \cite{pohl_effects_1958}. This approach has been related back to the force density by the volumetric integration of the force density with the substitution of a Taylor series expansion of $\mathbf{E}$ in the limit of a small radial gradient of the field within the dielectric sphere \cite{wang_general_1997}. The DEP force is related to the dipole moment (induced or permanent) of polarizable media which has a tendency to align the dipole with the electric field. If there is a gradient in the field then for a finite separation of charge one end of the dipole will feel a stronger electric field than the other, resulting in a net force. Whether the force is positive or negative in the direction of the electric field gradient depends on the difference of dielectric permittivites between the fluids, rather than on the polarity of $\mathbf{E}$ itself. In principle an external electric field will tend to induce a dipole in a dielectric material, but if the field is spatially uniform there is no gradient in the field and the forces felt by the dipoles are symmetric and thus there is no net force. The dipole moment of a spherical linear-dielectric particle immersed in a dielectric medium is given by
+\begin{equation} \label{dipole_m_1}
+\mu = V_d \mathbf{P} = \frac{4}{3} \pi R_d^3 \mathbf{P},
+\end{equation} 
+where $\mathbf{P} = \left(\kappa_1 - 1 \right) \epsilon_0 \mathbf{E} = \chi_e \epsilon_0 \mathbf{E}$ is the polarization moment, and $R_d$ is the particle radius, $\kappa_1 = \frac{\epsilon}{\epsilon_0}$ being the relative dielectric constant of the external medium (air in this case), $\chi_e = \kappa_1 - 1$ being the electric susceptibility of the dielectric medium. The excess polarization $\mathbf{P}_e$, in the sphere is given by
+\begin{equation} \label{polarization}
+\mathbf{P}_e = \left( \kappa_2 - \kappa_1 \right) \epsilon_0 \mathbf{E} = \frac{3 \kappa_1}{\kappa_2 +2\kappa_1}\mathbf{E},
+\end{equation}
+where $\kappa_2$ is the relative dielectric constant of the spherical particle. Taking together Equations \ref{dipole_m_1}, and \ref{polarization} the effective dipole moment of the particle is given by 
+\begin{equation}\label{dipole_m_2}
+\mu = 4 \pi R_d^3 \left( \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1} \right) \kappa_1 \epsilon_0 \mathbf{E},
+\end{equation}
+and the force felt by the dipole is 
+\begin{eqnarray} \label{dep_force}
+\mathbf{F}_{DEP} &=& \left( \mathbf{P}_e \cdot \nabla \right) \mathbf{E} \nonumber \\
+&=& 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2,
+\end{eqnarray}
+where it is nice to use the simplifying shorthand $K = \frac{\kappa_2 - \kappa_1}{\kappa_2 + 2 \kappa_1}$, which is also known as the Clausius-Mossotti factor. In cases where $K <$ 0, or $K>$ 0 the particle will be repelled or attracted to regions of strong field respectively. In our experiment, taking the relative dielectric constants to be $\kappa_1 \approx$ 1 and $\kappa_2 \approx$ 80, the Clausius-Mossotti factor $K \approx$ 0.96. It is important to note that the equivalent dipole approximation critically requires an assumption of small physical scale of the particle relative to the lengthscale of nonuniformity of the field, which in this case we take to be the length of the charged superhydrophobic surface ($L =$ 25 mm $\gg a \approx$ 2.5 mm).
+
+When the droplet is close to the dielectric surface, the free charge on the droplet will tend to induce polarization of the dielectric, perturbing the electric field. The polarization bound charge in the dielectric will be of the opposite sign of the free droplet charge and thus there will be a force of attraction. This so-called image force is a correction to the Colomb force due to the external electric field only, and can be found by the method of images \cite{david_j._griffiths_introduction_1999}. The image force $\mathbf{F}_I$, is given by
+\begin{equation}
+\mathbf{F}_I = \frac{k q^2}{16 \pi \epsilon_0} y^{-2} \hat{\mathbf{j}},
+\label{image_force}
+\end{equation}
+where the factor $k$ is a function of the dielectric surface susceptibility $k = \frac{\chi_e}{\chi_e + 2}$, and $\hat{\mathbf{j}}$ is a unit vector normal to the dielectric surface.
+
+By substituting Equations \ref{dep_force}, \ref{image_force} into Equation \ref{force_density} we have
+\begin{eqnarray*}
+ \mathbf{F}_E &=& q \mathbf{E} + \mathbf{F}_{DEP} + \mathbf{F}_I \\
+ &=& q \mathbf{E} + \frac{k q^2}{16 \pi \epsilon_0 } y^{-2} \hat{\mathbf{j}} + 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2, 
+\end{eqnarray*}
+and the 1-D governing equation becomes
+\begin{eqnarray} \label{gov_eqn_subs}
+&m y'' = - \frac{1}{2} C_D \rho A {y'}^2 - q E - \frac{k q^2}{16 \pi \epsilon_0} y^{-2}- 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2,& \nonumber \\
+&y(0) = R, \hspace{1 mm} y'(0) = U_0 .&
+\end{eqnarray}
+
+By comparing DEP and Coulombic terms in Equation \ref{gov_eqn_subs}, we note that a condition to neglect the DEP term is
+\begin{eqnarray}
+\frac{q}{ \kappa_2 \epsilon_0 K R_d^2 E_0} \gg 1 \nonumber
+\end{eqnarray}
+As this condition likely holds in our experiments we henceforth neglect the DEP force in our analysis. There is some physical intuition to support this conclusion as well. The dielectric displacement, $\mathbf{D} = \kappa \epsilon_0 \mathbf{E}$ of a water droplet in air is very high due to its large relative dielectric constant. This implies that the field strength within the droplet is about 2 orders of magnitude smaller than in the surrounding medium (which is essentially the same as a vacuum from a dielectric standpoint), thus it is not particularly inaccurate to model the dielectric volume of a droplet as a conductive shell (an equipotential), with zero field in its interior. As an aside, in treating the droplet as an ideal conductor we note that in our specific case the electrostatic force is not a body force \emph{per se} as the electric field is acting on charges on the surface of the conductor.
+
+
+\section{The Electric Field}
+If we consider the charged dielectric surface of our experiments to be a square sheet of charge lying in the $xz$-plane with width $L$, the symmetry of the problem happily lets us obtain the $y$-component of the electric field $\mathbf{E}$ by direct integration. In particular it is easy to constuct the electric field due to a finite plane of charge by superposition of the electric fields of a series of line charges. By symmetry the electric field points along the $y$-axis; for a point along the $y$-axis the position vector is $\mathbf{r} = \left( x^2 + y^2 \right)^{1/2} \hat{\mathbf{r}}$ to the center of a line charge in the $xz$-plane. The $y$-component of $d\mathbf{E}$ is found by $d E_r = d E_y \cos \theta = d E_y y/ r$, where $\theta$ is the angle made between the $y$-axis and the position vector $\mathbf{r}$. If the charge in a line element, $dx$ is $\sigma L dx$, where $\sigma$ is the average surface charge density, the electric field of a line charge is given by \cite{david_j._griffiths_introduction_1999}
+\[d E_r = \frac{k \sigma L dx}{4 \pi \epsilon_0 r \sqrt{r^2 + L^2/4}}.
+\]
+The $y$-component of the electric field $E_y$, is then
+\[ E_y = \frac{\sigma L y }{4 \pi \epsilon_0} \int^{L/2}_{-L/2} \frac{1}{(y^2 + x^2) \sqrt{y^2 + x^2 + L^2/4}} dx 
+.\]
+With some substitutions this can be integrated to obtain an expression for the electric field in terms of $y$, 
+\begin{equation}
+E_y = \frac{\sigma}{ \pi \epsilon_0} \tan^{-1} \left( \frac{L^2}{y \sqrt{2L^2 + 4y^2}}\right)
+.\end{equation}
+We note that this model of the electric field will be poor except in cases where $y \ll L, \hspace{1 mm} R_d \ll L$, which will be true for cases of large drops very close to the dielectric surface. For accurate models of the field in this case we likely would need to solve Laplace's equation for the electric potential $\varphi$
+\[ - \nabla^2 \varphi = 0,\]
+numerically using finite element methods.
+
+By taking Taylor series expansions in large and small limits we can intuit a bit about the behavior of this field. In the limit $L \rightarrow \infty, \hspace{1mm} y \ll L$ the argument of the function tends towards infinity and
+\[ \lim_{x\to\infty} \tan^{-1}(x) = \frac{\pi}{2}
+,\]
+and thus
+\begin{equation}
+E_y \approx \frac{\sigma}{4 \pi \epsilon_0} = E_0 \hspace{10mm} y \ll L
+,\end{equation}
+where $E_0$ is the characteristic electric field given by $E_0 = \frac{\sigma}{4 \pi \epsilon_0}$. This field is constant, and equivalent to the electric field due to an infinite plane of charge. In the limit of $y \gg L$, the argument of the arctangent function can be approximated by
+\[ \frac{L^2}{2 y \left( 2 L^2 + 4 y^2\right)^{1/2}} = \frac{L^2}{4 y^2 \left( 1 + L^2/2y^2 \right)^{1/2}} \approx \frac{L^2}{4 y^2}
+.\]
+For small $x$, $\tan^{-1}(x) \sim x$ and we thus find the familiar electric field due to a point charge
+\begin{equation}
+E_y \approx L^2 E_0 y^{-2}  \hspace{10mm} y \gg L
+.\end{equation}
+Both of these regimes can be clearly seen in the plot of $E_y$ shown in Figure \ref{fig:E0}.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/E0.pgf}
+    \caption{A log-log plot of the magnitude of the non-dimensional electric field, $E_y$.\label{fig:E0}}
+\end{figure}
+\newpage
+
+\section{Scaling}
+The equation of motion is non-linear, non-homogeneous and is best solved numerically, but nevertheless we are curious if we can obtain approximate solutions to the equation analytically using perturbation methods. This is aided by non-dimensionalizing the governing equations, and seeing if any dimensionless groups exist, and whether any are particularly small or large, and whether any fortuitous opportunities for simplification appear. Introducing the scaled variables
+\begin{equation}
+ \bar{t} = \frac{t}{t_c}, \hspace{10 mm} \bar{y} = \frac{y}{y_c}, \end{equation}
+where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the coordinate transformation $y(0) - R = 0$, the governing equation becomes
+\begin{eqnarray}
+& \bar{y}'' = - \frac{1}{2} \frac{C_D \rho A y_c}{m} \bar{y}'^2
+- \frac{q E_0 t_c^2}{m y_c} \bar{E} ( \bar{y} ) 
+- \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c} \left( \frac{y_c}{R} \bar{y} + 1 \right)^{-2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = \frac{U_0 t_c}{y_c} .& \label{scaled_eqn}
+\end{eqnarray}
+We note the existence of several dimensionless groups
+\[ \mathbf{\Pi}_1 = \frac{C_D \rho A y_c}{2 m}, \hspace{5 mm}
+\mathbf{\Pi}_2 = \frac{q E_0 t_c^2}{m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_3 = \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_4 = \frac{y_c}{R}, \hspace{5 mm}
+\mathbf{\Pi}_5 = \frac{U_0 t_c}{y_c}.\]
+
+\subsection{Inertial Electro-Image Limit}
+In the limit of small $y$ and $t$ we expect inertia to scale as Coulombic and image force. In this limit we can approximate the electric field as the constant, $E_0$. One possible characteristic length scale is $y_c \sim R_d$, however this ultimately is a poor choice. With $y_c \sim U_0 t_c$ and picking $t_c$ such that Coulombic force is $\mathcal{O}(1)$, the intrinsic scales become
+\[ t_c \sim \frac{m U_0}{q E_0}, \hspace{5 mm}
+y_c \sim \frac{m U_0^2}{q E_0} .
+\]
+With these scales the governing equation then becomes
+\begin{eqnarray}
+& \bar{y}'' = -1 - \mathbb{I}\mbox{m} \left( \mathbb{E}\mbox{u}\bar{y} + 1 \right)^{-2} ,& \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 .& \label{img_limit}
+\end{eqnarray} 
+with 
+\[ \mathbb{I}\mbox{m} \equiv \frac{k q}{16 \pi \epsilon_0 R_d^2 E_0} = \mathbf{\Pi}_3, \hspace{5 mm}
+\mathbb{E}\mbox{u} \equiv \frac{m U_0^2}{q E_0 R_d} = \mathbf{\Pi}_4 ,
+\]
+where $\mathbb{I}\mbox{m}$ is the Image number, and denotes the ratio of image forces to the Coulombic force of the unperturbed field, and where $\mathbb{E}\mbox{u}$ is the electrostatic Euler number, and is a ratio of inertia to electrostatic force. With these dimensionless groups the intrinsic scales become
+\[ t_c = \mathbb{E}\mbox{u} \frac{R_d}{U_0}, \hspace{5 mm}
+y_c = \mathbb{E}\mbox{u} R_d.
+\]
+
+\subsection{Inertial Electro-Viscous Limit}
+In the limit of large $y$ and $t$ we expect droplet inertia to scale as Coulombic force and drag. In this limit we approximate the electric field as $E \approx y_c^2 E_0 y^{-2}$. In this case there are several (obvious) possible choices of scales:
+\begin{enumerate}
+\item $y_c \sim U_0 t_c$, and make Coulomb force $\mathcal{O}(1)$.
+\item $y_c \sim L$, $t_c \sim \frac{L}{U_0}$ (however, this makes Equation \ref{scaled_eqn} singular).
+\item $y_c \sim L$, $t_c \sim \left( \frac{L m}{q E_0} \right)^{1/2}$.
+\item $y_c \sim L$, and make Coulomb force $\mathcal{O}(1)$.
+\end{enumerate}
+%In Case 4, the characterisitc time is $t_c \sim \left( \frac{4 \pi R_d^2}{q E_0 L} \right)^2 $ and the non-dimensional governing equation is given by
+%\begin{eqnarray}
+%&\bar{y}'' = - \frac{C_D \rho A L}{2 m} \bar{y}'^2 - \left( \frac{L}{R_d} \bar{y} + 1\right)^{-2} ,& \nonumber \\
+%& \bar{y}(0) = \frac{R_d}{L}, \hspace{5 mm} \bar{y}'(0) = \left( \frac{4 \pi U_0^2 R_d^2}{q E_0 L^3}\right)^{1/2} = \frac{R_d}{L} \sqrt{\mathbb{E}\mbox{u}_+}.& \nonumber
+%\end{eqnarray}
+%where $\mathbb{E}\mbox{u}_+ = \frac{4 \pi m U_0^2}{q E_0 L}$ is a long time scaled electrostatic Euler number. 
+
+We prefer the approach with the greatest physical simplicity, fewest Pi terms, and that has homogeneous initial conditions. We choose Case 1, where the intrinsic scales are given by
+\[ t_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0}{q E_0}, \hspace{5mm} y_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0^2}{q E_0}.
+\]
+With this scaling the non-dimensional governing equation is 
+\begin{eqnarray}
+&\bar{y}'' = - \mathbb{D}\mbox{g} \mathbb{E}\mbox{u}_+ \bar{y}'^2 - \left( \mathbb{E}\mbox{u}_+ \bar{y} + 1 \right)^{-2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 & \label{drag_limit}
+\end{eqnarray}
+where we call $\mathbb{D}\mbox{g}$ the drag number, $\mathbb{D}\mbox{g} \equiv \frac{C_D \rho_a}{\rho_l} = \mathbf{\Pi}_1 {\mathbb{E}\mbox{u}}_+^{-1}$ and $\mathbb{E}\mbox{u}_+ = 4 \pi \frac{R_d^2}{L^2} \mathbb{E}\mbox{u}$.
+
+\section{Asymptotic Estimates}
+\subsection{Inertial Electro-Image Limit}
+The alternate scalings of the equation of motion given by Equations \ref{img_limit}, and \ref{drag_limit} are weakly non-linear differential equations in the sense that they reduce to linear equations as the parameter $\mathbb{E}\mbox{u} \rightarrow 0$. If we take $\mathbb{E}\mbox{u}$ to be a small parameter $\epsilon$, we can find an asymptotic approximation to the solution of the non-linear equation by means of a regular perturbation. In this case we use the naive expansion
+\[ \bar{y}(\bar{t}) \sim \bar{y}_0(\bar{t}) + \epsilon \bar{y}_1(\bar{t}) + \epsilon^2 \bar{y}_2(\bar{t}) \ldots \epsilon^n\bar{y}_n(\bar{t})  
+.\]
+
+By substitution of the expansion (and its derivatives) into the differential equation, and equating terms by order, and using the notation $\alpha = \mathbb{I}\mbox{m}$ (this being the equation scaled in the small-times limit), we first find the $\mathcal{O}(1)$, unperturbed, solution to the equation of motion to be
+\[{\bar{y}_{0}}{\left (\bar{t} \right )} = \bar{t} + \frac{\bar{t}^{2}}{2} \left(-1 - \alpha\right). \]
+
+Looking at this solution it is evident that if we let $\alpha=0$, the solution is the classical kinematic equation for projectile motion without drag under constant gravity, $g_0$. Continuing on with this procedure we find, (after some tedious computations, documented in in the project repository for this thesis \cite{schmidt_droplet_electro-bounce:_2017}) the higher order composite solutions to be
+\begin{eqnarray*}
+&\bar{y}(\bar{t}) = \bar{t} + \frac{\bar{t}^{2}}{2} \left(-1 - \alpha\right) + \epsilon \left(\frac{\alpha \bar{t}^{3}}{3} + \frac{\alpha \bar{t}^{4}}{12} \left(-1 - \alpha\right)\right)& \\
+&+ \epsilon^{2} \left(- \frac{\alpha \bar{t}^{4}}{4} + \frac{\alpha \bar{t}^{5}}{60} \left(9 + 11 \alpha\right) + \frac{\alpha \bar{t}^{6}}{360} \left(-9 - 20 \alpha - 11 \alpha^{2}\right)\right) + \mathcal{O}(\epsilon^3)&.
+\end{eqnarray*}
+
+In fact we, for somewhat arbitrary reasons, computed an $\mathcal{O}(\epsilon^5)$ accurate solution, but it is far to ugly to reprint here in its entirety. However, we plot these approximate short-time scaled solutions with varying values of the Image number, $\mathbb{I}\mbox{m} = \alpha$ in Figure \ref{fig:short_times}.
+%\newpage
+\begin{figure}[htb]
+    \centering
+    \resizebox{1\textwidth}{!}{\input{../figures/short_times.pgf}}
+    \caption{Non-dimensional droplet trajectories for various values of $\mathbb{E}\mbox{u}=\epsilon$, $\mathbb{I}\mbox{m}=\alpha$. The trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of $\alpha$. It should be noted that despite what is implied by these plots $\alpha$ is not necessarily completely independent of $\epsilon$, as they share $q$, and $E_0$ as common factors, $U_0 \sim R_d^2$, and $m \sim R_d^3$.}
+    \label{fig:short_times}
+\end{figure}
+These plots show a trend of decreasing time-of-flight (the time for the droplet to return to the origin, or complete a single ``bounce''), and height at apoapse with increasing values of the Image number $\alpha$. When $\alpha = 1$ the time of flight is exactly half of characteristic time scale in this regime. In the limit of small $\epsilon$ the trajectories collapse to the $\mathcal{O}(1)$ solution regardless of the Image number. In principle there is some coupling between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{m}$; notably this relationship does not depend on the electric field $E_0$ but on a charge to mass ratio. The effect of contact line hysteresis on the initial jump velocity $U_0$ will also tend to independently decohere the natural covariance between these parameters.
+
+\subsection{Inertial Electro-Viscous Limit}
+By similar arguments we find an asymptotic estimate of the trajectory in the long-times scaled regime. With $\epsilon = {\mathbb{E}\mbox{u}}_+$, where $\epsilon$ again is a small parameter, and $\beta = \mathbb{D}\mbox{g}$, the approximate solution is 
+\begin{eqnarray*}
+&\bar{y}(\bar{t}) = \bar{t} - \frac{\bar{t}^{2}}{2} + \epsilon \left(\frac{\bar{t}^{3}}{3} \left(1 + \beta\right) + \frac{\bar{t}^{4}}{12} \left(-1 - \beta\right) - \frac{\beta \bar{t}^{2}}{2}\right)&  \\
+&+ \epsilon^{2} \left(\frac{\bar{t}^{4}}{12} \left(-3 - 3 \beta - 4 \beta^{2}\right) + \frac{\bar{t}^{5}}{60} \left(11 + 10 \beta + 8 \beta^{2}\right)+ \frac{\bar{t}^{6}}{360} \left(-11 - 10 \beta - 8 \beta^{2}\right) + \frac{\beta^{2} \bar{t}^{3}}{3}\right)& \\
+ &+ \mathcal{O}(\epsilon^3)&.
+\end{eqnarray*}
+This trajectory given by this solution is shown in Figure \ref{fig:long_times}. If we assume a constant scale for the drag coefficient, $C_d \approx 0.5$, then  the Drag number $\beta = \mathbb{D}\mbox{g}$ is approximately a constant $\beta \approx 6 \times 10^{-4}$ in all of our experiments.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/long_times.pgf}
+    \caption{Non-dimensional droplet trajectories for various values of $\mathbb{E}\mbox{u}=\epsilon$.}
+     \label{fig:long_times}
+\end{figure}
+Again, the trajectory seemingly reduces to the classical $\mathcal{O}(1)$ solution for small values of of $\epsilon$. We also note that the effect of drag is very slight, appearing only as a slight correction to the higher order terms; the apoapse is very nearly equal to half the characteristic length scale. In practical terms this linearizing effect of small $\beta$ may disappear if the fluid density is much less than that of water, as in our experiments.
+ 
+By again applying a regular perturbation to the asymptotic solution with the expansion
+\[ \bar{t} \sim \bar{t}_0 + \epsilon \bar{t}_1 + \epsilon^2 \bar{t}_2 \ldots \epsilon^n\bar{t}_n  
+,\]
+and solving for the roots (that is, the times when $\bar{y} = 0$), we find an asymptotic estimate for the time-of-flight, $t_f$. The $\mathcal{O}(\epsilon^2)$ accurate time-of-flight estimate is given by
+\[t_f = 2 + \epsilon \left(\frac{4}{3} - \frac{2 \beta}{3}\right) + \epsilon^{2} \left(\frac{4}{5} - \frac{4 \beta}{3} + \frac{2 \beta^{2}}{5}\right) + \mathcal{O}(\epsilon^3).\]
+Substituting the experimental value of $\beta$ we find the time-of-flight estimate for water droplets in air to be
+\begin{equation} \label{time_of_flight}
+t_f = 2 + 1.333 \epsilon + 0.799 \epsilon^{2} + \mathcal{O}(\epsilon^3) 
+\end{equation} 
+In Figure \ref{fig:drag} we look at the effect of increasing values of ${\mathbb{E}\mbox{u}}_+$ on time-of-flight.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/drag.pgf}
+    \caption{$\mathcal{O}(\epsilon^3)$ asymptotic estimate of droplet time-of-flight as a function of $\epsilon = {\mathbb{E}\mbox{u}}_+$.}
+    \label{fig:drag}
+\end{figure}
+We see that as $\epsilon$ grows to be no longer small, the time-of-flight grows rapidly, but this behavior appears to have an asymptote at a certain critical velocity as $\mathcal{O}({\mathbb{E}\mbox{u}}_+) \rightarrow \mathcal{O}(1)$; this is an electrostatic escape velocity, $U_e$. We can find the escape velocity by solving a modified version of the equation of motion,
+\[ m u' = - \frac{q E_0}{y^2}, \]
+where $u = \frac{d y}{d t}$ is the droplet velocity. Integrating between the respective limits,
+\[m \int^{u(y)}_{U_0} u du = -q E_0 \int^y_{R_d} \frac{dy}{y^2} ,\]
+which has the solution
+\[ u(y) = \pm U_0 \left[1 + \frac{2q E_0}{m U_0^2} \left( \frac{1}{y} - \frac{1}{R_d} \right) \right]^{1/2}.
+\]
+This equation has an asymptotic velocity, $U_{\infty}$ at $y = \infty$ which is real if 
+\[ U_0 \geq  U_e = \sqrt{\frac{2 q E_0}{m R_d}},
+\]
+where $U_e$ is the escape velocity and $U_{\infty} = \sqrt{U_0^2 - U_e^2}$. The condition for the droplets to escape the electric field is then given by
+\begin{equation}\label{escape}
+{\mathbb{E}\mbox{u}}_+ > 1/8 \pi.
+\end{equation}
+Referring again to Figure \ref{fig:drag}, we suspect that there is perhaps a better choice of scaling available, as the time-of-flight estimate is not asymptotic at ${\mathbb{E}\mbox{u}}_+ = 1/8 \pi$.
+
+If the droplet escapes the electric field it will have a residual velocity $U_{\infty}$, and will be in a regime of pure inertia $\sim$ drag. The velocity will then decay as
+\[
+\bar{u}(\bar{t}) = \frac{1}{\bar{t} + 1},
+\]
+with a characteristic time $t_c \sim \frac{2 m}{C_D \rho A U_{\infty}}$, which is the halving time of the velocity. 
+
+\chapter{Methodology}
+\section{Overview}
+Mainly we are concerned about what parameters are important in electrostatic transport of relatively large (e.g. millimetric) droplets in low-gravity, and what the values of the respective dimensionless groups, namely $\mathbb{I}\mbox{m}$, $\mathbb{E}\mbox{u}$ and ${\mathbb{E}\mbox{u}}_+$ might be. To find typical vales of these parameters we used the following approach:
+\begin{enumerate}
+\item We observed spontaneous droplet jumps on charged dielectric super-hydrophobic surfaces under low-gravity conditions in a $2.1$ s drop tower, while varying the independent variables $V_d$, $\sigma$. However, this raises an interesting challenge; it is impractical to directly measure all of the key physical quantities that appear in the dimensionless groups at once in a drop tower experiment. In particular, determination of net droplet free electric charge $q$, is difficult (as high-input resistance electrometers, being notoriously fickle instruments, are not well suited to sudden 15-g decelerations). Schematic representations of the droplet jump, and of the droplet in the Cassie-Baxter 1-g initial state is shown in Figures \ref{fig:apparatus0} and \ref{fig:schematic}.
+\item Using high-speed video and image analysis software we captured the trajectories of the droplets. 
+\item We solved the inverse problem to find the key parameters by maximizing a statistical likelihood function between an observed trajectory and the trajectory predicted by a dynamical model given that certain set parameters. The best fit parameters obtained by direct-search optimization are those corresponding to the maximum likelihood experimental values. The optimization is constrained by the measurement precision of directly measured independent, and dependent variables.
+\end{enumerate}
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=0.75\textwidth]{../figures/schematic.pdf}
+ \caption{A schematic representation of the droplet initial condition, resting on the superhydrophobic surface in the Cassie-Baxter state just prior to the drop tower experiment. The variables $q$, $\sigma$, and $V_d$ are the droplet net free charge, dielectric surface charge density, and droplet volume respectively.\label{fig:schematic}}
+\end{figure}
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=0.75\textwidth]{../figures/apparatus0.pdf}
+ \caption{A schematic representation of a droplet electro-bounce experiment with labeled characteristic time and length scales, \hl{$t_c$, $y_c$} shown. Also shown are the dimensions of the superhydrophobic electret substrate.\label{fig:apparatus0}}
+\end{figure}
+
+\section{Experimental Methods}
+The DDT uses a dual capsule design, inspired by the 2.2 s facility at NASA Glenn Research Center, which decouples drag acceleration felt by the external drag shield from the experiment. The experiment then experiences approximately $1 \times 10^{-6}$g of high quality free-fall for the 2.1s required for the rig/drag shield assembly to plummet to the bottom of drop tower 6 floors below. Single droplets of distilled water, in a range of volumes ($0.01 \leq R_d \leq 0.5$ mL), were very carefully deposited on the charged superhydrophobic surface using an grounded glass syringe with $\pm $1 $\mu$L accuracy, and then dropped in the drop tower. Red dye was added to improve thresholding accuracy in trajectory digitization. Droplet trajectories were recorded using a \emph{Panasonic} HC-WX970 Camera, at 120 fps and and 1/3000s shutter speed. In a few cases where higher frame rates were needed a \emph{Nikon} 1 J1 camera with a 30mm telephoto lens was used, shooting at 400 fps. The experimental test cell was illuminated with a 6000K LED strip, with a thin semi-opaque plastic film covering to make the light diffuse.  
+
+Rather than haphazardly contact charge the surfaces with streams of water, as likely happened by accident in the experiments which inspired this inquiry, we strive for a more controlled, uniform surface charge distribution. Following from this desire, superhydrophobic electrets were prepared, with surface potentials $\varphi_s = 0.7$-$4.0$ kV. According to a review by Sessler \cite{_electrets_????}, an electret is a dielectric material with ``quasi-permanent'' electric charge in the sense that the characteristic decay period of the electret is much greater than a practical experiment time scale. Electret charge may be `true' charge in the form of surface or space charges, or polarization charges (such as bound charges). If the electret is not screened by a conductor then it produces an external electric field if the polarization and real charges do not uniformly compate each other throughout the volume of the electret. For this reason electrets are thought of as electrostatic analogs to permanent magnets (and the name \emph{electret} itself is a portmantau to that effect conjured by Heaviside in 1892 \cite{heaviside_electrical_2011}). Typical commerical electrets are Teflon type (PTFE) polymer films on the order of 10-50 $\mu$m thick with the charge being primarily real surface charge. Electrets have a plethora of applications, but most germanely they have been used in Electro-Wetting On Dielectric (EWOD) devices for low-voltage manipulation of small droplets \cite{wu_low-voltage_2010}. Real charge electrets can be produced by contact electrification, injection or deposition) of charge carriers by discharge or electron beam, ionizing radiation, or by frictional triboelectrification. Dipolar electrets by contrast are produced by a combination of polarization at elevated temperatures in a strong external electric field, followed by an annealing process. Effective surface charge densities are limited to the material dielectric strengths due to internal dielectric breakdown phenomenon (this typically occurs before external breakdown or Paschen breakdown). 
+
+We use an isothermal electret formation process using a variation of the widely applied corona-charging technique. The typical corona-charging technique uses strong inhomogenous DC electric fields to produce discharge in air at ambient conditions; the dielectric substrate is atop a grounded electrode, and there is a screening potential electrode intermediately positioned to control the surface potential (the the surface potential of the dielectric will tend to saturate at this grid potential if the material is not space-charge current limited). The corona field is usually produced by pin-shaped electrode. In air the most common charge carriers thus produced are $\mbox{CO}_3^-$ ions. This approach is known to generally produce samples with fairly uniform surface charge densities. Some work by van Turnhout in 1975 showed, using Thermally Stimulated Current (TCS) measurements, that in 4.8 mm thick polymethyl methacrylate (PMMA) polarization of the dielectric is non-uniform, due to real space-charge mostly ($\sim$90\%) residing in a thin (0.1-0.2 mm) layer near the free-surface of the sample \cite{van_turnhout_thermally_1975}. In this work we use a balanced AC corona ion source (Ptec IN5120), to direct a net neutral stream of ions towards the dielectric target, which we polarize by an electrode with a $2$ kV$+$ (absolute reference) DC-DC converter. The ion stream compensates the surface and space bound charges arising due to the polarization of the dielectric. When the DC-DC converter is switched to ground, the deposited negative ions remain on the surface. 
+
+The electret is lamina of 3-4 0.4 mm thick corona charged PMMA sheets. The electric field strength scales with the number of dielectric lamina as has also been shown in work on electret based vibrational energy harvesters \cite{wada_stacking_2012} and in water desalinization \cite{ni_desalination_2005}. 
+
+The final, superhydropobic layer, is produced by laser etching PMMA, and depositing a thin layer of PTFE on the resulting roughness topology to increase the Young's angle. The surface charge density can be modulated during the experiment using the high-voltage DC-DC converter, which can re-polarize the dielectric substrate by means of an embedded electrode, and the resulting bound charge partially or fully neutralizes the electric field due to the surface ions deposited by corona charging of the electret. The high-voltage system is armed manually before the drop and is automatically safed by a high-voltage power switching relay, which switches the load across a 100 k$\Omega$ resistor when triggered by the resumption of 1-g conditions. The safing is set by an accelerometer pin-interrupt triggered microcontroller command. The rig with a mounted experiment is shown in Figure \ref{fig:rig}. 
+\begin{figure}
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{../figures/rig.pdf_tex}
+    \caption{The droplet electro-bounce experiment hardware mounted on a drop tower rig.\label{fig:rig}}
+\end{figure}
+
+Contact angles of distilled water on the electret $\sim 150^{\circ}$. The hysteresis of the contact angle (the difference between the advancing and receding contact angles) is estimated from the roll-off angle using the method of Furmidge, 1962 \cite{furmidge_studies_1962}, and is found to be approximately $20^{\circ}$ when the surface is uncharged. The innate Young's angle hydrophobicity of the PTFE layer is enhanced by the underlying roughness length scales of the surface. We use a laser-etched pillared geometry with pillar heights $\sim 775$ $\mu$m, widths $\sim 70$ $\mu$m and pitch $\sim 100$ $\mu$m. An SEM image of the pillar geometry is shown in Figure \ref{fig:SEM}.
+\begin{figure}
+    \centering
+    \input{../figures/hysteresis.pgf}
+       \caption{Hysteresis of the contact line plotted as a function of static contact angle and roll-off angle for $1$ mL droplets.\label{fig:hysteresis}}
+\end{figure}
+
+\begin{figure}[ht]
+ \centering
+ \includegraphics[width=0.75\textwidth]{../figures/SEM.pdf}
+ \caption{SEM image of the superhydrophobic surface.\label{fig:SEM}}
+\end{figure}
+
+Surface potentials $\varphi_s$, were measured on the superhydrophobic surface using a \emph{Simco-Ion} FMX-004 electrostatic fieldmeter and the method for determination of surface charge density for low conductivity polymers described in Davies, 1967 \cite{davies_examination_1967}. This measurement was done with the superhydrophobic surfaces connected by a conductive ground plane by conductive tape, far away from the presence of other conductors. An ideal approach to determining surface charge on a dielectric surface is to screen perturbing effects of external electric fields. This is partly accomplished by grounding the fieldmeter, and by placing the dielectric sample on a grounded conductive plate backing. In this case the surface charge density is determined from
+\[ \sigma = \frac{\varphi_s \kappa}{l}, \]
+where $l$ and $\kappa$ are the thickness of the dielectric surface, and the absolute permitivity respectively. The measured surface voltage is a function of position away from the charged dielectric. In most cases this function is relatively constant at a distance about 1-2 cm away from the surface (there is some measurement error in surface voltage due to small mispositioning of the electrostatic fieldmeter, say by $\pm$1 mm). The relative dielectric constant of the PMMA sheet was measured by using a 65$\times$65 mm polished aluminum parallel plate capacitor with $C = \epsilon \epsilon_0 \frac{A}{l}$ where $C$ is the capacitance, and $A$ is the sheet area. Measuring the capacitance with 3 sample thicknesses using a GenRad 1657 RLC Digibridge, we found the relative permitivity to be $\epsilon = 3.5 \pm 0.4$.  
+
+A further consideration is the possibility of the change in total charge during a typical experimental timescale. If we consider the drop rig to be a ground (which seems reasonable given that the rig is isolated from true ground, but is at some reference voltage with respect to the surface charges on the dielectric, it also has an abundance of free charge carriers, that is, if it is conductive), then there will be both bulk and surface decay of the charge on the dielectric. The evolution of the charge can in some cases be approximated by
+\[ \sigma = \sigma_0 e^{\frac{-t}{\epsilon \rho}}, \]
+where $\sigma_0$ is the initial surface charge density, and $\rho$ is the bulk resistivity (which can also be reframed in terms of conductivity by $\rho = 1/\gamma$, where $\gamma$ is the conductivity). For an example case of a surface with an initial surface charge density $\sigma = 2.4 \times (10^{-6})$ $C/m^2$, relative permittivity $\epsilon = 3.5$ and bulk resistivity $\rho = 1.6 \times (10^{16})$ $\Omega$cm such as with the case of 2.8 mm PMMA sheet, then the time constant $\tau = \kappa \rho$ is approximately 5000 s, which is a great deal longer than the typical time period for of a drop tower experiment. We measured the charge decay with a calibrated probe at periodic intervals. There are several charge decay mechanisms: internal ones, such as Ohmic resistence, and external ones such as compensation by envonmental ionic species. The relative magnitudes of these charge transport mechanisms, and therfore the stability of the electret varies drastically depending on its initial surface potential, material properties, environment, and charging method. In the case of unshielded electrets compensation by atmospheric ions is significant \cite{perlman_electrets_1973}. Because environmental convection will tend to  maintain a gradient of these ions, sealing an electret in a container from the atmosphere will effectively halt this decay mechanism. Atmospheric humidity and water droplet condensation also significantly increase charge decay (presumably by reducing the surface resistence) \cite{haenen_characteristic_1975}. Examples of this decay can be seen in Figure \ref{fig:charge_decay} for differing numbers of dielectric lamina used in this experiment. In looking at the trends in charge decay for our electrets we notice firstly, that the decay does not appear to be exponential, as in the model described above. Secondly, we plainly see a cross-over effect in the decay of the surface potential in our electret samples, whereby the samples charged to higher initial surface potentials decayed faster and reached the lower overall final potentials. This is a well known effect in polyethylenes charged by corona \cite{ferreira_corona_1992}.
+\begin{figure}[htb!]
+    \centering
+    {\input{../figures/charge_decay.pgf}}
+       \caption{Charge decay in the dielectric laminates for differing numbers of layers.\label{fig:charge_decay}}
+\end{figure}
+\newpage
+
+\section{Data Munging}
+Digitization of droplet trajectories requires several steps of post-processing. Video is first decomposed into a sequence of still images. Trajectories are captured using the particle tracking module in \emph{Fiji} \cite{schindelin_fiji:_2012}, a derivative of the popular \emph{ImageJ} \cite{schneider_nih_2012} package for scientific image analysis. The series is stabilized to remove the effect of drop transients from the kinetmatic data \cite{li_image_2008}. The series of still images is cropped, and the background (that is, the low-entropy pixels) of the series is removed using a built-in ``rolling ball'' algorithm. Each still is then split into its constituent RGB maps. In this case the green channel images contained the most information, so these were then globally thresholded using the Triangle algorithm to recover a map of the pixels corresponding to the droplet's approximate position in the original still. Ellipses are fitted to the pixel map stepping through the time series to determine the positions of the center of mass, and the semi-major and minor axes of the droplets during the drop. Finally, a perspective correction is applied to the center-of-mass positions. 
+
+The code used in this work, as well as the raw data, and the make files for this thesis are archived on the open-source project portal Github \cite{schmidt_droplet_electro-bounce:_2017}.
+
+\section{Parameter Estimation}
+Using various scaling arguments we have gleaned from our simple model a series of non-dimensional numbers characteristic of droplet bounce apoapses and times of flight, but these dimensionless groups depend on a set of physical parameters. Unfortunately not all of these parameters are physically practical to accurately measure by experiment. Droplet free charge $q$, in particular, could in principle be directly measured by collecting the charged drops in a faraday cup under low-g and measuring the change in capacitance of the cup using a very high input-resistance electrometer, but this is a problematic experiment to set up in a drop tower from a practical standpoint. The other state variables we can directly measure by experiment with varying levels of accuracy. To measure the charge, $q$, we instead turn to parameter estimation techniques. Our work flow to identify this parameter is as follows:
+\begin{enumerate}
+\item Experimentally vary $V_d$, $\sigma$ and capture droplet trajectories using a high-speed camera.
+\item Digitize droplet trajectories by using automatic tracking of ellipse-fitted centers of mass on the thresholded video.
+\item Slice droplet trajectories by their bounce minima, and apply a smoothing filter.
+\item Extract the droplet charge (and other experimental parameters) by maximizing the log-likelihood of the data given the dynamical model and parameters, by varying the parameter vector using a direct search optimization. 
+\end{enumerate}
+
+Mathematically we state that we find the parameters $\mathbf{x}$ that solve the inverse problem $G(\mathbf{x}) = \mathbf{d}$, using a direct search method (\emph{Nelder-Mead}). 
+\[
+\mbox{min} \hspace{2 mm} \chi^2 = \mbox{min} \hspace{2 mm} \sum^n_{i=1} \frac{\left({y_d(t)}_i - y_G(t, \mathbf{x})_i \right)^2}{y_G(t, \mathbf{x})_i}
+\]
+\begin{eqnarray*} \mbox{} \hspace{2 mm} \begin{split} \mathbf{x} = \left\{ \begin{array}{ll}      & q\\
+		  &	V_d\\
+          & \sigma 
+          \end{array} \right. 
+          \end{split} \hspace{2 mm} \mbox{subject to constraints} \hspace{2 mm} \begin{split}
+          g = \left\{ \begin{array}{ll}
+           V_d &\pm \hspace{2 mm} u_{exp}\\
+      	   \sigma &\pm  \hspace{2 mm} u_{exp}\\
+      	   y_0 &\pm \hspace{2 mm} u_{exp}\\
+      	   t_0 &\pm \hspace{2 mm} u_{exp}\\
+          \end{array} \right. 
+          \end{split}
+\end{eqnarray*}
+where $y_G(t, \mathbf{x})$ is a numerical solution of the equation of motion
+\[
+m y'' = \frac{1}{2} \rho C_D A_d {y'}^2 + q E(y) + K q^2 y^{-2} \]
+
+\subsection{Inverse Problems}
+Suppose we have a model $G(\mathbf{x})$, with a vector of parameters $\mathbf{x}$, and set of (noiseless) observations $\mathbf{d}$, then we naturally expect there to exist a relationship 
+\[G(\mathbf{x}) = \mathbf{d} ,\]
+where the operator $G$ might be an ODE. Suppose the model $G(\mathbf{x})$ is the ODE
+\[ y'(t) = f(t, \mathbf{y}; \mathbf{x}), \hspace{1 mm}  \mathbf{y} \in \mathbb{R}^n, \]
+and a collection of $n$ measurements of experimental data
+\[ \mathbf{d} = \left( t_1, \mathbf{y_1} \right), 
+\left( t_2, \mathbf{y_2} \right), ... ,
+\left( t_k, \mathbf{y_k} \right).\]
+The process of fitting a function, defined by a collection of parameters, to a data set is called the discrete inverse, or parameter estimation problem (as opposed to the \emph{forward problem} to find $\mathbf{d}$ given $\mathbf{x}$ and $G(\mathbf{x})$). This is a familiar procedure when the determination of model parameters is done using linear or polynomial regression. However there are approaches even to fitting an arbitrary function to a noisy and sparse dataset. In this work we use the conventional Maximum Likelihood Estimate (MLE) method to identify the model parameters.
+
+Using MLE we don't ask the question: ``what is the probability that my set of model parameters is correct?''(because the probability is very nearly zero!), but rather ``given my set of model parameters, what is the probability that this data set occurred (what is the likelihood of the parameters given the data)?''. Bayes' Theorem holds that
+\[\mbox{prob}(X|D, I) = \frac{\mbox{prob}(D|X,I) \times \mbox{prob}(X|I)}{\mbox{prob}(D|I)}\]
+where $D$ are our observations (dataset), $X$ is our vector of parameters, and $I$ is general background information about the problem including our mathematical model (for instance the ODE above), and 
+\[\begin{array}{lll}
+& \centering \mbox{prob}(X|D, I) & \mbox{posterior probability density function},\\
+& \centering \mbox{prob}(D|X, I) & \mbox{likelihood function},\\
+& \centering \mbox{prob}(X|I) &  \mbox{prior probability density function},\\
+& \centering \mbox{prob}(D|I) &  \mbox{evidence}.
+\end{array}
+\]
+The posterior probability density function (PDF) $\mbox{prob}(X|D, I)$, is ultimately what we want to estimate, the prior PDF $\mbox{prob}(X|I)$, reflects our knowledge of the system, and the evidence $\mbox{prob}(D|I)$, is the likelihood of the data based on our knowledge. We also note that since it only makes sense to compare the conditional PDF's for the same data, we can ignore the denominator (that is, the evidence). We further note that the prior $\mbox{prob}(X|I)$, is fixed before our observations and so can be
+treated as invariant to our problem. We can therefore infer that $\mbox{prob}(X|D, I) \propto \mbox{prob}(D|X, I)$. The MLE for the the model parameters $\mathbf{x_0}$, then is given by the maximum of the posterior PDF, which is equivalent to the solution of the ODE given the the parameters $\mathbf{x}$, that produces the highest probability of the observed data. Since the likelihood $\mathcal{L}(\mathbf{x}) = \prod_i^n \mathcal{P}_i$, and the probability $\mathcal{P}$, of any single observation is less than one, then the total likelihood which is the product of a large number of probabilities tends to be vanishingly small. The more well behaved log-likelihood is given by
+\[\mathcal{M} = \ln(\mathcal{L}) = \ln(\mbox{prob}(D|X, I)) = \mbox{const} - \frac{\chi^2}{2}\]
+where 
+\[
+\chi^2 = \sum^n_{i=1} \frac{\left({y_d}_i - {y_G}_i \right)^2}{{\sigma_d}_i^2}
+\]
+is the $\chi^2$ goodness-of-fit, $y_d = y_d(t)$ is a observation of droplet position at a point in time, and $y_G =  y_G(t, \mathbf{x})$ is the droplet position predicted by the solution to the equation of motion at time $t$, and $\sigma$ is the standard error of the position measurement. If the number of data points $n$, is small was can use the Poisson error $\sigma_d^2 = {y_G}$. The optimal parameter set is the one with the highest probability of observing the data (the maximum of the posterior PDF) and can be determined by maximizing the log-likelihood $\mathcal{M}$ (or minimizing $\chi^2$) of the data $\mathbf{d}$ with respect to the parameter set $\mathbf{x}$. Thus parameter estimation is a variety of optimization problem.
+
+\subsection{Smoothing}
+All optimization methods, whether explicitly or implicitly, follow gradients towards an optimum. In a parameter estimation problem, if we approximate these gradients by finite differences, then the noise manifests itself as amplification of the roughness in the hyper-response surface. Gradient based optimizers do poorly in these situations because they tend to converge to local minima. While so called gradient free algorithms offer an improvement in this regard, speed of convergence and the quality of the MLE is improved by smoothing the objective function. This is equivalent to smoothing the underlying dataset.
+
+Our choice of smoothing approach depends principally on the nature of the errors in the dataset. The sources of error include misalignment of the camera, error in the fiduciary length scale, perspective due to objects (subject or reference scale) being out of the photographic plane, and various errors arising in the digitization process (including the difference between the thresholded ellipse fitted centroid and the true centroid of the non-ellipse drop centroid). Some of these errors are systematic in origin and introduce consistent biases into the data (e.g. coherent spectral sources, rather than truly stochastic noise). Data smoothing does little to help systematic errors in that they are usually of lower frequency than the signal. Random errors, by contrast, are assumed to have a Gaussian distribution (by the central limit theorem), and are independent of the signal (which inherently results from a deterministic process).
+
+We experimented with a variety of filters implemented in the \verb|scipy.signal| Python \emph{SciPy} \cite{oliphant_python_2007} module on a representative set of trajectory data; these methods include 1D Gaussian convolution, Wiener, Butterworth, and Savitsky-Golay filters. Qualitatively comparing these smoothing methods (by hand tuning filter orders and window sizes) we find that we loose too many data points in the smoothing process, large amplitudes are overly smoothed by repeated filtering passes, or there are significant end effects for most of these methods. A comparison of these smoothing approaches on a representative trajectory data set is shown in Figure \ref{fig:y_filtered}.
+\begin{figure}
+    \centering
+    \input{../figures/y_filtered.pgf}
+       \caption{The underlying signal is `noisy', due partially to deterministic errors in determining the center of mass position. These deterministic errors are largely due to droplet oscillations, especially the rapidly damped higher harmonics which do not have azimuthal symmetry. There is also Gaussian error in the ellipse fitting due to thresholding and noise in the video itself. We see that 1D Gaussian convolution and Wiener filters suffer from significant end effects. At this scale Butterworth and Savistsky-Golay filters are nearly indistinguishable.}
+      \label{fig:y_filtered}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{../figures/dy_filtered.pgf}
+    \caption{Comparing the first derivatives of the Butterworth and Savitsky-Golay filters we see that the Butterworth filter also suffers from a slight end effect. This implies that the optimization will find a different optima of the likelyhood depending on which type of filter is used.\label{fig:dy_filtered}}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \input{../figures/power_spectra.pgf}
+    \caption{The power spectra has a peak at 1 Hz, which is the droplet trajectory parabola itself, and smaller peaks in the kHz range corresponding to various noise frequencies. The Savitsky-Golay and Butterworth filters seem to have the least distortion of the power spectra of the true signal. Both also do a good job of attenuating the noise at the 2 kHz peak. \label{fig:power}}
+\end{figure}
+The Savitsky-Golay, and Butterworth filters both produce fairly smooth derivatives as can be seen in Figure \ref{fig:dy_filtered}; but the small window-size needed for Butterworth filter tends to also produce a noticeable end effect. The Savitsky-Golay filter essentially uses a moving-window based on local least-squares polynomial approximations. It was shown that fitting a polynomial to a set of input samples and then evaluating the resulting polynomial at a single point within the approximation interval is equivalent to discrete convolution with a fixed impulse response \cite{savitzky_smoothing_1964}. A beneficial property of this kind of low-pass filter is their tendency to maintain waveform amplitudes, and so they are attractive in applications having noisy signals with sharply pointed waveforms such as ultrasound or synthetic aperture radar \cite{schafer_what_2011}. Because Savitsky-Golay is a Finite Impulse Response (FIR) filter it requires data points to be equally spaced; to accommodate this requirement we interpolate points between the small gaps which sometime occur in the tracking results from image analysis. We use a moving window size slightly smaller than the length of the current bounce in a single drop jump data set. The windows are piecewise defined by partitioning the data set into a series of individual bounces (the dataset is sliced at minima identified after an initial rough smoothing pass, using the \verb|scipy.signal.argrelextrema()| function). The Savitsky-Golay polynomial order is 4. 
+
+To understand how these filters differ it is useful to look at their frequency response. In Fourier space, convolution becomes a multiplication, and we can understand what a filter does by looking at which frequencies it lets pass through. We can do this using a Discrete Fourier Transform (though it is worth noting that our signal is not truly periodic). The power spectra for these same data are shown in Figure \ref{fig:power}. 
+
+\subsection{Optimization}
+Most generally a constrained optimization problem is stated as 
+\[
+\begin{array}{lll}
+\mbox{minimize:} & \hspace{2 mm} f\left(\mathbf{x}\right) & \mbox{objective function}\\
+\mbox{subject to:} & & \\
+& \centering g_j \left( \mathbf{x} \right) \leq 0 & \mbox{inequality constraints}\\
+& \centering h_k \left(\mathbf{x} \right) = 0 & \mbox{equality constraints}
+\end{array}
+ \]
+\[ 
+\begin{array}{ll}
+\mbox{where} \hspace{2 mm} \mathbf{x} = \left\{ \begin{array}{ll}
+x_1 & \\
+x_2 & \\
+\vdots &\\
+x_n &
+\end{array} \right. & \mbox{design variables}
+\end{array}
+\]
+
+Mathematical optimization is the problem of finding minima of a function $f$. In this context the function is called the cost, or objective function. The field of mathematical optimization is as old as calculus itself, and the number of particular optimization techniques is correspondingly myriad; particular techniques lend themselves well to particular types of optimization problems. The minima of the objective function $f$ is sought on a domain $A$ specified by the constraints of the problem; this domain is usually called the feasible region. Minima of objective function $f: A \rightarrow \mathbb{R}^m$ are called feasible solutions. If the function $f$ is convex the feasible solution is the global minimum, otherwise additional local minima exist. The scale of the optimization problem is set ultimately by dimensionality of the objective function. Functions may not always be smooth in the sense of having continuous derivatives, and this is problematic in that optimization methods fundamentally rely on gradients of the objective function. Problems with anisotropic objective functions where there is strong covariance between the parameters, and the gradient vector generally to differ significantly from the Newton direction ($-\mathbf{H}^{-1} f' ( \mathbf{x} )^T$, where $\mathbf{H}$ is the Hessian matrix) are considered ill-conditioned. Ill-conditioned problems gradient based deterministic search tend to converge slowly as they take a zigzagging path determined by the local value of the gradient rather than following the Newton-direction vector which towards the minimum. Numerical optimization may deal with black box functions (where we do not have an explicit mathematical expression of the function we are optimizing). Black box problems are challenging because we do not have access to analytic gradients of the objective function, and approximating them by finite-differences is slow and noisy. In general, noisy, black box, non-linear, non-quadratic, non-convex, constrained, ill-conditioned, high-dimensional objective functions are problematic to optimize. Unfortunately, problems of this type are the essence of the parameter estimation, which often leads to its characterization as an `art' rather than a precise science (though we submit that it is a dark art).   
+
+The equation of motion behaves stiffly due to the large disparity in Coulombic, image charge length scales. We integrate it numerically using the \verb|odeint| \emph{Scipy} module. This is a shake-and-bake Python wrapper for the venerable 1982 \emph{netlib ODEPACK} library double-precision \verb|lsoda| (Livermore Solver for Ordinary Differential equations with Automatic method switching for stiff and nonstiff problems) integrator \cite{hindmarsh_odepack_1983}. The function switches between Adams (nonstiff) and Backwards Differentiation Formulas (BDF, stiff) according to the dynamic value of a set of stiffness eigenvalues.
+
+Our specific optimization problem is non-convex, mixed discrete-continuous black-box (noisy), and highly ill-conditioned which is essentially the worst case scenario for an optimization problem. The ill-conditioning arises due to the strong covariance between several of the model parameters (particularly $q=q(V_d, E_0)$). The non-convexity of the problem implies that there are many local minima of the objective function. While in principle a gradient-based optimizer (for instance using the quasi-Newton method of Broyden, Fletcher, Goldfarb, and Shanno (BFGS) \cite{_numerical_????}) could be used by using finite-differences to obtain approximate gradients of the $\chi^2$ objective function, in practice doing so is extremely problematic because the noise-to-signal ratio of the objective function scales like $\mathcal{O}(f)$ for $\frac{df}{dt}$ and $\mathcal{O}(f^2)$ for $\frac{d^2f}{ft^2}$ which will tend to cause convergence to a local minima which is only an artifact of the likelihood response surface \cite{wood_data_1982}. As a further practical matter, given the relatively expensive function-calls (which requires solving a stiff, non-linear ODE) gradient-free approaches tend to offer better performance regardless \cite{kolda_optimization_2003}.  
+
+We use a gradient-free, direct-search approach: Nelder-Mead \cite{nelder_simplex_1965} implemented in \verb|scipy.optimize|. Nelder-Mead is robust to noise (relatively speaking), and is thrifty with our extremely expensive function-calls.  \emph{Nelder-Mead}, sometimes called simplex-search or downhill-simplex, is a heuristic search method, with no guarantee of optimal solutions, but is well-established and widely used despite that. \emph{Nelder-Mead} is based on the concept of a $N$-simplex, which generalizes a triangle into higher dimensions as a polytrope of $N + 1$ vertices in $N$ dimensions. It uses only-function calls and expands or contracts the simplex according to the function values at its vertices in a way visually reminiscent (in $\mathbb{R}^3$) of the oscillations of the jumping droplets themselves (in fact \emph{Nelder-Mead} is sometimes also called the ``amoeba method''). Very little is known about the convergence properties of the \emph{Nelder-Mead} algorithm in its classical form for non-smooth objective functions \cite{price_convergent_2002}, except that in general it doesn't satisfy the properties required for convergence by other direct search algorithms: that the simplex remains uniformly non-degenerate, and that some form of ``sufficient'' descent condition for function values at the vertices is required at each iteration. Scaling can help solve convergence problems and improve numerical stability. We precondition the optimization problem by minimizing $\ln(\chi^2)$, and using a naive scaling (scaling variables such that their magnitudes $\sim \mathcal{O}(1)$) of our constraints by their initial guesses. Here is goal is to make the problem equally sensitive to steps in any direction. \emph{Nelder-Mead} is not a global optimizer, though there are variants which use sequential local searches with probabilistic restarts to achieve globality. However global optimization usually comes at a tremendous computational cost. However, \emph{Nelder-Mead} behaves less locally than many gradient-based approaches. The convergence history of the parameter MLE using \emph{Nelder-Mead} for a single drop jump experiment is shown in Figure \ref{fig:convergence}. Results of the parameter estimation are shown in Figures \ref{fig:trajectories}, \ref{fig:inverse_problem}.
+
+\begin{figure}[h]
+    \centering
+    \input{../figures/convergence.pgf}
+    \caption{As is typical with \emph{Nelder-Mead} much of the improvment in $\chi^2$ is realized in the first few iterations. Overall the rate of convergence is sub-linear, which is to be expected for non-linear constrained problems using an hueristic algorithem.\label{fig:convergence}}
+\end{figure}
+
+%\newpage
+\begin{figure}[h]
+    \centering
+    \resizebox{\textwidth}{!}{\input{../figures/jump_matrix.pgf}}
+    \caption{A series of filtered droplet trajectories arranged by increasing apoapse. The blue dots represent either the beginning and end of the experiment, or points at which the droplet is either coming into, or leaving contact with the surface.}
+    \label{fig:trajectories}
+\end{figure}
+%\newpage
+\begin{figure}[h]
+    \centering
+    \resizebox{\textwidth}{!}{\input{../figures/inverse_problem.pgf}}
+    \caption{A series of droplet trajectories showing the results of the parameter estimation. The trajectories are shown only up to the apoapse of the first bounce. The red lines show the ODE solution with given the MLE parameter vector. $\chi^2$ goodness-of-fit varies between $1 \times 10^{-5}$ and $1 \times 10^{-8}$ with the better fit occurring typically for the droplets with the lowest apoapses.}
+    \label{fig:inverse_problem}
+\end{figure}
+%\newpage
+
+\subsection{Identifiability}
+That we are capable of fitting any arbitrary model to a dataset given sufficient degrees of freedom in our parameters is admittedly a disconcerting issue, begging the question ``given the structure of the model is it possible to uniquely estimate the unknown parameters?'' This question is called the problem of identifiability. However, some of the inverse model parameters are constrained by our experimental observations of them and their associated measurement uncertainties. This, we hope, makes the specter of an over fit model less frightening, but does convert our unconstrained optimization problem to an constrained one which raises special difficulties of its own, which we discuss below. 
+
+The \emph{Nelder-Mead} direct search method cannot be used with explicitly constrained problems. However, there are various implicit approaches to (approximately) solving general constrained problems using unconstrained algorithms. Generally, this is achieved by domain transformations or the use of penalty functions.  By the addition of a penalty function which depends in some way on the values of the constraints to the objective function, we minimize a pseudo-objective function where the in feasibility of the constraints is minimized simultaneously to the objective function. 
+
+There are various penalty function schemes. We use an Exterior Penalty Function as a simple way of converting converting the constrained problem into an unconstrained one. These are are especially useful in cases where the constraints are not ``hard'' in the sense that they need to be satisfied precisely. General penalty functions, which are sequential unconstrained minimization techniques, reformulate the general constrained problem as the pseudo-objective function given by
+
+\[ \phi(\mathbf{x}, r_p ) = F(\mathbf{x}) + r_p P(\mathbf{x}) \]
+where $P \left( \mathbf{x} \right)$ the penalty function, is given by
+\begin{equation} \label{exterior}
+ P( \mathbf{x} ) = \sum_{j = 1}^m \left\lbrace \mbox{max} \left[ 0, g_j(\mathbf{x} ) \right] \right\rbrace^2 + 
+\sum_{k = 1}^l \left[ h_k( \mathbf{x}) \right]^2 .
+\end{equation}
+We see from Equation \ref{exterior} that there is no penalty if the constraints $g_j(\mathbf{x})$, and $h_k(\mathbf{x})$ are satisfied.
+ 
+The Exterior Penalty Function specifically (and all Penalty Function approaches in general) do have several drawbacks. Namely these include the possibility of the objective function being undefined outside of the set of feasible solutions. Additionally, by naively ``encouraging'' feasibility of the solution using large values of the penalty parameter, $r_p$, we will tend to ill-condition the unconstrained formulation of the problem (though in our implementation the preconditioning tends to make the pseudo-objective function less and less sensitive to the constraints as the likelihood is approaches a maximum). We use the the measured values of $u_0$, $V_d$, and $E_0$, and the informed guess $q \approx k V_d^{2/3} E_0$ where k is a constant $k \approx 1 \time 10^{-11}$ as an initial guess for the parameter vector $\mathbf{x}$. We stop the optimization after 300 iterations rather than waiting for convergence.
+
+We're interested in the variance and co-variance as a means to determine the quality if the parameter estimate. The $\left( i, j \right)$-th element of the matrix $\sigma (\mathbf{x}, \mathbf{y})$ is equal to the covariance $\mbox{cov}(X_i, Y_j)$ between the $i$-th scalar component of $\mathbf{x}$ and the $j$-th scalar component of $\mathbf{y}$. Here the concept of error bars in linear correlation associated with a covariance matrix are not suitable. We might try to generalize the idea of confidence intervals to a multidimensional space, but it is likely difficult to describe the surface of the (smallest) hyper-volume containing 90\% of the probability with just a few numbers. The situation becomes worse if the probability density function has several maxima. However, there is another approach to find the covariance matrix [ref] 
+\[ \left[\sigma^2 \right]_{ij} = -\left[ \left( \nabla^2 \mathcal{L}\right)^{-1}\right]_{ij} = 2 \left[ \nabla^2 \left( \chi^2\right)\right]_{ij}^{-1} = -\left[H^{-1} \right]_{ij}\]
+where $H$ refers to the Hessian matrix and $\left[\sigma^2 \right]_{ij}$ is the covariance matrix $C$. The issue of identifiability is especially fraught for non-linear, black box type problems were it is difficult to explicitly evaluate the Hessian. 
+The likelihood function (and thus the posterior probability density function) are defined completely by the optimal solution $\mathbf{x}$ and the second derivative of $\mathcal{L}$ at the maximum, which corresponds to the covariance matrix $C$. The standard errors (marginal variances) are the square roots of the diagonal of the covariance matrix. The Hessian matrix must be negative definite for $\mathcal{L}$ to have a maximum at $\mathbf{x_0}$. We obtain an approximate Hessian using the approach suggested in Nelder's original paper, by fitting quadratics to the simplex vertices and midpoints \cite{nelder_simplex_1965}\cite{spendley_sequential_1962}. We can use the condition number
+\[ \mbox{cond} (H) = \frac{\mbox{max}[\mbox{eig}(H)]}{\mbox{min}[\mbox{eig}(H)]} \]
+to make a qualitative assesment of the stability of the problem. We find typical condition numbers $\sim \mathcal{O}(10^{27})$. In fact, in many cases our Hessian is not negative definite, or invertible at the minmia $\mathbf{x}_0$, which implies negative values of the variances (which is impossible). These issues indicate the problem is extremely ill-conditioned near the minima $\mathbf{x_0}$. Given that the parameter estimates are highly colinear, it is unsuprising that the Hessian matrix is near-singular and its inversion is either impossible or involves significant numerical error. Posteriori verification of the results is crucial to bound the identifiability of the parameter estimation problem, but it remains as future work. Several sources suggest senstivity analysis of the parameter estimates by generation of synthetic Monte Carlo data sets as a means of establishing identifiability \cite{bevington_data_1969}\cite{jaqaman_linking_2006}.
+
+\chapter{Results}
+\section{Charge Estimates}
+We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. A covariance plot of the model variables is shown in Figure \ref{fig:scatter}. The multicollinear dependence of charge on droplet surface area, $A$, and the characteristic electric field, $E_0$, is evident. Assuming the main effect is the interaction between charge and electric field, a Robust Least Squares model fit $q \sim kAE_0$ (using the Python \verb|statsmodels.formula.api.RLM| function), with the non-linear transformation $A = V_d^{2/3}$, found that $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ with $R^2 = 0.946$. This model uses Huber's T norm, median absolute scaling, and H1 covariance estimation. A contour plot showing the estimated droplet free charge as a function of $V_d$ and $\varphi_s$ is shown in Figure \ref{fig:charge}.
+\begin{figure}[htb]
+    \centering
+    \resizebox{12cm}{!}{\input{../figures/scatter.pgf}}
+    \caption{A simple EMA plot.\label{fig:scatter}}
+\end{figure}
+\begin{figure}[htb]
+    \centering
+    \input{../figures/charge.pgf}
+    \caption{A simple EMA plot.\label{fig:charge}}
+\end{figure}
+
+A two-ways T-test comparison of charge distributions between the droplet bounce experiment and a corollary experiment with zero electric field at the time of droplet deposition on the superhydrophobic surface suggests that the droplet charge is induced by the electric field, rather than through contact charging on the PTFE layer ($t = 5.11, p = 0.0002$). The T-test informs us that the charge distribution  are about 5 times more different from each other as they are within each other, and there is a 0.02$\%$ probability that this result happened by chance. This corollary experiment is documented in Appendix \ref{sec.drop_charge}.
+
+The model $q \sim kAE_0$ is incidentally very similar to the classical solution for the surface charge density of a half-spherical conductor with a field induced dipole \cite{david_j._griffiths_introduction_1999}
+\begin{eqnarray*}
+q &=& 3 \epsilon_0 E_0 \int_A \cos \theta dA \\
+&=& 3 \pi^{1/3} 6 \left(6 V_d \right)^{2/3} \epsilon_0 E_0 \int^{4 \pi/2}_{\pi / 2} \cos \theta d\theta \\
+&=& k E_0 V_d^{2/3}
+\end{eqnarray*}
+with $k \approx 1.3 \times 10^{-10}$. This is also of a similar form to the charge found by Takamatsu and coauthors for droplets falling from a grounded nozzle in an external electric field \cite{takamatsu_theoretical_1981}
+\[q = 4 \pi \epsilon_0 \beta E_0 R_d^2 \]
+with $\beta \approx 2.63$.
+
+\section{Scale Quantities}
+The dielectrophoretic force plays a very small role when droplets have net charge in a DC field; the condition to neglect the DEP force was satisfied for all experiments in the dataset. Dimensional droplet apoapses scale closely with $\mathbb{E}\mbox{u}$ as seen in Figure \ref{fig:series_s_eu}. The relative magnitudes of the simulated forces felt by the droplets is shown in Figure \ref{fig:forces}. Forces acting on the drops vary in magnitude between $\mathcal{O}(10^{-6})-\mathcal{O}(10^{-4})$ N. We see that, of the drops in the experimental dataset only the two with the largest $\mathbb{E}\mbox{u}$, $\mathbb{E}\mbox{u} \sim \mathcal{O}(1)$ could appropriately be said to be in the inertial electro-viscous regime. In all other cases image forces are much stronger than drag. For these drops $\mathbb{E}\mbox{u} \gg 1/8 \pi$, and are likely on escape trajectories. The image forces themselves rapidly become small compared to Coulomb forces for drops with apoapses $\mbox{max}\left( y\right) \gtrapprox L$, thus it is reasonable to claim that for intermediate drops Coulomb force scales as inertia, and we can neglect the effects of drag and image forces.
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series_s_eu.pgf}
+    \caption{Droplet trajectories as a function of $\mathbb{E}\mbox{u}$.\label{fig:series_s_eu}}
+\end{figure}
+\begin{figure}[htb]
+    \centering
+    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
+    \caption{Simulated forces acting on the droplet. Experiments are shown by order of increasing apoapse.\label{fig:forces}}
+\end{figure}
+
+In the non-dimensional trajectories with short-time scaling shown in Figure \ref{fig:series_s_ds}, we see that the trajectory apoapses are consistently $\mathcal{O}(1)$, but most trajectories overshoot their characteristic time scale (which predicts returns at $\bar{t}  =2$ to the first order). We also observe that that $\mathbb{E}\mbox{u}$ is not typically a small number in this regime, imperiling our use of asymptotic estimates in this regime. We can perhaps gain some insight by comparing the asymptotic estimate for return times to the scaled experiemental return times. We see in Figure \ref{fig:times} that the long-time scaled non-dimensional time of first bounce in the experiment $t_b / t_c$, compares poorly to the asymptotic estimate for returns $t_f$ as $\mathbb{E}\mbox{u}_+$ becomes large. This is very much as we'd expect, but it is also unfortunate; for small $\mathbb{E}\mbox{u}$ the asymptotic length scale could be used to improve the characteristic length scale by $t_a = t_c t_f$. We also notice a two-tailed effect in the data; for the small $\mathbb{E}\mbox{u}$ droplets, the long-time scaling distorts the return times considerably.   
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series_s_ds.pgf}
+    \caption{Non-dimensional trajectories with the short-time scaling.\label{fig:series_s_ds}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/times.pgf}
+    \caption{.\label{fig:times}}
+\end{figure}
+
+The covariance of $\mathbb{I}\mbox{m}$ with $\mathbb{E}\mbox{u}$ is shown in Figure \ref{fig:dnumbs}. Predictably, there is quite strong correlation between the dimensionless groups. We also see that $\mathbb{I}\mbox{m} < 1$ for all drops. Using an OLS regression, we find the model $\mathbb{I}\mbox{m} \sim (0.012 \pm 0.003) \mathbb{E}\mbox{u} + (0.212 \pm 0.036) $ with $R^2 =0.59$.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/dnumbs.pgf}
+    \caption{.\label{fig:dnumbs}}
+\end{figure}
+
+Finally we show several trajectories in the long-time scaled regime in Figure \ref{fig:series_l_ds}.
+\begin{figure}[htb]
+    \centering
+    \input{../figures/series_l_ds.pgf}
+    \caption{Non-dimensional trajectories with the long-time scaling as a function of ${\mathbb{E}\mbox{u}}_+$.\label{fig:series_l_ds}}
+\end{figure}
+We should note that there are several kinds of systematic error that influence our data. We assume that droplet translate purely along the central axis of the electric field, but in practice, despite the improvement in surface charge density uniformity produced by corona charging, there are still local areas of especially high charge density. In principle, this kind of error should become small for droplets which are far enough away from the charge distribution, that the geometry of the charge distribution disappears, and the electric field looks like that due to a point charge. Another form of error is in the initial velocity as it appears in $\mathbb{E}\mbox{u}$. Because we usually lose the first few frames of video due to camera shake transients at the start of the low-gravity experiment, we will consistently underestimate $U_0$ because the droplet will already have decelerated significantly during that period of time. The primary sources of random error are the effect of contact line hysteresis on the droplet initial velocity, and of the variance in the MLE parameter estimates.
+\newpage
+
+\section{Impact Dynamics \hl{[placeholder section]}}
+Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (0.5-1.5 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
+
+Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/contact.pgf}
+    \caption{.\label{fig:contact}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \input{../figures/restitution.pgf}
+    \caption{.\label{fig:restitution}}
+\end{figure}
+
+\newpage
+
+\appendix
+\appendixpage
+\noappendicestocpagenum
+\addappheadtotoc
+
+\chapter{Parallel Plate Method}
+\label{sec.drop_charge}
+Since, by the earlier scaling, we presuppose the source of the droplet bouncing behavior to be primarily Coulombic in origin (as opposed to dielectrophoretic), the droplet must have some free charge in addition to the charge induced by the electric field. Whether this free charge arises due to contact charge or field induction To measure this charge concurrent methodologies were used. We determined the droplet free charge by observation of the deflection of the droplets in the region of a known uniform field in a fashion inspired by Millikan's famous experiment to determine the fundamental charge of the electron.
+
+Droplets were jumped in free-fall from a superhydrophobic surface placed between the plates of a parallel plate capacitor of known uniform electric field. The surface was charge neutralized. Since the droplet initial velocity $U_0$ is parallel to the electric field, the droplets are inertial in the direction of the electric force, and neglecting the effect of image charges mirrored across the conductors, we can determine the magnitude of the droplet charge by a balance of Coulombic force and inertia given by the equation of motion
+
+\[ y'(t) = q\mathbf{E}. \]
+
+Since the drag is negligible in the inertial limit we can find the charge $q$ by fitting a second-order least squares polynomial to the measured droplet positions, equating the $t^2$ term to the constant acceleration, and dividing by the known, constant magnitude of the electric field.  
+
+A 200-880 VAC source with a full wave bridge rectifier circuit was prototyped on perf-board for initial experiments to measure droplet charge. The circuit was analyzed on an laboratory oscilloscope to verify that the AC component of the signal was appropriately small (13 mV at 35 kHz). Current was determined to be a relatively low 80 $\mu$A. The high-voltage source terminals were led to two parallel polished 150x150 mm aluminum plate electrodes. The electrodes were mounted on an insulated 80/20 extruded aluminum rail for ease of adjustment. All droplet charge experiments were conducted with an electrode spacing of 28.30 mm. With this spacing the calibrated electric field between the plates was $\mathbf{E} \approx 35$kV/m. The electrodes were electrically isolated from the drop rig by two alternating layers of 4 mm thick PMMA sheet and Kapton tape. Potential across the plates was measured periodically with a load-impedance corrected multimeter to account for battery depletion. The typical capacitor rise time of the plates was measured to be 1.4 s, thus to make the most economical use of the brief window a low-gravity a weighted switch was set by hand prior to the drop to close the high-voltage circuit, but which passively safed the system at the resumption of 1-g conditions in the tower. From a survey of literature we suppose the droplet charge, if they are indeed charged by contact with PTFE, to be some function of the droplet volume and the residence time on the superhydrophobic surface. However, sweeping though droplet volumes over a series of drop tower experiments we find little correlation between droplet volume  and free droplet charge.
+
+A brief screening experiment was conducted which alternated the polarity of the field by switching the positive and negative terminal leads between plates. Qualitative observations of droplet electrode preference seem to indicate that the assumption of small polarization stress was well founded. Following this a orthogonal array $3^2$ factorial design experiment with two replicates was conducted to test the effect of varying droplet volume and surface stay time on free charge at the time of jumping. It was hypothesized in accordance with previous studies [ref], that free charge would increase for levels of both factors. ANOVA analysis in \emph{R} of the linear multiple regression model for the data set indicates that neither droplet volume ($p=0.105$), nor surface stay time ($p=0.358$) is significant at the 95\% confidence level. The overall model F-statistics (2.177 in 2 and 13 degrees of freedom), and coefficients of determination ($r^2 = 0.2509$) indicate that the linear model neither fits the data particularly well, nor does it offer an improvement over the mean model. The mean charge was determined to be positive $2.3 \cdot 10^{-11}$ C, with a standard deviation of $1.8 \cdot 10^{-11}$ C.
+
+\backmatter
+\printbibliography
+\end{document}
