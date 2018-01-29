@@ -1,0 +1,153 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\begin{document}
+$\tau \sim (\rho H R^2_p/\sigma)^{1/2}$
+
+\section*{Charge}
+We find that
+\[q = k E_0 V_d^{2/3},\] 
+with $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ and $R^2 = 0.946$.
+\\
+\begin{eqnarray*}
+q = k E_0 V_d^{2/3},
+\end{eqnarray*}
+with $k \approx 1.3 \times 10^{-10}$ (Griffiths, 1999).
+\\
+\[q = 4 \pi \epsilon_0 \beta E_0 R_d^2, \]
+with $\beta \approx 2.63$, (Takamatsu \emph{et al.}, 1981).
+\\
+Surface potential $\varphi_s$ is related to characteristic electric field by
+\[ E_0  = \frac{\varphi_s \kappa}{4 \pi \epsilon l}. \]
+
+\section*{Parameter Estimation}
+We can't directly measure $q$ experimentally, but we can estimate it by fitting the dynamical model to the data. Bayes' theorem:
+\[\begin{array}{lll}
+& \centering \mbox{prob}(X|D, I) & \mbox{posterior probability density function},\\
+& \centering \mbox{prob}(D|X, I) & \mbox{likelihood function},\\
+& \centering \mbox{prob}(X|I) &  \mbox{prior probability density function},\\
+& \centering \mbox{prob}(D|I) &  \mbox{evidence}.
+\end{array}
+\]
+The Maximum Likelihood Estimate of the model parameters is found by maximizing the probability
+\[\mathcal{M} = \ln(\mathcal{L}) = \ln(\mbox{prob}(D|X, I)) = \mbox{const} - \frac{\chi^2}{2}.\]
+
+\section*{Parameter Estimation}
+Mathematically we state that we find the parameters $\mathbf{x}$ that solve the inverse problem $G(\mathbf{x}) = \mathbf{d}$, using a direct search method (\emph{Nelder-Mead}). 
+\[
+\mbox{min} \hspace{2 mm} \chi^2 = \mbox{min} \hspace{2 mm} \sum^n_{i=1} \frac{\left({y_d(t)}_i - y_G(t, \mathbf{x})_i \right)^2}{y_G(t, \mathbf{x})_i}
+\]
+\begin{eqnarray*} \mbox{} \hspace{2 mm} \begin{split} \mathbf{x} = \left\{ \begin{array}{ll}      & q\\
+		  &	V_d\\
+          & \sigma 
+          \end{array} \right. 
+          \end{split} \hspace{2 mm} \mbox{subject to constraints} \hspace{2 mm} \begin{split}
+          g = \left\{ \begin{array}{ll}
+           V_d &\pm \hspace{2 mm} u_{exp}\\
+      	   \sigma &\pm  \hspace{2 mm} u_{exp}\\
+      	   y_0 &\pm \hspace{2 mm} u_{exp}\\
+      	   t_0 &\pm \hspace{2 mm} u_{exp}\\
+          \end{array} \right. 
+          \end{split}
+\end{eqnarray*}
+where $y_G(t, \mathbf{x})$ is a numerical solution of the equation of motion
+\[
+m y'' = \frac{1}{2} \rho C_D A_d {y'}^2 + q E(y) + K q^2 y^{-2} \]
+
+\section*{Governing Equation}
+\begin{equation*}
+m y'' = - \mathbf{F}_D - \mathbf{F}_E, \hspace{5 mm} y(0) = R_d, \hspace{5 mm} y'(0) = U_0,
+\label{gov_eqn}
+\end{equation*}
+\\
+\begin{equation*}\label{force_density}
+\mathbf{F}_E = \rho_f \mathbf{E} + \frac{1}{2} \left| E \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| E \right|^2 \right) .
+\end{equation*}
+\\
+\begin{eqnarray*}
+ \mathbf{F}_E &=& q \mathbf{E} + \mathbf{F}_{DEP} + \mathbf{F}_I \\
+ &=& q \mathbf{E} + \frac{k q^2}{16 \pi \epsilon_0 } y^{-2} \hat{\mathbf{j}} + 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2, 
+\end{eqnarray*}
+\\
+\begin{eqnarray*} \label{gov_eqn_subs}
+&m y'' = - \frac{1}{2} C_D \rho A {y'}^2 - q E - \frac{k q^2}{16 \pi \epsilon_0} y^{-2}- 2 \pi R_d^3 \kappa_1 \epsilon_0 K \nabla E^2,& \nonumber \\
+&y(0) = R, \hspace{1 mm} y'(0) = U_0 .&
+\end{eqnarray*}
+\\
+We note we can neglect polarization stresses when
+\begin{eqnarray}
+\frac{ \kappa_2 \epsilon_0 K R_d^2 E_0}{q} \ll 1. \nonumber
+\end{eqnarray}
+
+\newpage
+\section*{Scaling}
+Introducing the scaled variables
+\begin{equation*}
+ \bar{t} = \frac{t}{t_c}, \hspace{10 mm} \bar{y} = \frac{y}{y_c}, 
+ \end{equation*}
+where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the coordinate transformation $y(0) - R = 0$, the governing equation becomes
+\begin{eqnarray*}
+& \bar{y}'' = - \mathbf{\Pi}_1 \bar{y}'^2
+- \mathbf{\Pi}_2 \bar{E} ( \bar{y} ) 
+- \mathbf{\Pi}_3 \left( \mathbf{\Pi}_4  \bar{y} + 1 \right)^{-2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = \mathbf{\Pi}_5&, \label{scaled_eqn}
+\end{eqnarray*}
+with
+\[ \mathbf{\Pi}_1 = \frac{C_D \rho A y_c}{2 m}, \hspace{5 mm}
+\mathbf{\Pi}_2 = \frac{q E_0 t_c^2}{m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_3 = \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R^2 m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_4 = \frac{y_c}{R}, \hspace{5 mm}
+\mathbf{\Pi}_5 = \frac{U_0 t_c}{y_c}.\]
+\section*{Scaling: short-times limit}
+With $y_c \sim U_0 t_c$ and picking $t_c$ such that Coulombic force $\mathbf{\Pi}_2 \sim \mathcal{O}(1)$, the intrinsic scales become
+\[ t_c \sim \frac{m U_0}{q E_0}, \hspace{5 mm}
+y_c \sim \frac{m U_0^2}{q E_0} .
+\]
+With these scales the governing equation is
+\begin{eqnarray*}
+& \bar{y}'' = -1 - \mathbb{I}\mbox{m} \left( \mathbb{E}\mbox{u}\bar{y} + 1 \right)^{-2} ,& \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 .& \label{img_limit}
+\end{eqnarray*} 
+with 
+\[ \mathbb{I}\mbox{m} \equiv \frac{k q}{16 \pi \epsilon_0 R_d^2 E_0} = \mathbf{\Pi}_3 = \frac{\mbox{Image force}}{\mbox{Coulomb force}}, \hspace{5 mm}
+\mathbb{E}\mbox{u} \equiv \frac{m U_0^2}{q E_0 R_d} = \mathbf{\Pi}_4 = \frac{\mbox{Inertia}}{\mbox{Coulomb force}}.
+\]
+\section*{Scaling: long-times limit}
+\[ t_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0}{q E_0}, \hspace{5mm} y_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0^2}{q E_0}.
+\]
+With this scaling the non-dimensional governing equation is 
+\begin{eqnarray*}
+&\bar{y}'' = - \mathbb{D}\mbox{g} \mathbb{E}\mbox{u}_+ \bar{y}'^2 - \left( \mathbb{E}\mbox{u}_+ \bar{y} + 1 \right)^{-2}, & \nonumber \\
+& \bar{y}(0) = 0, \hspace{1 mm} \bar{y}'(0) = 1 & \label{drag_limit}
+\end{eqnarray*}
+where $\mathbb{D}\mbox{g}$ the drag number, $\mathbb{D}\mbox{g} \equiv \frac{C_D \rho_a}{\rho_l} = \mathbf{\Pi}_1 {\mathbb{E}\mbox{u}}_+^{-1}$ and $\mathbb{E}\mbox{u}_+ = 4 \pi \frac{R_d^2}{L^2} \mathbb{E}\mbox{u}$.
+
+\newpage
+\section*{Escape Velocity}
+As ${\mathbb{E}\mbox{u}}_+$ grows, the time-of-flight grows rapidly, approaching an asymptote at a certain critical velocity; this is an electrostatic escape velocity, $U_e$. From
+\[ m u' = - \frac{q E_0 y_c^2}{y^2}, \]
+we find
+\[ u(y) = \pm U_0 \left[1 + \frac{2q E_0 y_c^2}{m U_0^2} \left( \frac{1}{y} - \frac{1}{R_d} \right) \right]^{1/2}.
+\]
+This equation has an asymptotic velocity, $U_{\infty}$ at $y = \infty$ which is real if 
+\[ U_0 \geq  U_e = y_c \sqrt{\frac{2 q E_0 }{m R_d}}.
+\]
+Drops will escape the electric field when
+\begin{equation*}\label{escape}
+{\mbox{B}^2 \mathbb{E}\mbox{u}}^3 > 1,
+\end{equation*}
+where $B^2= 8 \pi\frac{ R_d^2}{L^2}$.
+\newpage
+\section*{Asymptotic Estimate of Trajectory Apoapse}
+The scaled equation is still non-linear but we can get an approximate analytical solution by means of a regular perturbation, using the naive expansion
+\[ \bar{y}(\bar{t}) \sim \bar{y}_0(\bar{t}) + \epsilon \bar{y}_1(\bar{t}) + \epsilon^2 \bar{y}_2(\bar{t}) \ldots \epsilon^n\bar{y}_n(\bar{t})  
+,\]
+we obtain
+\begin{eqnarray*}
+&\bar{y}(\bar{t}) = \bar{t} + \frac{\bar{t}^{2}}{2} \left(-1 - \alpha\right) + \epsilon \left(\frac{\alpha \bar{t}^{3}}{3} + \frac{\alpha \bar{t}^{4}}{12} \left(-1 - \alpha\right)\right)& \\
+&+ \epsilon^{2} \left(- \frac{\alpha \bar{t}^{4}}{4} + \frac{\alpha \bar{t}^{5}}{60} \left(9 + 11 \alpha\right) + \frac{\alpha \bar{t}^{6}}{360} \left(-9 - 20 \alpha - 11 \alpha^{2}\right)\right) + \mathcal{O}(\epsilon^3).&
+\end{eqnarray*}
+
+\end{document}
