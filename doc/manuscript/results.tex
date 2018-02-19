@@ -14,6 +14,7 @@
 \usepackage{color,soul}
 \usepackage{listings}
 \usepackage{setspace}
+\usepackage{float}
 \author{Erin Schmidt}
 
 \newlength\figureheight
@@ -35,116 +36,75 @@ sorting=none
 
 \doublespacing
 \section{Charge Estimates}
-We found the distribution of mostly likely experimental net charges for a population of the droplets jumped in low-gravity. A covariance plot of the model variables is shown in Figure \ref{fig:scatter}. The multicollinear dependence of charge on droplet surface area, $A$, and the characteristic electric field, $E_0$, is evident. Assuming the main effect is the interaction between charge and electric field, a Robust Least Squares model fit $q \sim kAE_0$ (using the Python \verb|statsmodels.formula.api.RLM| function), with the non-linear transformation $A = V_d^{2/3}$, found that $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ with $R^2 = 0.946$. This model uses Huber's T norm, median absolute scaling, and H1 covariance estimation. A contour plot showing the estimated droplet free charge as a function of $V_d$ and $\varphi_s$ is shown in Figure \ref{fig:charge}.
-\begin{figure}[htb]
+We found the distribution of mostly likely experimental net charges for a population of the drops jumped in low-gravity. A covariance plot of the model variables is shown in Figure \ref{fig:scatter}. The multicollinear dependence of charge on drop surface area, $A$, and the characteristic electric field, $E_0$, is evident. Assuming the main effect is the interaction between charge and electric field, a Robust Least Squares model fit $q \sim kAE_0$ (using the Python \verb|statsmodels.formula.api.RLM| function), with the non-linear transformation $A = V_d^{2/3}$, found that $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ with $R^2 = 0.946$. This model uses Huber's T norm, median absolute scaling, and H1 covariance estimation. A contour plot showing the estimated drop free charge as a function of $V_d$ and $\varphi_s$ is shown in Figure \ref{fig:charge}.
+\begin{figure}[H]
     \centering
     \resizebox{12cm}{!}{\input{../figures/scatter.pgf}}
-    \caption{A simple EMA plot.\label{fig:scatter}}
+    \caption{Covariance plot of main parameters $E_0$, $U_0$, droplet area ($V_d^{2/3})$, and $q$.\label{fig:scatter}}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[H]
     \centering
     \input{../figures/charge.pgf}
-    \caption{A simple EMA plot.\label{fig:charge}}
+    \caption{Charge $q$, as a function of $V_d$, $\varphi_s$.\label{fig:charge}}
 \end{figure}
 
-A two-ways T-test comparison of charge distributions between the droplet bounce experiment and a corollary experiment with zero electric field at the time of droplet deposition on the superhydrophobic surface suggests that the droplet charge is induced by the electric field, rather than through contact charging on the PTFE layer ($t = 5.11, p = 0.0002$). The T-test informs us that the charge distribution  are about 5 times more different from each other as they are within each other, and there is a 0.02$\%$ probability that this result happened by chance. This corollary experiment is documented in Appendix \ref{sec.drop_charge}.
+A two-ways T-test comparison of charge distributions between the drop bounce experiment and a corollary experiment with zero electric field at the time of drop deposition on the superhydrophobic surface suggests that the drop charge is induced by the electric field, rather than through contact charging on the PTFE layer ($t = 5.11, p = 0.0002$). The T-test informs us that the charge distribution  are about 5 times more different from each other as they are within each other, and there is a 0.02$\%$ probability that this result happened by chance. This corollary experiment is documented in Appendix \ref{sec.drop_charge}.
 
-The model $q \sim kAE_0$ is incidentally very similar to the classical solution for the surface charge density of a half-spherical conductor with a field induced dipole \cite{david_j._griffiths_introduction_1999}
+The model $q \sim kAE_0$ is incidentally very similar to the classical solution for the surface charge density of a half-spherical conductor with a field-induced dipole \cite{david_j._griffiths_introduction_1999}
 \begin{eqnarray*}
 q &=& 3 \epsilon_0 E_0 \int_A \cos \theta dA \\
 &=& 3 \pi^{1/3} 6 \left(6 V_d \right)^{2/3} \epsilon_0 E_0 \int^{4 \pi/2}_{\pi / 2} \cos \theta d\theta \\
 &=& k E_0 V_d^{2/3}
 \end{eqnarray*}
-with $k \approx 1.3 \times 10^{-10}$. This is also of a similar form to the charge found by Takamatsu and coauthors for droplets falling from a grounded nozzle in an external electric field \cite{takamatsu_theoretical_1981}
+with $k \approx 1.3 \times 10^{-10}$. This is also of a similar form to the charge found by Takamatsu and coauthors for drops falling from a grounded nozzle in an external electric field \cite{takamatsu_theoretical_1981}
 \[q = 4 \pi \epsilon_0 \beta E_0 R_d^2 \]
 with $\beta \approx 2.63$.
 
 \section{Scale Quantities}
-The dielectrophoretic force plays a very small role when droplets have net charge in a DC field; the condition to neglect the DEP force was satisfied for all experiments in the dataset. Dimensional droplet apoapses scale closely with $\mathbb{E}\mbox{u}$ as seen in Figure \ref{fig:series_s_eu}. The relative magnitudes of the simulated forces felt by the droplets is shown in Figure \ref{fig:forces}. Forces acting on the drops vary in magnitude between $\mathcal{O}(10^{-6})-\mathcal{O}(10^{-4})$ N. We see that, of the drops in the experimental dataset only the two with the largest $\mathbb{E}\mbox{u}$, $\mathbb{E}\mbox{u} \sim \mathcal{O}(1)$ could appropriately be said to be in the inertial electro-viscous regime. In all other cases image forces are much stronger than drag. For these drops $\mathbb{E}\mbox{u} \gg 1/8 \pi$, and are likely on escape trajectories. The image forces themselves rapidly become small compared to Coulomb forces for drops with apoapses $\mbox{max}\left( y\right) \gtrapprox L$, thus it is reasonable to claim that for intermediate drops Coulomb force scales as inertia, and we can neglect the effects of drag and image forces.
+The dielectrophoretic force plays a very small role when drops have net charge in a DC field; the condition to neglect the DEP force was satisfied for all experiments in the dataset. Dimensional drop apoapses scale closely with $\mathbb{E}\mbox{u}$ as seen in Figure \ref{fig:series_s_eu}. The relative magnitudes of the simulated forces felt by the drops is shown in Figure \ref{fig:forces}. Forces acting on the drops vary in magnitude between $\mathcal{O}(10^{-6})$-$\mathcal{O}(10^{-4})$ N. We see that, of the drops in the experimental dataset only the two with the largest $\mathbb{E}\mbox{u}$, $\mathbb{E}\mbox{u} \sim \mathcal{O}(1)$ could appropriately be said to be in the inertial electro-viscous regime. In all other cases image forces are much stronger than drag. For these drops $\mathbb{E}\mbox{u} \gg 1/8 \pi$, and are likely on escape trajectories. The image forces themselves rapidly become small compared to Coulomb forces for drops with apoapses $\mbox{max}\left( y\right) \gtrapprox L$, thus it is reasonable to claim that for intermediate drops Coulomb force scales as inertia, and we can neglect the effects of drag and image forces.
 
-\begin{figure}[htb]
+\begin{figure}[!htb]
     \centering
     \input{../figures/series_s_eu.pgf}
-    \caption{Droplet trajectories as a function of $\mathbb{E}\mbox{u}$.\label{fig:series_s_eu}}
+    \caption{Drop trajectories as a function of $\mathbb{E}\mbox{u}$.\label{fig:series_s_eu}}
 \end{figure}
-\begin{figure}[htb]
+\begin{figure}[!htb]
     \centering
-    \resizebox{14cm}{!}{\input{../figures/forces.pgf}}
-    \caption{Simulated forces acting on the droplet. Experiments are shown by order of increasing apoapse.\label{fig:forces}}
+    \resizebox{14cm}{!}{\input{../figures/forces_all.pgf}}
+    \caption{Simulated forces acting on the drop. Experiments are shown by order of increasing apoapse.\label{fig:forces}}
 \end{figure}
 
-In the non-dimensional trajectories with short-time scaling shown in Figure \ref{fig:series_s_ds}, we see that the trajectory apoapses are consistently $\mathcal{O}(1)$, but most trajectories overshoot their characteristic time scale (which predicts returns at $\bar{t}  =2$ to the first order). We also observe that that $\mathbb{E}\mbox{u}$ is not typically a small number in this regime, imperiling our use of asymptotic estimates in this regime. We can perhaps gain some insight by comparing the asymptotic estimate for return times to the scaled experiemental return times. We see in Figure \ref{fig:times} that the long-time scaled non-dimensional time of first bounce in the experiment $t_b / t_c$, compares poorly to the asymptotic estimate for returns $t_f$ as $\mathbb{E}\mbox{u}_+$ becomes large. This is very much as we'd expect, but it is also unfortunate; for small $\mathbb{E}\mbox{u}$ the asymptotic length scale could be used to improve the characteristic length scale by $t_a = t_c t_f$. We also notice a two-tailed effect in the data; for the small $\mathbb{E}\mbox{u}$ droplets, the long-time scaling distorts the return times considerably.   
-\begin{figure}[htb]
+In the non-dimensional trajectories with short-time scaling shown in Figure \ref{fig:series_s_ds}, we see that the trajectory apoapses are consistently $\mathcal{O}(1)$, but most trajectories overshoot their characteristic time scale (which predicts returns at $\bar{t}  =2$ to the first order). We also observe that that $\mathbb{E}\mbox{u}$ is not typically a small number in this regime, imperiling our use of asymptotic estimates in this regime. We can perhaps gain some insight by comparing the asymptotic estimate for return times to the scaled experimental return times. We see in Figure \ref{fig:times} that the long-time scaled non-dimensional time of first bounce in the experiment $t_b / t_c$, compares poorly to the asymptotic estimate for returns $t_f$ in the limit of small $\mathbb{E}\mbox{u}_+$, this is due to the use on long-time scaling for drops with $y/L \ll 1$.   
+\begin{figure}[H]
     \centering
     \input{../figures/series_s_ds.pgf}
     \caption{Non-dimensional trajectories with the short-time scaling.\label{fig:series_s_ds}}
 \end{figure}
 
-\begin{figure}[htb]
-    \centering
-    \input{../figures/times.pgf}
-    \caption{.\label{fig:times}}
-\end{figure}
-
 The covariance of $\mathbb{I}\mbox{m}$ with $\mathbb{E}\mbox{u}$ is shown in Figure \ref{fig:dnumbs}. Predictably, there is quite strong correlation between the dimensionless groups. We also see that $\mathbb{I}\mbox{m} < 1$ for all drops. Using an OLS regression, we find the model $\mathbb{I}\mbox{m} \sim (0.012 \pm 0.003) \mathbb{E}\mbox{u} + (0.212 \pm 0.036) $ with $R^2 =0.59$.
-\begin{figure}[htb]
+\begin{figure}[H]
     \centering
     \input{../figures/dnumbs.pgf}
-    \caption{.\label{fig:dnumbs}}
+    \caption{Experimental covariance between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{m}$.\label{fig:dnumbs}}
 \end{figure}
 
-Finally we show several trajectories in the long-time scaled regime in Figure \ref{fig:series_l_ds}.
-\begin{figure}[htb]
-    \centering
-    \input{../figures/series_l_ds.pgf}
-    \caption{Non-dimensional trajectories with the long-time scaling as a function of ${\mathbb{E}\mbox{u}}_+$.\label{fig:series_l_ds}}
-\end{figure}
+We should note that there are several kinds of systematic error that influence our data. We assume that drop translate purely along the central axis of the electric field, but in practice, despite the improvement in surface charge density uniformity produced by corona charging, there are still local areas of especially high charge density. In principle, this kind of error should become small for drops which are far enough away from the charge distribution, that the geometry of the charge distribution disappears, and the electric field looks like that due to a point charge. Another form of error is in the initial velocity as it appears in $\mathbb{E}\mbox{u}$. Because we usually lose the first few frames of video due to camera shake transients at the start of the low-gravity experiment, we will consistently underestimate $U_0$ because the drop will already have decelerated significantly during that period of time. The primary sources of random error are the effect of contact line hysteresis on the drop initial velocity, and of the variance in the MLE parameter estimates.
 
-\begin{figure}[htb]
-    \centering
-    \input{../figures/series_m_ds.pgf}
-    \caption{.\label{fig:dnumbs}}
-\end{figure}
-\begin{figure}[htb]
-    \centering
-    \input{../figures/series_m2_ds.pgf}
-    \caption{.\label{fig:dnumbs}}
-\end{figure}
-We should note that there are several kinds of systematic error that influence our data. We assume that droplet translate purely along the central axis of the electric field, but in practice, despite the improvement in surface charge density uniformity produced by corona charging, there are still local areas of especially high charge density. In principle, this kind of error should become small for droplets which are far enough away from the charge distribution, that the geometry of the charge distribution disappears, and the electric field looks like that due to a point charge. Another form of error is in the initial velocity as it appears in $\mathbb{E}\mbox{u}$. Because we usually lose the first few frames of video due to camera shake transients at the start of the low-gravity experiment, we will consistently underestimate $U_0$ because the droplet will already have decelerated significantly during that period of time. The primary sources of random error are the effect of contact line hysteresis on the droplet initial velocity, and of the variance in the MLE parameter estimates.
-\newpage
+\section{Impact Dynamics}
+\hl{Check the Oh numbers}. Very little work to date on drop impacts outside of two regimes: first, very low $\mathbb{R}\mbox{e}$ viscous drop spreading driven by capillary forces at the contact line, and second, impacts at ``high'' $\mathbb{W}\mbox{e}$. There has been some computational work with impacts at $\mathbb{R}\mbox{e}=1.4$ (Fukai \emph{et al.}), but the results are suspect as the model neglects uncompensated Young's force at the contact line (which is the dominant spreading force for low $\mathbb{R}\mbox{e}$ impacts). Of course models for dynamic contact lines in general remain controversial, even for ordinary spreading of liquids, despite decades of work in the area. 
 
-\section{Impact Dynamics \hl{[placeholder section]}}
-Using the unique capabilities of the low-gravity environment we obtained data on dimensionless contact time and coefficients of restitution at very low Ohnesorge numbers for a range of electric Bond numbers. Despite strong electric fields (20-30 $kV/cm$) we found little evidence for wetting transitions due to excession of a critical pressure (the ``Fakir impalement''). There is no obvious trend in dimensionless contact time or coefficient of restitution with electric Bond number.
+Naivly neglecting dimensionless groups governing the dynamic contact line, the pertinent dimensionless groups for isothermal droplet impacts are the Weber number $\mathbb{W}\mbox{e} = \frac{\rho U^2 R_d}{\sigma}$, which is a ratio of droplet inertia to surface tension, the Ohnesorge number, $\mathbb{O}\mbox{h} = \frac{\mu}{\sqrt{\rho \sigma R_d}}$, which is a ratio of viscous to inertial and surface tension forces, and the Bond number, $\mathbb{B}\mbox{o}$, defined previously. The dynamics of spreading are characterized primarily by $\mathbb{W}\mbox{e}$ and $\mathbb{O}\mbox{h}$. Additionally the final stages of spreading depend strongly on $\theta_e$, which is the static contact angle. The Weber number scales the \emph{driving force} of the impact. In the more familiar case of high $\mathbb{W}\mbox{e}$ the drop liquid bulk is driven radially outward by the impact induced pressure gradient, whereas in the case of small $\mathbb{W}\mbox{e}$ the liquid is pulled outwards by capillary force (e.g. uncompensated Young's force) at the contact line. The Ohnesorge number, by contrast, scales the force that \emph{resists} spreading. For large $\mathbb{O}\mbox{h}$ the resistive force is viscous, whereas for low $\mathbb{O}\mbox{h}$ the force is inertia.
 
-Jump velocities are more strongly damped for relatively small droplet volumes in the presence of the electric fields than was shown by Attari \emph{et. al.}. This may be evidence for electrowetting paradoxically enhancing the effect of contact angle hysteresis pinning on sharp corners. (How does this tie into the coefficients of restitution problem?)
+We observe average drop impact $\mathbb{O}\mbox{h} \approx 2.18 \pm 0.36$, and  $\mathbb{W}\mbox{e} \approx 0.28 \pm 0.22$. Thus impact velocity plays little role in the spreading dynamics of the bounces, and viscous effects are important but do not dominate inertia. Notably we observe underdamped oscillations of drop interfaces during impact. according to (Schiaffino, 1997) viscous forces play a role in the final (which? describe) stage of spreading even for drop impact at very low $\mathbb{O}\mbox{h}$. In the regime of intermediate viscosity, following spreading the oscillations of the interface are damped with a characteristic time that is generally longer than the spreading time (again, given by $t_c \sim \left( \sigma / \rho R_d^3 \right)^{1/2}$). The celebrated Hoffman-Tanner-Voinov law, which relates the contact line velocity $U_c$ of an isothermal spreading process to the static contact angle $\theta_e$ to the dynamic advancing contact angle $\theta_a$ by
+\[
+\frac{\mu U_c}{\sigma} \approx \kappa \left( \theta_a^3 - \theta_e^3 \right),
+\]
+where $\kappa \approx 0.013$ is an empirical coefficient extracted from Hoffman's data. The Hoffman-Tanner-Voinov law implies that the transition between low $\mathbb{W}\mbox{e}$ inviscid and viscous regimes occurs at $\mathbb{O}\mbox{h} \sim \mathcal{O}(10^{-2})$ rather than $\mathbb{O}\mbox{h} \sim \mathcal{O}(1)$ given by a naive scaling.
 
-\begin{figure}[htb]
-    \centering
-    \input{../figures/contact.pgf}
-    \caption{.\label{fig:contact}}
-\end{figure}
+Some notes:
+\begin{itemize}
+\item{\textbf{Schiaffino, 1997}} 
+\end{itemize}
 
-\begin{figure}[htb]
-    \centering
-    \input{../figures/restitution.pgf}
-    \caption{.\label{fig:restitution}}
-\end{figure}
-
-\newpage
-\appendix
-\section{\\Droplet Charge} \label{sec.drop_charge}
-\subsection*{Parallel Plate Method}
-Since, by the earlier scaling, we presuppose the source of the droplet bouncing behavior to be primarily Coulombic in origin (as opposed to dielectrophoretic), the droplet must have some free charge in addition to the charge induced by the electric field. Whether this free charge arises due to contact charge or field induction To measure this charge concurrent methodologies were used. We determined the droplet free charge by observation of the deflection of the droplets in the region of a known uniform field in a fashion inspired by Millikan's famous experiment to determine the fundamental charge of the electron.
-
-Droplets were jumped in free-fall from a superhydrophobic surface placed between the plates of a parallel plate capacitor of known uniform electric field. The surface was charge neutralized. Since the droplet initial velocity $U_0$ is parallel to the electric field, the droplets are inertial in the direction of the electric force, and neglecting the effect of image charges mirrored across the conductors, we can determine the magnitude of the droplet charge by a balance of Coulombic force and inertia given by the equation of motion
-
-\[ y'(t) = q\mathbf{E}. \]
-
-Since the drag is negligible in the inertial limit we can find the charge $q$ by fitting a second-order least squares polynomial to the measured droplet positions, equating the $t^2$ term to the constant acceleration, and dividing by the known, constant magnitude of the electric field.  
-
-A 200-880 VAC source with a full wave bridge rectifier circuit was prototyped on perf-board for initial experiments to measure droplet charge. The circuit was analyzed on an laboratory oscilloscope to verify that the AC component of the signal was appropriately small (13 mV at 35 kHz). Current was determined to be a relatively low 80 $\mu$A. The high-voltage source terminals were led to two parallel polished 150x150 mm aluminum plate electrodes. The electrodes were mounted on an insulated 80/20 extruded aluminum rail for ease of adjustment. All droplet charge experiments were conducted with an electrode spacing of 28.30 mm. With this spacing the calibrated electric field between the plates was $\mathbf{E} \approx 35$kV/m. The electrodes were electrically isolated from the drop rig by two alternating layers of 4 mm thick PMMA sheet and Kapton tape. Potential across the plates was measured periodically with a load-impedance corrected multimeter to account for battery depletion. The typical capacitor rise time of the plates was measured to be 1.4 s, thus to make the most economical use of the brief window a low-gravity a weighted switch was set by hand prior to the drop to close the high-voltage circuit, but which passively safed the system at the resumption of 1-g conditions in the tower. From a survey of literature we suppose the droplet charge, if they are indeed charged by contact with PTFE, to be some function of the droplet volume and the residence time on the superhydrophobic surface. However, sweeping though droplet volumes over a series of drop tower experiments we find little correlation between droplet volume  and free droplet charge.
-
-A brief screening experiment was conducted which alternated the polarity of the field by switching the positive and negative terminal leads between plates. Qualitative observations of droplet electrode preference seem to indicate that the assumption of small polarization stress was well founded. Following this a orthogonal array $3^2$ factorial design experiment with two replicates was conducted to test the effect of varying droplet volume and surface stay time on free charge at the time of jumping. It was hypothesized in accordance with previous studies [ref], that free charge would increase for levels of both factors. ANOVA analysis in \emph{R} of the linear multiple regression model for the data set indicates that neither droplet volume ($p=0.105$), nor surface stay time ($p=0.358$) is significant at the 95\% confidence level. The overall model F-statistics (2.177 in 2 and 13 degrees of freedom), and coefficients of determination ($r^2 = 0.2509$) indicate that the linear model neither fits the data particularly well, nor does it offer an improvement over the mean model. The mean charge was determined to be positive $2.3 \cdot 10^{-11}$ C, with a standard deviation of $1.8 \cdot 10^{-11}$ C.
-
-\printbibliography
+%\newpage
 \end{document}

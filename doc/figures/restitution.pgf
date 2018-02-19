@@ -819,7 +819,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.424660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle We\)}%
+\pgftext[x=2.424660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \mathbf{W}\mbox{e}\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -977,6 +977,32 @@
 \pgfpathmoveto{\pgfqpoint{0.564660in}{3.541603in}}%
 \pgfpathlineto{\pgfqpoint{4.284660in}{3.541603in}}%
 \pgfusepath{stroke}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgfsetbuttcap%
+\pgfsetmiterjoin%
+\definecolor{currentfill}{rgb}{1.000000,1.000000,1.000000}%
+\pgfsetfillcolor{currentfill}%
+\pgfsetfillopacity{0.700000}%
+\pgfsetlinewidth{1.003750pt}%
+\definecolor{currentstroke}{rgb}{0.500000,0.500000,0.500000}%
+\pgfsetstrokecolor{currentstroke}%
+\pgfsetstrokeopacity{0.700000}%
+\pgfsetdash{}{0pt}%
+\pgfpathmoveto{\pgfqpoint{0.887319in}{3.107570in}}%
+\pgfpathlineto{\pgfqpoint{1.534885in}{3.107570in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{1.576552in}{3.107570in}}{\pgfqpoint{1.576552in}{3.149237in}}%
+\pgfpathlineto{\pgfqpoint{1.576552in}{3.294497in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{1.576552in}{3.336164in}}{\pgfqpoint{1.534885in}{3.336164in}}%
+\pgfpathlineto{\pgfqpoint{0.887319in}{3.336164in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{0.845653in}{3.336164in}}{\pgfqpoint{0.845653in}{3.294497in}}%
+\pgfpathlineto{\pgfqpoint{0.845653in}{3.149237in}}%
+\pgfpathquadraticcurveto{\pgfqpoint{0.845653in}{3.107570in}}{\pgfqpoint{0.887319in}{3.107570in}}%
+\pgfpathclose%
+\pgfusepath{stroke,fill}%
+\end{pgfscope}%
+\begin{pgfscope}%
+\pgftext[x=0.887319in,y=3.188974in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \mathbf{O}\mbox{h}_{\mu} = 2.2\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{4.517160in}{0.521603in}}{\pgfqpoint{0.151000in}{3.020000in}} %
