@@ -22,7 +22,7 @@
 \begingroup%
 \makeatletter%
 \begin{pgfpicture}%
-\pgfpathrectangle{\pgfpointorigin}{\pgfqpoint{5.349660in}{3.676603in}}%
+\pgfpathrectangle{\pgfpointorigin}{\pgfqpoint{5.326327in}{3.653270in}}%
 \pgfusepath{use as bounding box, clip}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -34,9 +34,9 @@
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetdash{}{0pt}%
 \pgfpathmoveto{\pgfqpoint{0.000000in}{0.000000in}}%
-\pgfpathlineto{\pgfqpoint{5.349660in}{0.000000in}}%
-\pgfpathlineto{\pgfqpoint{5.349660in}{3.676603in}}%
-\pgfpathlineto{\pgfqpoint{0.000000in}{3.676603in}}%
+\pgfpathlineto{\pgfqpoint{5.326327in}{0.000000in}}%
+\pgfpathlineto{\pgfqpoint{5.326327in}{3.653270in}}%
+\pgfpathlineto{\pgfqpoint{0.000000in}{3.653270in}}%
 \pgfpathclose%
 \pgfusepath{fill}%
 \end{pgfscope}%
@@ -234,7 +234,7 @@
 \pgftext[x=4.801998in,y=0.424381in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 14000\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=2.889660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont t (s)}%
+\pgftext[x=2.889660in,y=0.234413in,,top]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle t\) (s)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
@@ -391,7 +391,7 @@
 \pgftext[x=0.289968in,y=3.351569in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 3.5\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=0.234413in,y=2.031603in,,bottom,rotate=90.000000]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont Surface potential (kV)}%
+\pgftext[x=0.234413in,y=2.031603in,,bottom,rotate=90.000000]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \varphi_s\) (kV)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfpathrectangle{\pgfqpoint{0.564660in}{0.521603in}}{\pgfqpoint{4.650000in}{3.020000in}} %
@@ -902,8 +902,8 @@
 \pgfsetstrokecolor{currentstroke}%
 \pgfsetstrokeopacity{0.700000}%
 \pgfsetdash{}{0pt}%
-\pgfpathmoveto{\pgfqpoint{4.142707in}{3.153867in}}%
-\pgfpathlineto{\pgfqpoint{4.420484in}{3.153867in}}%
+\pgfpathmoveto{\pgfqpoint{4.142707in}{3.153868in}}%
+\pgfpathlineto{\pgfqpoint{4.420484in}{3.153868in}}%
 \pgfusepath{stroke}%
 \end{pgfscope}%
 \begin{pgfscope}%
@@ -931,7 +931,7 @@
 \pgfusepath{stroke,fill}%
 }%
 \begin{pgfscope}%
-\pgfsys@transformshift{4.281596in}{3.153867in}%
+\pgfsys@transformshift{4.281596in}{3.153868in}%
 \pgfsys@useobject{currentmarker}{}%
 \end{pgfscope}%
 \end{pgfscope}%
@@ -975,7 +975,7 @@
 \end{pgfscope}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=4.531596in,y=2.899432in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont 3 layers}%
+\pgftext[x=4.531596in,y=2.899433in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont 3 layers}%
 \end{pgfscope}%
 \end{pgfpicture}%
 \makeatother%
