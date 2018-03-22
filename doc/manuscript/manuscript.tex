@@ -103,7 +103,7 @@ Portland State University\\%[8pt]
 \section*{Abstract}
 \addcontentsline{toc}{chapter}{\numberline{Abstract}}
 \noindent
-We investigate the dynamics of spontaneous jumps of water droplets from electrically charged superhydrophobic dielectric substrates during a sudden step reduction in gravity level. In the brief free-fall environment of a drop tower, with a non-homogeneous external electric field (with strengths ~0.39-2.36 kV/cm) arising due to dielectric surface charges, body forces acting on the jumped droplets are primarily supplied by polarization stress and Coulombic attraction instead of gravity. This electric body force leads to a droplet bouncing behavior similar to well-known phenomena in 1-$g_0$, though occurring for much larger droplets ($\sim$ 0.5 mL). We show a simple model for the phenomenon, its scaling, and asymptotic estimates for droplet time of flight. The droplet trajectories are controlled primarily by the dimensionless electrostatic Euler number $\mathbb{E}\mbox{u}$, which is a ratio of inertial to electrostatic forces. For ${\mathbb{E}\mbox{u}}_+ \gg 1/8 \pi$ droplets escape the electric field. The droplet net charge, estimated to be on the order of $1 \times 10^{-9}$ C, is field-induced rather than occurring by contact charging at the (PTFE coated) hydrophobic interface. In 1-$g_0$, for Weber numbers $>$ 0.4, impact recoil behavior on a super-hydrophobic surface is normally dominated by damping from contact line hysteresis. However, for the low Bond and Ohnesorge numbers occurring in free-fall, the droplet impact dynamics additionally include electrohydrodynamic surface wettability effects. This is qualitatively discussed in terms of trends in coefficients of restitution and dimensionless contact time.
+We investigate the dynamics of spontaneous jumps of water droplets from electrically charged superhydrophobic dielectric substrates during a sudden step reduction in gravity level. In the brief free-fall environment of a drop tower, with a non-homogeneous external electric field arising due to dielectric surface charges (with surface potentials ~0.4-1.8 kV), body forces acting on the jumped droplets are primarily supplied by polarization stress and Coulombic attraction instead of gravity. This electric body force leads to a droplet bouncing behavior similar to well-known phenomena in 1-$g_0$, though occurring for much larger droplets ($\sim$ 0.5 mL). We show a simple model for the phenomenon, its scaling, and asymptotic estimates for droplet time of flight in two regimes: firstly, in short-times close to the substrate when drop inertia balances Coulombic force due to net free charge and image charges in the dielectric substrate, and secondly, in long-times far from the substrate when drop inertia balances free charge Coulombic force and drag. The droplet trajectories are controlled primarily by the dimensionless electrostatic Euler number $\mathbb{E}\mbox{u}$, which is a ratio of inertial to electrostatic forces. To experimentally determine values of $\mathbb{E}\mbox{u}$ we conduct a series of drop tower experiments where we observe the effect of droplet volume, net free charge, and static surface potential of the superhydrophobic substrate on droplet trajectories. We use a direct search optimization to obtain a Maximum Likelihood Estimate for drop net charge, as we do not measure it directly in experiment. For $B \mathbb{E}\mbox{u} /8 \pi > 1$ droplets escape the electric field, however we do not observe any escapes in our dataset. Finally, with an eye towards engineering applications we consider the results in light of the so-called low-gravity phase separation problem with a short space system design worked example problem.
 
 \clearpage
 % ========================================
@@ -339,7 +339,7 @@ subject to
 \end{equation*}
 \begin{figure}[ht]
  \centering
- \includegraphics[width=0.75\textwidth]{../figures/apparatus0.pdf}
+  \input{../figures/apparatus01.pdf_tex}
  \caption{A schematic representation of a drop electro-bounce experiment with labeled characteristic time and length scales, \hl{$t_c$, $y_c$} shown. Also shown are the dimensions of the superhydrophobic electret substrate.\label{fig:apparatus0}}
 \end{figure}
 
@@ -416,7 +416,7 @@ We plot the approximate short-time scaled solution Equation \ref{perturb_image} 
     \caption{Short-time scaled drop trajectories for various values of $\mathbb{E}\mbox{u}$, $\mathbb{I}\mbox{g}$. The trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of $\mathbb{I}\mbox{g}$. It should be noted that despite what is implied by these plots $\mathbb{I}\mbox{g}$ is not necessarily independent of $\mathbb{E}\mbox{u}$, as they share $q$, and $E_0$ as common factors, $U_0 \sim R_d^2$, and $m \sim R_d^3$.}
     \label{fig:short_times}
 \end{figure}
-These plots show a trend of decreasing time-of-flight $t_f$, which is the time for the drop to return to the origin, or complete a single ``bounce'', and height at apoapse with increasing values of $\mathbb{I}\mbox{g}$. When $\mathbb{I}\mbox{g} = 1$, $t_f$ is exactly half of characteristic time scale in this regime. In the limit of small $\mathbb{E}\mbox{u}$ the trajectories collapse to the $\mathcal{O}(1)$ solution regardless of the Image number. In principle there is some coupling between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{g}$; notably this relationship does not depend on the electric field $E_0$ but on a charge to mass ratio. The effect of contact line hysteresis on the initial jump velocity $U_0$ will also tend to independently decohere the natural covariance between these parameters.
+These plots show a trend of decreasing time-of-flight $t_f$, which is the time for the drop to return to the origin, or complete a single `bounce', and height at apoapse with increasing values of $\mathbb{I}\mbox{g}$. When $\mathbb{I}\mbox{g} = 1$, $t_f$ is exactly half of characteristic time scale in this regime. In the limit of small $\mathbb{E}\mbox{u}$ the trajectories collapse to the $\mathcal{O}(1)$ solution regardless of the Image number. In principle there is some coupling between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{g}$; notably this relationship does not depend on the electric field $E_0$ but on a charge to mass ratio. The effect of contact line hysteresis on the initial jump velocity $U_0$ will also tend to independently decohere the natural covariance between these parameters.
 
 \subsection{Inertial Electro-Viscous Limit}
 By similar arguments we find an asymptotic estimate of the trajectory in the long-time regime. The approximate solution is 
@@ -464,7 +464,7 @@ This equation has an asymptotic velocity, $U_{\infty}$ at $y = \infty$ which is 
 \]
 where $U_e$ is the escape velocity and $U_{\infty} = \sqrt{U_0^2 - U_e^2}$. If $y_c=L$ the condition for the drops to escape the electric field is then given by
 \begin{equation}\label{escape}
-\frac{1}{8 \pi} B \mathbb{E}\mbox{u} > 1.
+\frac{B}{8 \pi} \mathbb{E}\mbox{u} > 1.
 \end{equation}
 If the drop escapes the electric field it will have a residual velocity $U_{\infty}$, and will be in a regime of pure inertia $\sim$ drag. The velocity will then decay as
 \[
@@ -472,11 +472,17 @@ u^*(t^*) = \frac{1}{t^* + 1},
 \]
 with a characteristic time $t_c \sim \frac{2 m}{C_D \rho A U_{\infty}}$, which is the halving time of the velocity.
 \section{Summary}
-Notes. 
+The objective of this work is to understand the basic physics of the low-gravity drop bounce phenomenon to the point where we can make useful predictions of drop behavior for engineering purposes. To that end, in this chapter we have shown the following:
+\begin{itemize}
+\item We develop from first principles a simple 1-dimensional model of drop trajectories subject to Coulombic forces and drag under low-gravity. Drops are idealized as point charges. We find that polarization stresses are negligible, and that water drops can be modeled as ideal conductors under the conditions of our experiments.
+\item By scaling arguments we find characteristic length and time scales for both a short-times regime where inertia balances Coulombic force and forces due to image charges, and a long-times regime where inertia balances Coulombic force and drag. In both regimes a key dimensionless group appears: the electrostatic Euler number $\mathbb{E}\mbox{u}$, which is a ratio of inertia to electrostatic force. 
+\item The governing ODE is non-linear, but we find approximate analytic solutions for the drop trajectory and time of flight in both regimes by means of asymptotic expansions.
+\item We find a limiting initial velocity $U_0$ for which drop time of flight grows without bound. This electrostatic escape velocity is analogous to the gravitational escape velocity of a planet or other massive body. 
+\end{itemize} 
 
 \chapter{Methodology}
 \section{Overview}
-We are concerned mainly about what parameters are important in electrostatic transport of relatively large millimetric drops in low-gravity, and what the values of the respective dimensionless numbers might be; namely, $\mathbb{I}\mbox{g}$, and $\mathbb{E}\mbox{u}$. However, this raises an interesting challenge; it is impractical to directly measure all of the key physical quantities that appear in the dimensionless groups at once in a drop tower experiment. In particular, determination of net drop free electric charge $q$, is difficult as high-input resistance electrometers are not well-suited to sudden the 15-$g_0$ decelerations characteristic of drop tower experiments. Schematic representations of drop jump statics and dynamics are shown in Figures \ref{fig:apparatus0} and \ref{fig:schematic}. To find typical values of these parameters we use the following approach:
+We are interested mainly about which parameters are important in electrostatic transport of relatively large millimetric drops in low-gravity, and what the values of the respective dimensionless numbers might be; namely, $\mathbb{I}\mbox{g}$, and $\mathbb{E}\mbox{u}$. However, this raises an interesting challenge; it is impractical to directly measure all of the key physical quantities that appear in the dimensionless groups at once in a drop tower experiment. In particular, determination of net drop free electric charge $q$, is difficult as high-input resistance electrometers are not well-suited to sudden the 15-$g_0$ decelerations characteristic of drop tower experiments. Schematic representations of drop jump statics and dynamics are shown in Figures \ref{fig:apparatus0} and \ref{fig:schematic}. To find typical values of these parameters we use the following approach:
 \begin{enumerate}
 \item We vary the independent variables $V_d$, and $\sigma$ in a set of single-drop spontaneous drop jumps on charged dielectric super-hydrophobic substrates under low-gravity conditions in a $2.1$ s drop tower. 
 \item We capture high-speed video, and digitize the trajectories of the drops. 
@@ -713,7 +719,13 @@ The likelihood function, and thus the posterior probability density function, ar
 to make a qualitative assesment of the stability of the problem. We find typical condition numbers $\sim \mathcal{O}(10^{27})$. In fact, in many cases our Hessian is not negative definite, or invertible at the minmia $\mathbf{x}_0$, which implies negative values of the variances, which are impossible. These issues indicate the problem is extremely ill-conditioned near the minima $\mathbf{x_0}$. Given that the parameter estimates are highly co-linear, it is unsuprising that the Hessian matrix is near-singular and its inversion is either impossible or involves significant numerical error. Posteriori verification of the results is crucial to bound the identifiability of the parameter estimation problem, but this remains as future work. Several sources suggest senstivity analysis of the parameter estimates by generation of synthetic Monte Carlo data sets as a means of establishing identifiability\cite{bevington_data_1969}\cite{jaqaman_linking_2006}.
 
 \section{Summary}
-Notes.
+The objectives of our experimental work are to validate the earlier scaling results by identifying values of the physical parameters which appear in the relevant dimensionless groups. To accomplish this we conduct a series of low-gravity experiments in a 2.1 s drop tower, where we observe the trajectories of spontaneous drop jumps and rebounds from charged dielectric superhydrophobic substrates.
+\begin{itemize}
+\item  In drop tower experiments we vary the independent variables $V_d$ and $\sigma$ and capture the trajectories of the droplets using high-speed video. 
+\item We produce superhydrophobic electret substrates with surface potentials 0.7-4.0 $kV$ and contact angles $\sim 150^{\circ}$ with approximately $25^{\circ}$ contact angle hysteresis when uncharged. The dielectrics are a lamina of 3-4 corona charged 0.4 mm PMMA sheets. The electric field scales with the number of dielectric lamina. The superhydrophobic layer of the electret lamina is manufactured by laser etching a $\sim$775 $\mu$m deep square array of pillars into the PMMA sheet, followed by a PTFE spray deposition process. 
+\item We solve the inverse problem to identify key parameters which we cannot measure directly in the drop tower experiments. This is accomplished by Maximum Likelihood Estimation using constrained direct search optimization.
+\item We fail to establish the identifiability of the parameter estimate using the conventional approach of inverting the Hessian near the optima. This indicates ill-conditioning of the parameter estimation problem, likely due to large multicolinearity between the main factors $q$, $V_d$ and $\sigma$. To robustly estimate the error of the parameter estimates an alternate approach, such as the Monte Carlo method, is required.
+\end{itemize}
 
 \chapter{Results}
 \section{Parameter Estimates}
@@ -787,6 +799,8 @@ We observe average drop impact $\mathbb{O}\mbox{h} \approx 2.18 \pm 0.36$, and  
 \frac{\mu U_c}{\sigma} \approx \kappa \left( \theta_a^3 - \theta_e^3 \right),
 \]
 where $\kappa \approx 0.013$ is an empirical coefficient extracted from Hoffman's data. The Hoffman-Tanner-Voinov law implies that the transition between low $\mathbb{W}\mbox{e}$ inviscid and viscous regimes occurs at $\mathbb{O}\mbox{h} \sim \mathcal{O}(10^{-2})$ rather than $\mathbb{O}\mbox{h} \sim \mathcal{O}(1)$ given by a naive scaling.
+
+In 1-$g_0$, for Weber numbers $>$ 0.4, impact recoil behavior on a super-hydrophobic surface is normally dominated by damping from contact line hysteresis. However, for the low Bond and Ohnesorge numbers occurring in free-fall, the droplet impact dynamics additionally include electrohydrodynamic surface wettability effects. This is qualitatively discussed in terms of trends in coefficients of restitution and dimensionless contact time.
 
 Some notes:
 \begin{itemize}
