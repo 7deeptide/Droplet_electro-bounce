@@ -1,0 +1,62 @@
+%% Creator: Inkscape inkscape 0.92.1, www.inkscape.org
+%% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
+%% Accompanies image file 'scatter.eps' (pdf, eps, ps)
+%%
+%% To include the image in your LaTeX document, write
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics{<filename>.pdf}
+%% To scale the image, write
+%%   \def\svgwidth{<desired width>}
+%%   \input{<filename>.pdf_tex}
+%%  instead of
+%%   \includegraphics[width=<desired width>]{<filename>.pdf}
+%%
+%% Images with a different path to the parent latex file can
+%% be accessed with the `import' package (which may need to be
+%% installed) using
+%%   \usepackage{import}
+%% in the preamble, and then including the image with
+%%   \import{<path to file>}{<filename>.pdf_tex}
+%% Alternatively, one can specify
+%%   \graphicspath{{<path to file>/}}
+%% 
+%% For more information, please see info/svg-inkscape on CTAN:
+%%   http://tug.ctan.org/tex-archive/info/svg-inkscape
+%%
+\begingroup%
+  \makeatletter%
+  \providecommand\color[2][]{%
+    \errmessage{(Inkscape) Color is used for the text in Inkscape, but the package 'color.sty' is not loaded}%
+    \renewcommand\color[2][]{}%
+  }%
+  \providecommand\transparent[1]{%
+    \errmessage{(Inkscape) Transparency is used (non-zero) for the text in Inkscape, but the package 'transparent.sty' is not loaded}%
+    \renewcommand\transparent[1]{}%
+  }%
+  \providecommand\rotatebox[2]{#2}%
+  \ifx\svgwidth\undefined%
+    \setlength{\unitlength}{391.83999634bp}%
+    \ifx\svgscale\undefined%
+      \relax%
+    \else%
+      \setlength{\unitlength}{\unitlength * \real{\svgscale}}%
+    \fi%
+  \else%
+    \setlength{\unitlength}{\svgwidth}%
+  \fi%
+  \global\let\svgwidth\undefined%
+  \global\let\svgscale\undefined%
+  \makeatother%
+  \begin{picture}(1,0.70049003)%
+    \put(0,0){\includegraphics[width=\unitlength]{scatter.eps}}%
+    \put(0.17953135,0.03194345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$E_0$ (kV/m)}}}%
+    \put(0.39559077,0.0310911){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$q$ C}}}%
+    \put(0.60575439,0.03194345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$U_0$ (m/s)}}}%
+    \put(0.83730854,0.03194345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$V_d$ (mL)}}}%
+    \put(0.04983196,0.17147029){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$V_d$ (mL)}}}}%
+    \put(0.04983196,0.28701948){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$U_0$ (m/s)}}}}%
+    \put(0.05068431,0.45574322){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$q$ C}}}}%
+    \put(0.04983196,0.56708428){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{$E_0$ (kV/m)}}}}%
+  \end{picture}%
+\endgroup%

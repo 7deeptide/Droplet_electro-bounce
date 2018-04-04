@@ -1141,7 +1141,7 @@
 \pgftext[x=4.765383in,y=3.331189in,left,base]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle 1.0\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
-\pgftext[x=4.998408in,y=2.031603in,,top,rotate=90.000000]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \mathrm{\mathit{Bo_e}} \equiv \frac{\epsilon E_0^2 R_0}{\gamma}\)}%
+\pgftext[x=4.998408in,y=2.031603in,,top,rotate=90.000000]{\rmfamily\fontsize{10.000000}{12.000000}\selectfont \(\displaystyle \mathrm{\mathit{Bo_e}} \equiv \frac{\epsilon E_0^2 R_d}{\gamma}\)}%
 \end{pgfscope}%
 \begin{pgfscope}%
 \pgfsetbuttcap%
