@@ -1,0 +1,521 @@
+%% ****** Start of file aiptemplate.tex ****** %
+%%
+%%   This file is part of the files in the distribution of AIP substyles for REVTeX4.
+%%   Version 4.1 of 9 October 2009.
+%%
+%
+% This is a template for producing documents for use with 
+% the REVTEX 4.1 document class and the AIP substyles.
+% 
+% Copy this file to another name and then work on that file.
+% That way, you always have this original template file to use.
+
+%\documentclass[aip,graphicx]{revtex4-1}
+\documentclass[aip,reprint, floatfix]{revtex4-1}
+
+\draft % marks overfull lines with a black rule on the right
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\usepackage{pgf}
+\usepackage{color,soul}
+\usepackage{color}
+\usepackage{bm}% bold math
+\usepackage{tikz}
+\usepackage{import}
+\let\pgfimageWithoutPath\pgfimage 
+\renewcommand{\pgfimage}[2][]{\pgfimageWithoutPath[#1]{../figures/#2}}
+\begin{document}
+
+\newcommand{\redline}{\raisebox{2pt}{\tikz{\draw[-,red,solid,line width = 1.5pt](0,0) -- (5mm,0);}}}
+\graphicspath{ {../figures/} }
+
+% Use the \preprint command to place your local institutional report number 
+% on the title page in preprint mode.
+% Multiple \preprint commands are allowed.
+%\preprint{}
+
+\title{Electro-Drop Bouncing in Low-Gravity} %Title of paper
+
+% repeat the \author .. \affiliation  etc. as needed
+% \email, \thanks, \homepage, \altaffiliation all apply to the current author.
+% Explanatory text should go in the []'s, 
+% actual e-mail address or url should go in the {}'s for \email and \homepage.
+% Please use the appropriate macro for the type of information
+
+% \affiliation command applies to all authors since the last \affiliation command. 
+% The \affiliation command should follow the other information.
+
+\author{Erin S. Schmidt}
+%\email[]{Your e-mail address}
+%\homepage[]{Your web page}
+%\thanks{}
+%\altaffiliation{}
+\affiliation{Portland State University}
+
+\author{Mark M. Weislogel}
+\affiliation{Portland State University}
+
+% Collaboration name, if desired (requires use of superscriptaddress option in \documentclass). 
+% \noaffiliation is required (may also be used with the \author command).
+%\collaboration{}
+%\noaffiliation
+
+\date{\today}
+
+\begin{abstract}
+% insert abstract here
+
+We investigate the dynamics of spontaneous jumps of water drops from electrically charged superhydrophobic dielectric substrates during a sudden step reduction in gravity level. In the brief free-fall environment of a drop tower, with a non-homogeneous external electric field arising due to dielectric surface charges (with surface potentials ~0.4-1.8 kV), body forces acting on the jumped drops are primarily supplied by polarization stress and Coulombic attraction instead of gravity. This electric body force leads to a drop bouncing behavior similar to well-known phenomena in 1-$g_0$, though occurring for much larger drops ($\sim$ 0.5 mL). We show a 1D model for the phenomenon, its scaling, and asymptotic estimates for drop time of flight in two regimes: at short-times close to the substrate when drop inertia balances Coulombic force due to net free charge and image charges in the dielectric substrate and at long-times far from the substrate when drop inertia balances free charge Coulombic force and drag. The drop trajectories are controlled primarily by the dimensionless electrostatic Euler number $\mathbb{E}\mbox{u}$, which is a ratio of inertia to electrostatic force. To experimentally determine values of $\mathbb{E}\mbox{u}$ we conduct a series of drop tower experiments where we observe the effects of drop volume, net free charge, and static surface potential of the superhydrophobic substrate on drop trajectories. We use a direct search optimization to obtain a Maximum Likelihood Estimate for drop net charge, as we do not measure it directly in experiment. For $\phi \mathbb{E}\mbox{u} /8 \pi > 1$ drops escape the electric field, where $\phi$ is a substrate to drop aspect ratio. However, we do not observe any escapes in our dataset.
+\end{abstract}
+
+\pacs{}% insert suggested PACS numbers in braces on next line
+
+\maketitle %\maketitle must follow title, authors, abstract and \pacs
+
+% Body of paper goes here. Use proper sectioning commands. 
+% References should be done using the \cite, \ref, and \label commands
+\section{Spontaneous Drop Jump}
+When a nonwetting, gravity-dominated sessile drop (e.g. a puddle), which is initially at rest on a surface in the Cassie-Baxter state suddenly undergoes a large step reduction in $\mathbb{B}\mbox{o} \equiv \frac{g R^2 \Delta \rho}{\gamma}$ it will spontaneously jump away from the surface, where $g$ is the acceleration, $R$ is the characteristic interfacial length scale, $\Delta \rho$ is the difference in densities across the interface (which simplifies to $\rho$, for large $\Delta \rho$, as in the case of an air-water interface), and where $\gamma$ is the surface tension. The spontaneous drop jump was first observed experimentally in the Soviet Union by Kirko \emph{et al.} \cite{kirko_phenomenon_1970} in 1970 for drops of mercury in hydrochloric acid, and later by Wollman \emph{et al.} in 2016 for water drops in air in a set of experiments conducted using drop towers \cite{wollman_more_2016}. The kinetic energy of the jump is supplied by the defect in free surface energy as the new minimum energy surface equilibrium has approximately constant curvature. The motive force is due to the inertia of internal flows which occur as the interface deflects under the suddenly lessened $\mathbb{B}\mbox{o}$. For drops with radial symmetry and sufficiently high initial $\mathbb{B}\mbox{o}$, inward radial capillary waves coalesce at the axis, leading to geysering and creation of satellite droplets by the Rayleigh-Plateau breakup of the geyser. In the case of smaller jumping drops the capillary waves are gradually damped by viscous forces.
+
+The physics of these relatively massive drops (far beyond the 1-$g_0$ millimetric capillary length scale) at once utterly defy terrestrial expectations about the ways in which liquid `should' behave, and also are of critical practical importance to space systems design where examples of such large capillary length scale multiphase flows are commonplace.
+
+During the `rolling-up' of drops under ideal conditions, the spontaneous jump phenomenon is governed by a balance of inertia and surface tension forces, and once aloft the drop motion is nominally in a regime of pure drag. However, other forces can come into play. 
+
+We have observed jumped drops to occasionally decelerate and return to the superhydrophobic surface, rebounding multiple times in the fashion of rigid bodies bouncing under 1-$g_0$. The forces at work in such situations are presumably electrostatic in origin. A time-lapsed composite image showing an example of the phenomenon is shown in Figure \ref{fig:bounce}, and schematically in Figure \ref{fig:bounce_time}.
+\begin{figure}[htb]
+\centering
+\includegraphics[width=0.5\textwidth]{bounce}
+\caption{The trajectory of a 0.5 mL drop is captured in a composite image over a single bounce period ($\sim 1.25$ s) presented at $\approx 10$ Hz. The surface potential of the superhydrophobic dielectric is $\varphi_s = 1.25 \pm 0.41$ kV. \label{fig:bounce}}
+\end{figure}
+
+\begin{figure}[htb]
+\centering
+\resizebox{0.5\textwidth}{!}{\input{../figures/bounce_series.pgf}}
+\caption{The trajectory time-series of a 0.05 mL drop with surface potential $\varphi_s = 0.75 \pm 0.5$ kV. \label{fig:bounce_time}}
+\end{figure}
+
+We begin with some preliminary observations of the phenomenon:
+\begin{itemize}
+\item Observed maximum drop (de-)accelerations are on the order of $\sim$30 cm/s$^2$ for a range of drop volumes $0.03 \lessapprox V_d \lessapprox 0.5$ mL.
+\item The water drops are attracted to regions of high electric field. The horizontal (surface plane parallel) components of the drop trajectory usually oscillate about some central position during the experiment (except in cases of nearly pure 1-D vertical translation). For especially small drops close to the spontaneous drop jump limit ($V_d \sim$ 0.01 mL) the drops do not jump, but translate across the surface in a rolling regime until either they reach a local maximum of the electric field, or until their motion is sufficiently damped by contact line hysteresis where pinning ultimately arrests their motion.
+\item The drops appear to have net free charge. In cases of multiple simultaneous drop jumps the drops repel each other as they bounce or roll in orbital motion around regions of high field.
+\item The magnitude of the drop trajectory maxima (apoapses) appear to be related to the drop volume (mass), and initial jump velocity (inertia), and to the electric field strength.
+\end{itemize}
+
+We expect that if the drop electrostatic potential energy is greater than the release of surface energy under the sudden change in $\mathbb{B}\mbox{o}$, in the form of the drop kinetic energy, the drop will return to an equilibrium state on the charged surface which minimizes the potential.
+
+What is the origin of the electric field arising on the superhydrophobic surfaces? It is well known that water acquires positive free charge when in contact with certain polymers, especially polytetrafluoroethylene (PTFE), through a process called contact charging \cite{langmuir_surface_1938}. PTFE, on the other hand, tends to readily acquire negative charge by contact with water. The superhydrophobic surfaces used in the spontaneous drop jump experiments have thin (nanometric) PTFE coatings, and we observe that it is extremely easy to produce significant surface potentials $\varphi_s \sim$ 100-500 V by simply flowing streams of distilled water over them. A study of this water on PTFE contact charging phenomenon was conducted by Yatsuzuka \emph{et al.} \cite{yatsuzuka_electrification_1994}, who suggest that this process results from formation of an electrical double layer driven by selective adsorption of ($\mbox{OH}^-$) ions at the polymer surface; other recent work supports this hypothesis \cite{beattie_intrinsic_2006, strazdaite_water_2015}. Given the large roughness, or the ratio of projected to actual surface area, of the superhydrophobic surfaces used in the experiment, and given that the drops are initially in a Cassie-Baxter state, a somewhat electrically resistive air layer is maintained that reduces grounding of the drops despite the large potential difference between them and the surface charges.
+
+The source of the net free charge on the drops is another issue. The drop charge could be due to the contact charging mechanism mentioned previously. For instance, in a 1996 paper, NASA flight engineer Don Pettit discusses the problem of low-gravity flow induced charging of liquids, resulting ultimately from contact charging phenomenon \cite{pettit_donald_flow_????}. However, a more likely mechanism for the drop charge is field-induced charging. Field-induced charging occurs due to breakup of a conductor having a field-induced dipole (e.g., a physical separation of charge). In our work this might occur when a drop is deposited on the charged surface by a grounded syringe. The metal syringe needle tip, and the liquid in the syringe itself are essentially a ground connection which is broken when the syringe is suddenly removed in the presence of an external electric field. Field-induced charging is at work in the famous Kelvin thunderstorm, and is applied in inkjet, and electrospay technologies, where in each case the breakup is by the Rayleigh-Plateau instability. Notably, in Pettit's aforementioned discussion of contact charging of liquids in low-g, he remarks on accidental electrostatic `hula-ing' of silicone oil drops when ejected from a syringe in the vicinity of a highly-charged polymer surface during an experiment conducted aboard STS-5 by mission specialist Joseph Allen \cite{pettit_donald_flow_????}. Depending on the (highly-variable) electrical conductivity of the silicone oil, and the material of the syringe used in the experiment, the charge could arise just as easily by field-induction as by contact charging. Relatedly, in a series of informal and somewhat whimsical experiments Pettit himself electrostatically orbited small water drops around a triboelectrically charged PTFE knitting needle while aboard ISS during expedition 30/31 \cite{stevenson_electrostatic_2015}. Again, in this case, the drop charge is likely field-induced.
+
+\section{Theory}
+\subsection{Equation of Motion}
+We develop here a simple 1-dimensional model of the dynamics of drops dominated by electrostatic forces. We treat a drop as a particle with radius $R_d$, which translates vertically along the central axis of a charged dielectric square sheet substrate with initial velocity $U_0$. The equation of motion for this system is given by,
+\begin{equation}
+m y'' = - F_D - F_E,
+\label{gov_eqn}
+\end{equation}
+subject to
+\begin{equation}
+y(0) = R_d, \hspace{5 mm} \mbox{and} \hspace{5 mm} y'(0) = U_0,
+\end{equation}
+where $m$ is the drop mass, $y'' = \frac{d^2 y}{d t^2}$ is the drop acceleration, $\mathbf{F}_D$ is the drag force which always opposes motion, and $\mathbf{F}_E$ is the electrostatic force. The assumed initial conditions are such that, when $\mathbb{B}\mbox{o}$ is suddenly reduced at the start of the drop tower free-fall period, the drop jumps with instantaneous initial velocity $U_0$ from its 1-$g_0$ resting position with fixed radius $R_d$ at $t=0$. The dynamical system is sketched schematically Figure \ref{apparatus}. We now define models for each of the forces in this equation.
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.45\textwidth]{../figures/apparatus0.pdf}
+\label{apparatus}
+\caption{Schematic representation of drop jump with return and rebound from an electrically charged superhydrophobic substrate. The characteristic time and length scales $t_c$ and $y_c$ describe the time of flight and apoapse associated with the drop trajectory.}
+\end{figure}
+
+For the intermediate range of Reynolds numbers $1 \leq \mathbb{R}\mbox{e} \equiv \frac{2UR_d}{\nu} \leq 2000 $ observed in our experiments, we assume the force of drag acting on the drop to be quadratic.
+
+In modeling the electrostatic force we begin with the standard electrohydrodynamic (EHD) approximation \cite{saville_electrohydrodynamics:_1997}. Under a DC electric field, we assume that the real part of the dielectric permittivity $\epsilon$, $\mbox{Re} \left( \epsilon \right) \approx  \mbox{constant}$. We also assume that electric currents are small enough that the effects of magnetic fields can be neglected. The validity of this assumption rests on the characteristic time scale $\tau_e = \epsilon /\sigma_e \ll 1$, where $\tau_e$ is the ratio of absolute dielectric permittivity $\epsilon = \kappa \epsilon_0$, to conductivity $\sigma_e$, of the medium, $\kappa$ is the relative dielectric permittivity, and $\epsilon_0$ is the vacuum permittivity. This characteristic time $\tau_e$ is also known as the relaxation time, and is a measure of how quickly the polarization of a dielectric responds to a change in electric field. Given the conductivity and permittivity in the limiting case of extremely-pure water ($ \epsilon \approx 80$, $\sigma_e = 18.2 \times 10^{6}$ $\Omega\mbox{cm}$) \cite{yatsuzuka_electrification_1994}, we estimate $\tau_e \approx 4 \times 10^{-6}$ s. The relaxation time for the common distilled water that is actually used in the drop experiments is undoubtedly shorter due to the presence of solvated ions. Neglecting the effects of an electric double layer on hydration of ions in the water or the ambient atmosphere due to the relatively massive size of the drops studied, the assumption of small relaxation time further implies that the free charge present in the drops will remain approximately constant during the typical time interval of a low-gravity experiment.
+
+Supposing that electrical forces acting on free charges and dipoles in a fluid are transferred directly to the fluid itself, the overall electrical body force will be the divergence of the Maxwell stress tensor $\tau_m $,
+\begin{eqnarray} \label{e_force}
+ \mathbf{F}_E &=& \nabla \cdot \tau_m \nonumber \\ 
+ &=& \rho_f \mathbf{E} + \frac{1}{2} \left| E \right|^2 \nabla \epsilon - \nabla \left( \frac{1}{2} \rho \left( \frac{\partial \epsilon}{\partial \rho} \right)_T \left| E \right|^2 \right) .
+\end{eqnarray}
+The first term on the right hand side of this expression is the well known Coulombic force or electrophoretic force, which arises from the presence of free charge in an external electric field. We expect this term to dominate the electric force in a DC field. The second term is the force arising from polarization stresses due to a nonuniform field acting across a gradient in permittivity. This force is widely termed the dielectrophoretic (DEP) force. The third term describes forces due to electrostriction. It has been noted by Melcher and Hurwitz \cite{hurwitz_electrohydrodynamic_1966} that the electrostriction term is the gradient of a scalar and can thus be canonically lumped together with the hydrostatic pressure for incompressible fluids. We neglect it in our analysis. 
+
+It is common to approximate the polarization stress by idealizing the drop as a simple dipole using the effective dipole moment method first described by Pohl in 1958 \cite{pohl_effects_1958}. The force felt by the dipole is 
+\begin{eqnarray} \label{dep_force}
+\mathbf{F}_{DEP} &=& \left( \mathbf{P}_e \cdot \nabla \right) \mathbf{E} \nonumber \\
+&=& 2 \pi R_d^3 \kappa_w \epsilon_0 K \nabla E^2,
+\end{eqnarray}
+where $\mathbf{P}_e=(\kappa_w - \kappa_a)\epsilon_0 \mathbf{E}$ is the excess polarization and $\kappa_w$ and $\kappa_a$ are the relative dielectric constants of the water particle and air host fluid respectively. Here it is convenient to use the simplifying shorthand $K = \frac{\kappa_w - \kappa_a}{\kappa_w + 2 \kappa_a}$, known as the Clausius-Mossotti factor. In cases where $K <$ 0, or $K>$ 0 the particle will be either repelled or attracted to regions of strong field. In our experiment, choosing the relative dielectric constants $\kappa_a \approx$ 1 and $\kappa_w \approx$ 80, we estimate $K \approx$ 0.96. It is important to note that the equivalent dipole approximation critically requires an assumption of small physical scale of the particle relative to the length scale of nonuniformity of the field, which in this case we take to be the length of the charged superhydrophobic surface, $L =$ 25 mm $\gg R_d \approx$ 2 mm.
+
+When the drop is close to the dielectric surface, the free charge on the drop will tend to induce polarization of the dielectric which perturbs the electric field. The polarization bound charge in the dielectric will be of the opposite sign of the free drop charge and thus there will be a force of attraction. This so-called image force is a correction to the Coulomb force due to the external electric field only, and can be found by a Green's Function solution of Laplace's equation for the electric field, the so-called the `method of images' \cite{david_j._griffiths_introduction_1999}. This resulting image force $\mathbf{F}_I$ is given by
+\begin{equation}
+\mathbf{F}_I = \frac{k q^2}{16 \pi \epsilon_0} y^{-2} \hat{\mathbf{j}},
+\label{image_force}
+\end{equation}
+where the factor $k$ is a function of the dielectric surface susceptibility $k = \frac{\chi_e}{\chi_e + 2}$, $\chi_e = \kappa_d - 1$, $\kappa_d$ is the relative dielectric constant of the dielectric substrate, and $\hat{\mathbf{j}}$ is a unit vector normal to the dielectric surface.
+
+By substituting Equations \ref{dep_force}, and \ref{image_force} into \ref{e_force} we have
+\begin{eqnarray*}
+ \mathbf{F}_E &=& q \mathbf{E} + \mathbf{F}_{DEP} + \mathbf{F}_I \\
+ &=& q \mathbf{E} + \frac{k q^2}{16 \pi \epsilon_0 } y^{-2} \hat{\mathbf{j}} + 2 \pi R_d^3 \kappa_w \epsilon_0 K \nabla E^2, 
+ \label{e_forces}
+\end{eqnarray*}
+
+By comparing DEP and Coulombic terms in Equation \ref{e_forces}, we note that a condition to neglect the DEP force is
+\begin{eqnarray}
+\frac{ \kappa_w \epsilon_0 K R_d^2 E_0}{q} \ll 1. \nonumber
+\end{eqnarray}
+As this condition likely prevails in our experiments we henceforth neglect the DEP force. There is some physical intuition to support this conclusion as well. The dielectric displacement $\mathbf{D} = \kappa \epsilon_0 \mathbf{E}$ of a water drop in air is high due to the large relative dielectric constant of water. This implies that the field strength within the drop is about 80 times smaller than in the surrounding medium. Thus it is not particularly inaccurate to model the dielectric volume of a drop as an equipotential conductive shell with zero field in its interior. As an aside, in treating the drop as an ideal conductor we note that in our specific case the electrostatic force is not a body force \emph{per se} as the electric field is acting on charges on the surface of the conductor.
+
+Thus the 1-D governing equation becomes
+\begin{equation}
+ \label{gov_eqn_subs}
+m y'' = - \frac{1}{2} C_D \rho A {y'}^2 - q E - \frac{k q^2}{16 \pi \epsilon_0} y^{-2},
+\end{equation}
+subject to
+\begin{equation}
+y(0) = R_d, \hspace{5 mm} \mbox{and} \hspace{5 mm} y'(0) = U_0 .
+\end{equation}
+
+\subsection{Electric Field}
+If we consider the charged dielectric surface of our experiments to be a square sheet of charge lying in the $xz$-plane with width $L$, the symmetry of the problem happily lets us obtain the $y$-component of the electric field $\mathbf{E}$ by direct integration,
+\begin{equation}
+\label{e_field}
+E = \frac{\sigma}{ \pi \epsilon_0} \tan^{-1} \left( \frac{L^2}{y \sqrt{2L^2 + 4y^2}}\right)
+.\end{equation}
+We note that this 1D model of the electric field is valid when $R_d \ll L$, which will be true for cases of small drops `far' from the dielectric surface. 
+
+By taking Taylor series expansions in large and small $y$-limits we can intuit a bit about the behavior of this field. In the limit $y/L \ll 1$ Equation \ref{e_field} reduces to
+\begin{equation}
+\label{near_field}
+E \approx \frac{\sigma}{4 \pi \epsilon_0} = E_0,
+\end{equation}
+where $E_0$ is the characteristic electric field. This field is constant and equivalent to the electric field due to an infinite plane of charge. In the limit of $y/L \gg 1$, Equation \ref{e_field} reduces to the familiar electric field due to a point charge
+\begin{equation}
+\label{far_field}
+E \approx L^2 E_0 y^{-2}.
+\end{equation}
+Both regimes given by Equations \ref{near_field} and \ref{far_field} can be clearly seen in Figure \ref{fig:E0}.
+\begin{figure}[h]
+    \centering
+    \def\svgwidth{\columnwidth}
+    \input{../figures/E0.pdf_tex}
+    \caption{A log-log plot of the magnitude of the dimensionless electric field $E$.\label{fig:E0}}
+\end{figure}
+
+\subsection{Scaling}
+Equation \ref{gov_eqn_subs} is non-linear, non-homogeneous and must be solved numerically. Nevertheless we are curious if we can obtain approximate solutions to the equation analytically using perturbation methods. This is aided by non-dimensionalizing the governing equations, forming dimensionless groups, and determining whether any are particularly small or large, and whether any fortuitous opportunities for simplification appear. Introducing the scaled variables
+\begin{equation}
+ t^* = \frac{t}{t_c}, \hspace{10 mm} y^* = \frac{y}{y_c}, \end{equation}
+where $y_c$ and $t_c$ are characteristic length and time scales respectively, and using the coordinate transformation $y(0) - R = 0$, the governing equation becomes
+\begin{equation}
+\label{pi_terms}
+ {y^*}'' = - \mathbf{\Pi}_1 {y^*}'^2
+- \mathbf{\Pi}_2 E^* ( {y^*} ) 
+- \mathbf{\Pi}_3 \left( \mathbf{\Pi}_4 {y^*} + 1 \right)^{-2},
+\end{equation}
+subject to
+\begin{equation*}
+{y^*}(0) = 0, \hspace{5 mm} \mbox{and} \hspace{5 mm} {y^*}'(0) = \mathbf{\Pi}_5,
+\end{equation*}
+where we note the existence of several dimensionless groups
+\begin{gather*}
+\mathbf{\Pi}_1 = \frac{C_D \rho A y_c}{2 m}, \hspace{5 mm}
+\mathbf{\Pi}_2 = \frac{q E_0 t_c^2}{m y_c}, \hspace{5 mm}
+\mathbf{\Pi}_3 = \frac{k q^2 t_c^2}{16 \pi \epsilon_0 R_d^2 m y_c}, \hspace{5 mm}\\
+\mathbf{\Pi}_4 = \frac{y_c}{R_d}, \hspace{5 mm}
+\mathbf{\Pi}_5 = \frac{U_0 t_c}{y_c}.
+\end{gather*}
+
+\subsubsection{Inertial Electro-Image Limit}
+In the limit of small $y$ and $t$ we expect inertia to scale with Coulombic and image forces. In this limit we can approximate the electric field as the constant $E_0$. One possible characteristic length scale is $y_c \sim R_d$, however this scale is overly restrictive with respect to time. With $y_c \sim U_0 t_c$ and picking $t_c$ such that the Coulombic force $\mathbf{\Pi}_3 \sim \mathcal{O}(1)$, the intrinsic scales are found such that
+\[ t_c \sim \frac{m U_0}{q E_0}, \hspace{5 mm} \mbox{and} \hspace{5 mm} 
+y_c \sim \frac{m U_0^2}{q E_0} .
+\]
+With these scales the governing equation \ref{pi_terms} becomes
+\begin{equation}
+{y^*}'' = -1 - \mathbb{I}\mbox{g} \left( \mathbb{E}\mbox{u}{y^*} + 1 \right)^{-2} , \label{img_limit}
+\end{equation}
+subject to
+\begin{equation*}
+{y^*}(0) = 0, \hspace{5 mm} \mbox{and} \hspace{5 mm} {y^*}'(0) = 1 .
+\end{equation*}
+with 
+\[ \mathbb{I}\mbox{g} \equiv \frac{k q}{16 \pi \epsilon_0 R_d^2 E_0} = \mathbf{\Pi}_3, \hspace{5 mm}
+\mathbb{E}\mbox{u} \equiv \frac{m U_0^2}{q E_0 R_d} = \mathbf{\Pi}_4 ,
+\]
+where the Image number $\mathbb{I}\mbox{g}$ is the ratio of image forces to the Coulombic force of the unperturbed field, and the electrostatic Euler number $\mathbb{E}\mbox{u}$ is the ratio of inertia to electrostatic force. With these dimensionless groups the intrinsic scales become
+\[ t_c = \mathbb{E}\mbox{u} \frac{R_d}{U_0}, \hspace{5 mm} \mbox{and} \hspace{5 mm}
+y_c = \mathbb{E}\mbox{u} R_d.
+\]
+We note that in a conservative system $\mathbb{E}\mbox{u}$ can be thought of as a ratio of energies: the kinetic energy $m U_0^2$ in the numerator and the electrostatic potential energy $q E_0 R_d$ in the denominator.
+
+\subsubsection{Inertial Electro-Viscous Limit}
+In the limit of large $y$ and $t$ we expect drop inertia to balance Coulombic force and drag. Here we approximate the electric field as $E \approx y_c^2 E_0 y^{-2}$. We choose the scaling $y_c \sim U_0 t_c$ and $\mathbf{\Pi}_3 \sim \mathcal{O}(1)$ for its combination of physical simplicity, few $\mathbf{\Pi}$ terms, and homogeneous initial conditions. The intrinsic scales for this case are given by
+\[ t_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0}{q E_0} \hspace{5mm} \mbox{and} \hspace{5 mm} y_c \sim \frac{R_d^2}{L^2} \frac{4 \pi m U_0^2}{q E_0}.
+\]
+With this scaling the non-dimensional governing equation is 
+\begin{eqnarray}
+&{y^*}'' = - \mathbb{D}\mbox{g} \phi \mathbb{E}\mbox{u} {y^*}'^2 - \left( \phi \mathbb{E}\mbox{u} {y^*} + 1 \right)^{-2}, & \label{drag_limit}
+\end{eqnarray}
+subject to 
+\begin{equation*}
+{y^*}(0) = 0, \hspace{5 mm} \mbox{and} \hspace{5 mm} {y^*}'(0) = 1, 
+\end{equation*}
+where we call $\mathbb{D}\mbox{g}$ the drag number $\mathbb{D}\mbox{g} \equiv \frac{C_D \rho_a}{\rho_l} = \mathbf{\Pi}_1 \phi^{-1}{\mathbb{E}\mbox{u}}^{-1}$, and $\phi = 4 \pi \frac{R_d^2}{L^2}$ is a dimensionless ratio of length scales.
+
+\subsection{Asymptotic Estimates}
+The scalings of the equation of motion given by Equations \ref{img_limit} and \ref{drag_limit} are weakly non-linear differential equations in the sense that they reduce to linear equations as the parameter $\mathbb{E}\mbox{u} \rightarrow 0$. If we take $\mathbb{E}\mbox{u}$ to be a small parameter we can find an asymptotic approximation to the solution of the non-linear equation by means of a regular perturbation. In this case we use the naive expansion
+\begin{equation}
+{y^*}({t^*}) \sim y^*_0({t^*}) + \mathbb{E}\mbox{u} y^*_1({t^*}) + \mathbb{E}\mbox{u}^2 y^*_2({t^*}) \ldots \mathbb{E}\mbox{u}^n y^*_n ({t^*})  . \label{regular_pert}
+\end{equation}
+
+\subsubsection{Inertial Electro-Image Limit}
+By substitution of Equation \ref{regular_pert} and its derivatives into \ref{pi_terms}, and equating terms by order we first find the $\mathcal{O}(1)$ unperturbed solution
+\[{y^*_{0}}{\left ({t^*} \right )} = {t^*} + \frac{{t^*}^{2}}{2} \left(-1 - \mathbb{I}\mbox{g}\right). \]
+Looking at this solution it is evident that if $\mathbb{I}\mbox{g}=0$, the solution is the classical kinematic equation for projectile motion without drag under constant gravity $g_0$. Continuing on with this procedure we find, after some tedious computations documented in the project repository for this work \cite{schmidt_droplet_electro-bounce:_2017}, the $\mathcal{O}(\mathbb{E}\mbox{u}^5)$ order accurate solution truncated to $\mathcal{O}(\mathbb{E}\mbox{u}^2)$ is
+
+\begin{gather}
+{y^*}({t^*}) = {t^*} + \frac{{t^*}^{2}}{2} \left(-1 - \mathbb{I}\mbox{g}\right) \nonumber \\
+ + \mathbb{E}\mbox{u} \left(\frac{\mathbb{I}\mbox{g} {t^*}^{3}}{3} + \frac{\mathbb{I}\mbox{g} {t^*}^{4}}{12} \left(-1 - \mathbb{I}\mbox{g} \right)\right) \nonumber \\
+ + \mathcal{O}(\mathbb{E}\mbox{u}^2). \label{perturb_image}
+\end{gather}
+
+We plot the approximate short-time scaled solution Equation \ref{perturb_image} with varying values of $\mathbb{I}\mbox{g}$ in Figure \ref{fig:short_times}.
+
+\begin{figure*}[htp]
+    \resizebox{0.8\textwidth}{!}{\input{../figures/short_times.pgf}}
+    \caption{Short-time scaled drop trajectories for various values of $\mathbb{E}\mbox{u}$, $\mathbb{I}\mbox{g}$. The trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of $\mathbb{I}\mbox{g}$. It should be noted that despite what is implied by these plots $\mathbb{I}\mbox{g}$ is not necessarily independent of $\mathbb{E}\mbox{u}$, as they share $q$, and $E_0$ as common factors, $U_0 \propto R_d^2$, and $m \propto R_d^3$.}
+    \label{fig:short_times}
+\end{figure*}
+These plots show a trend of decreasing time-of-flight $t_f$, which is the time for the drop to return to the origin (a single `bounce'), and height at apoapse with increasing values of $\mathbb{I}\mbox{g}$. When $\mathbb{I}\mbox{g} = 1$, $t_f$ is exactly half of the characteristic time scale in this regime. In the limit of small $\mathbb{I}\mbox{m}$ the trajectories collapse to the $\mathcal{O}(1)$ solution regardless of the electrostatic Euler number. Trajectories with $\mathbb{E}\mbox{u} \leq 0.1$ are essentially coincident given the scale of the axes used here. In principle there is some coupling between $\mathbb{E}\mbox{u}$ and $\mathbb{I}\mbox{g}$; notably this relationship does not depend on the electric field $E_0$ but on a charge to mass ratio. The effect of contact line hysteresis on the initial jump velocity $U_0$ will also tend to decohere the natural covariance between these parameters.
+
+\subsubsection{Inertial Electro-Viscous Limit}
+By similar arguments we find an asymptotic estimate of the trajectory in the long-time regime. The approximate solution is 
+\begin{gather*}
+\label{perturb_viscous}
+{y^*}({t^*}) = {t^*} - \frac{{t^*}^{2}}{2}  \nonumber \\
++ \phi\mathbb{E}\mbox{u} \left(\frac{{t^*}^{3}}{3} \left(1 + \mathbb{D}\mbox{g}\right) + \frac{{t^*}^{4}}{12} \left(-1 - \mathbb{D}\mbox{g}\right) - \frac{\mathbb{D}\mbox{g} {t^*}^{2}}{2}\right) \nonumber \\
+ + \mathcal{O}(\phi^2 \mathbb{E}\mbox{u}^2). \nonumber
+\end{gather*}
+Trajectories for this solution are shown in Figure \ref{fig:long_times}.
+\begin{figure}[htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/long_times.pgf}}
+    \caption{Long-time scaled drop trajectories for various values of $\phi \mathbb{E}\mbox{u}$.}
+     \label{fig:long_times}
+\end{figure}
+If we assume a constant scale for the drag coefficient $C_d \approx 0.5$ then $\mathbb{D}\mbox{g}$ is approximately a constant $\mathbb{D}\mbox{g} \approx 6 \times 10^{-4}$ in all of our experiments. We note that the trajectory reduces to the classical $\mathcal{O}(1)$ solution for small values of of $\phi \mathbb{E}\mbox{u}$. We also note that with $\mathbb{D}\mbox{g} = 6 \times 10^{-4}$ the effect of drag is slight, appearing only as a slight correction to the higher order terms.
+ 
+By again applying a regular perturbation to the asymptotic solution with the expansion
+\[ t^* \sim t^*_0 + \phi \mathbb{E}\mbox{u} t^*_1 + \phi^2 \mathbb{E}\mbox{u}^2 t^*_2 \ldots \phi^n \mathbb{E}\mbox{u}^n t^*_n  
+,\]
+and solving for the roots at times when $y^* = 0$, we find an asymptotic estimate for the time-of-flight. The $\mathcal{O}(\phi^2 \mathbb{E}\mbox{u}^2)$ accurate time-of-flight estimate is given by
+\begin{gather*}
+t_f = 2 + \phi \mathbb{E}\mbox{u} \left(\frac{4}{3} - \frac{2 \mathbb{D}\mbox{g}}{3}\right) \\
++ \phi^2 \mathbb{E}\mbox{u}^{2} \left(\frac{4}{5} - \frac{4 \mathbb{D}\mbox{g}}{3} + \frac{2 \mathbb{D}\mbox{g}^{2}}{5}\right) \\
++ \mathcal{O}(\phi^3 \mathbb{E}\mbox{u}^3).
+\end{gather*}
+Substituting the experimental value of $\mathbb{D}\mbox{g}$ we find the time-of-flight estimate for water drops is
+\begin{equation} \label{time_of_flight}
+t_f = 2 + 1.333 \phi \mathbb{E}\mbox{u} + 0.799 \phi^2 \mathbb{E}\mbox{u}^{2} + \mathcal{O}(\phi^3 \mathbb{E}\mbox{u}^3). 
+\end{equation} 
+
+As $\mathbb{E}\mbox{u}$ grows to be no longer small, the time-of-flight grows rapidly, but this behavior appears to have an asymptote at a certain critical velocity; this is an electrostatic escape velocity $U_e$. We can find the escape velocity by solving a modified version of the equation of motion
+\[ m u' = - \frac{q E_0 y_c^2}{y^2}, \]
+where $u = \frac{d y}{d t}$ is the drop velocity. This has the solution
+\[ u(y) = \pm U_0 \left(1 + \frac{2q E_0 y_c^2}{m U_0^2} \left( \frac{1}{y} - \frac{1}{R_d} \right) \right)^{1/2}.
+\]
+This equation has an asymptotic velocity $U_{\infty}$ at $y = \infty$, which is real provided 
+\[ U_0 \geq  U_e = y_c \sqrt{\frac{2 q E_0 }{m R_d}},
+\]
+where $U_e$ is the escape velocity and $U_{\infty} = \sqrt{U_0^2 - U_e^2}$. If $y_c=L$ the condition for the drops to escape the electric field is then given by
+\begin{equation}\label{escape}
+\frac{1}{8 \pi} \phi \mathbb{E}\mbox{u} > 1.
+\end{equation}
+
+\section{Methods}
+\subsection{Overview}
+Using various scaling arguments we have gleaned from our simple model a set of dimensionless numbers characteristic of drop bounce apoapses and times of flight. These dimensionless numbers depend on physical properties not all of which are easily measured by experiment. In particular, direct determination of net drop free electric charge $q$ is difficult as high-input resistance electrometers are not well-suited to the sudden 15-$g_0$ decelerations characteristic of drop tower experiments. To estimate the drop free charge $q$ we use parameter estimation techniques. Our work flow to identify $q$ in an individual drop tower experiment is as follows:
+\begin{enumerate}
+\item We vary the independent variables $V_d$ and $\sigma$ in a set of single-drop spontaneous drop jumps on charged dielectric superhydrophobic substrates under low-gravity conditions in a $2.1$ s drop tower. 
+\item We capture high-speed video and digitize the trajectories of the drops. 
+\item We solve the inverse problem to find the drop free charge $q$ by maximizing the log-likelihood of the data given the dynamical model by varying the parameter vector $\mathbf{x} = \left\langle q, \hspace{2 mm} V_d, \hspace{2 mm} \sigma \right\rangle$ using a direct search optimization.                     
+\end{enumerate}
+
+\subsection{Experimental Methods}
+The Dryden Drop Tower at Portland State University uses a dual capsule design, inspired by the 2.2 s facility at NASA Glenn Research Center, which decouples drag acceleration felt by the external drag shield from the experiment. The experiment experiences approximately $\lesssim 1 \times 10^{-4}$ $g_0$ during free-fall for 2.1s as the rig and drag shield plummet to the bottom of drop tower 6 stories below. The rig with a mounted experiment is shown in Figure \ref{fig:rig}. Single drops of distilled water in a range of volumes ($0.01 \leq R_d \leq 0.5$ mL) are carefully deposited on charged superhydrophobic substrates using an grounded glass syringe with $\pm $1 $\mu$L accuracy and then dropped in the drop tower. Red dye is added to improve thresholding accuracy in trajectory digitization. Drop trajectories are recorded using a Panasonic HC-WX970 Camera. Drop trajectories are digitized using the particle tracking module in Fiji \cite{schindelin_fiji:_2012}.
+
+\begin{figure}
+    \centering
+    \fontsize{12pt}{13pt}\selectfont
+    \def\svgwidth{\columnwidth}
+        \input{../figures/rig_paper.pdf_tex}%
+    \caption{The electro-drop bounce experiment hardware mounted on a drop tower rig. (a) HV DC-DC converter and control electronics. (b) Camera. (c) Light panel. (d) Test cell. \label{fig:rig}}
+\end{figure}
+
+Superhydrophobic electret substrates are prepared with surface potentials $\varphi_s = 0.7$-$4.0$ kV. We use an isothermal electret formation process which is a variation of the widely applied corona-charging technique. A Ptec IN5120 balanced AC corona ion source directs a net neutral stream of ions towards the dielectric substrate, which we polarize by an electrode with an EMCO P20P $2$ kV$+$ absolute reference DC-DC converter. The ion stream compensates the surface and space bound charges arising due to the polarization of the dielectric. When the DC-DC converter is switched to ground the deposited negative ions remain on the surface. The electret is lamina of 3 to 4 0.4 mm thick corona charged polymethyl methacrylate (PMMA) sheets. The electric field strength scales with the number of dielectric lamina as has also been shown in work on electret based vibrational energy harvesters \cite{wada_stacking_2012} and in water desalinization \cite{ni_desalination_2005}. The RC time constant for decay of the surface charge is $\tau \approx 2000$ s.
+
+The electret is established on a superhydrophobic substrate produced by laser etching PMMA and depositing a thin layer of PTFE on the roughened surface. We use a laser-etched pillared geometry with pillar heights $\sim \hspace{-1mm} 775$ $\mu$m, widths $\sim \hspace{-1mm} 70$ $\mu$m, and pitch $\sim \hspace{-1mm} 100$ $\mu$m. An SEM image of the pillar geometry is shown in Figure \ref{fig:SEM}. Contact angles of distilled water on the electret, measured using the tangent method, are $\sim \hspace{-1mm} 150^{\circ}$. The hysteresis of the contact angle (the difference between the advancing $\theta_a$ and receding $\theta_r$ contact angles) is estimated from the roll-off angle using the model of Furmidge \cite{furmidge_studies_1962}, and is found to be approximately $25^{\circ} \pm 10^{\circ}$ when the surface is uncharged.
+
+\begin{figure}
+    \centering
+    \def\svgwidth{\columnwidth}
+        \includegraphics[width=0.4\textwidth]{../figures/close_up.pdf}
+    \caption{Close up of the experimental test cell.\label{fig:SEM}}
+\end{figure}
+
+Surface potentials $\varphi_s$ are measured on the superhydrophobic surface using a Simco-Ion FMX-004 electrostatic fieldmeter and the method for determination of surface charge density for low conductivity polymers described in Davies \cite{davies_examination_1967}. For this measurement the fieldmeter is shielded, the electret substrate rests over a conductive ground plane, and the surface charge density is determined from $\sigma = \varphi_s \kappa \epsilon_0/l,$ where $l$ is the thickness of the dielectric surface. The relative dielectric constant of the PMMA sheet is measured by using a 65$\times$65 mm polished aluminum parallel plate capacitor with $C = \kappa \epsilon_0 A/l$, where $C$ is the capacitance, and $A$ is the sheet area. Measuring the capacitance with 3 sample thicknesses using a GenRad 1657 RLC Digibridge, we find the relative permittivity to be $\kappa = 3.5 \pm 0.4$.  
+
+\subsection{Parameter Estimation}
+We find the parameters $\mathbf{x}$ that solve the inverse problem $G(\mathbf{x}) = \mathbf{d}$, where the model $G(\mathbf{x})$ describes some relationship between the vector of parameters $\mathbf{x}$ and a set of (ideal) observations $\mathbf{d}$. We seek the parameter set $\mathbf{x} = \left\langle q, \hspace{2 mm} V_d, \hspace{2 mm} \sigma \right\rangle$ that has the highest probability of observing the data (the maximum of the posterior Probability Density Function) which can be determined by maximizing the log-likelihood (or equivalently minimizing $\chi^2$ goodness-of-fit) of the data $\mathbf{d}$ with respect to the the model, which is generally a numerical solution to Equation \ref{gov_eqn_subs}. This problem is formally stated as  
+\[
+\mbox{min} \hspace{2 mm} \chi^2 = \mbox{min} \hspace{2 mm} \sum^n_{i=1} \frac{\left({y_d(t)}_i - y_G(t, \mathbf{x})_i \right)^2}{{\sigma_d}_i},
+\]
+\begin{eqnarray*} \mbox{} \hspace{2 mm} \begin{split} \mathbf{x} = \left\{ \begin{array}{ll}      & q\\
+		  &	V_d\\
+          & \sigma 
+          \end{array} \right. 
+          \end{split} \hspace{2 mm} \mbox{subject to constraints} \hspace{2 mm} \begin{split}
+          g = \left\{ \begin{array}{ll}
+           V_d &\pm \hspace{2 mm} u_{exp}\\
+      	   \sigma &\pm  \hspace{2 mm} u_{exp}\\
+      	   y_0 &\pm \hspace{2 mm} u_{exp}\\
+      	   t_0 &\pm \hspace{2 mm} u_{exp}\\
+          \end{array} \right. 
+          \end{split}
+\end{eqnarray*}
+where $y_G(t, \mathbf{x})$ is the $y$-coordinate position at time $t$ of the numerical solution of the equation of motion, $y_d(t)$ is the corresponding experimentally observed drop $y$-coordinate position at time $t$, $\sigma_d$ is the standard error of the observed position, and $u_{exp}$ are the measurement uncertainties. The vector $\mathbf{x}$ that minimizes $\chi^2$ is the so called Maximum Likelihood Estimate (MLE) of the experimental parameters.
+
+Because Equation \ref{gov_eqn_subs} behaves stiffly we integrate it using the \emph{netlib ODEPACK} library double-precision \verb|lsoda| integrator wrapped within the \verb|odeint| \emph{Scipy} \cite{oliphant_python_2007} module in Python. The optimization problem in this case is non-convex, mixed discrete-continuous black-box (noisy), and highly ill-conditioned. The ill-conditioning arises due to the strong covariance between several of the model parameters, namely $q=q(V_d, E_0)$. The non-convexity of the problem implies that there are many local minima of the objective function. We use a gradient-free direct-search Nelder-Mead \cite{nelder_simplex_1965} algorithm implemented in \verb|scipy.optimize|. Nelder-Mead is relatively robust to noise and is thrifty with our computationally expensive function-calls. Experimental trajectory data is smoothed using a Savitsky-Golay filter \cite{savitzky_smoothing_1964} to improve the convergence characteristics of the optimizer. This filter is implemented in the \verb|scipy.signal| Python \emph{SciPy} module. We precondition the optimization problem by minimizing $\ln(\chi^2)$ and using a naive $\sim \mathcal{O}(1)$ scaling of our constraints by their initial guesses. Here the goal is to make the problem equally sensitive to steps in any direction. The so-called identifiability problem of bounding uncertainty of the parameter estimates is resolved by constraining the parameter values by our experimental observations of them and their associated measurement uncertainties. Because Nelder-Mead cannot be used for explicitly constrained problems we implement the constraints by using an exterior penalty function. In the case of $q$, which we do not directly observe in experiment, we bound identifiability by using a Montecarlo bootstrap approach [WIP].
+
+\begin{figure}[h]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/inverse_problem2.pgf}}
+    \caption{A set of drop trajectories showing the results of the parameter estimation. The trajectories are shown only up to the apoapse of the first bounce. The (\protect\redline) \hspace{0.25 mm} lines show the ODE solution with the given MLE parameter vector. $\chi^2$ goodness-of-fit varies between $1 \times 10^{-5}$ and $1 \times 10^{-8}$ with the better fit occurring typically for the drops with the lowest apoapses.}
+    \label{fig:inverse_problem}
+\end{figure}
+
+\section{Results}
+\subsection{Parameter Estimates}
+We determined the distribution of most probable experimental model variables values for a population of the drops jumped in drop tower tests shown in Figure \ref{fig:scatter}. The dependence of charge on drop surface area $A$ is immediately evident, while the effect of electric field on drop charge is less obvious. This co-linearity is likely the source of the ill-conditioning issues in the parameter estimation process. However, assuming the main effect is the interaction between charge and electric field, a Robust Least Squares model fit $q \sim kAE_0$ with the non-linear transformation $A = V_d^{2/3}$ finds that $k=5.01 \times 10^{-11} \pm  2.85 \times 10^{-11}$ F/m with $R^2 = 0.946$. 
+\begin{figure}[h]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/scatter.pdf_tex}}
+    \caption{Scatter plot matrix of main parameters $E_0$, $U_0$, $V_d$, and $q$.\label{fig:scatter}}
+\end{figure}
+
+A two-way T-test comparison of charge distributions between the drop bounce experiment and a corollary experiment with zero electric field at the time of drop deposition on the superhydrophobic surface suggests that the drop charge is primarily induced by the electric field, rather than through contact charging on the PTFE layer ($t = 5.11$, $p = 0.0002$).
+
+The model $q \sim kAE_0$ is similar to the classical solution for the surface charge of a half-spherical conductor with a field-induced dipole \cite{david_j._griffiths_introduction_1999}
+\begin{eqnarray}
+q &=& 3 \epsilon_0 E_0 \int_A \cos \theta dA \nonumber \\
+&=& 3 \pi^{1/3} 6 \left(6 V_d \right)^{2/3} \epsilon_0 E_0 \int^{\pi / 2}_{0} \!\!\!\!\! \cos \theta d\theta \nonumber \\
+&=& k E_0 V_d^{2/3} \label{dipole}
+\end{eqnarray}
+with $k \approx 1.3 \times 10^{-10}$ F/m. This is also of similar form to the charge found by Takamatsu and coauthors for drops falling from a grounded nozzle in an external electric field \cite{takamatsu_theoretical_1981}
+\[q = 4 \pi \epsilon_0 \beta E_0 R_d^2 \]
+with $\beta \approx 2.63$. Cast in the same form as Equation \ref{dipole} $k \approx 4 \pi \epsilon_0 \beta (4 \pi/3)^{-2/3} \approx 1.1 \times 10^{-10}$ F/m.
+
+The effect of volume on jump velocity $U_0$ is not immediately evident in the data despite previous work having establishing this relationship \cite{attari_puddle_2016}. This likely results from large variance in $U_0$ due to contact line hysteresis during the drop roll-up. Contact line losses predominate in the sub 1 mL volume drops which are primarily the object of this study.  
+
+\subsection{Model Validation}
+Dimensional drop apoapses shown in Figure \ref{fig:series_s_eu} scale closely with $\mathbb{E}\mbox{u}$ as expected according to our earlier analysis. Electrostatic Euler numbers in the data set vary between $1.4 \lesssim \mathbb{E}\mbox{u} \lesssim 35.4$. The dielectrophoretic force plays a small role when drops have net charge in a DC field. The condition to neglect the DEP force was satisfied for all experiments in the dataset with typical values of the condition number $\kappa_w \epsilon_0 K R_d^2 E_0/q \approx \mathcal{O}(10^{-6})$. In the non-dimensional trajectories with short-time scaling shown in Figure \ref{fig:series_s_ds}, we see that the scaled trajectory apoapses are consistently $\mathcal{O}(1)$, with all trajectories overshooting their characteristic time scale (which predicts returns at $t^*  =2$ at zeroth order). The fact that $\mathbb{E}\mbox{u} \ll 1$ is not satisfied for all tests is in violation of the Equation \ref{perturb_image} asymptotic result for short times.
+\begin{figure}[!htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/series_s_eu.pgf}}
+    \caption{Drop trajectories as a function of $\mathbb{E}\mbox{u}$.\label{fig:series_s_eu}}
+\end{figure}
+\begin{figure}[htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/series_s_ds.pgf}}
+    \caption{Non-dimensional trajectories with the short-time scaling.\label{fig:series_s_ds}}
+\end{figure}
+
+The predicted long-time scaled time-of-flight $t_f$ given by Equation \ref{time_of_flight} when redimensionalized by the characteristic time $t_c$ compares favorably to the experimental time-of-flight $t_b$, shown in Figure \ref{fig:times2}. This allows an improvement to be made to the asymptotic result of Equation \ref{time_of_flight} by multiplying the series by the empirical coefficient $a = 1/0.68 = 1.47$. The semi-analytic time-of-flight is then given by
+\begin{equation}
+\label{time_improved}
+t^* = 2.94 + 1.96\phi\mathbb{E}\mbox{u} + 1.18\phi^2\mathbb{E}\mbox{u}^{2} + \mathcal{O}(\phi^3\mathbb{E}\mbox{u}^{3}).
+\end{equation}
+\begin{figure}[htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/times2.pdf_tex}}
+    \caption{Dimensional time-of-flight asymptotic estimates $t_c t_f$ compared with experimental time-of-flight $t_b$.\label{fig:times2}}
+\end{figure}
+The relative magnitudes of the forces acting on the drops determined by the MLE solutions to Equation \ref{gov_eqn_subs} for the entire population of drop tower experiments are shown in Figure \ref{fig:forces}. Coulomb, image, and drag forces acting on the drops vary in typical magnitude between $\mathcal{O}(10^{-6})$-$\mathcal{O}(10^{-4})$ N. We see that of the drops in the experimental dataset only the two with the largest $\mathbb{E}\mbox{u} \sim \mathcal{O}(10)$ could appropriately be said to be in the inertial electro-viscous regime. In all other cases image forces are much stronger than drag. As expected, the image forces themselves rapidly become small compared to Coulomb forces for drops with apoapses $\mbox{max}\left( y\right) \gtrsim L$. The drop with largest $\mathbb{E}\mbox{u}$ in our dataset failed to escape the electric field as the escape condition $\phi \mathbb{E}\mbox{u} / 8\pi = 0.2 < 1$ was unsatisfied. Equation \ref{time_improved} predicts that this drop will return to the substrate after 32 s, a period of free-fall which is lamentably well out of reach of a drop tower. However, such an experiment could possibly be performed aboard the ISS or suborbital parabolic flights.
+\begin{figure}[!htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/forces_all.pgf}}
+    \caption{Simulated forces acting on drops up to the first apoapse as determined by the MLE solutions to Equation \ref{gov_eqn_subs} for all drops in the dataset.\label{fig:forces}}
+\end{figure}
+
+\subsection{Drop Impacts}
+In 1-$g_0$, for Weber numbers $\mathbb{W}\mbox{e} \equiv \rho U^2 R_d/\gamma >$ 0.4, impact rebound behavior on a superhydrophobic surface can be strongly influenced by damping from contact line hysteresis. For the low Bond and Ohnesorge numbers occurring in free-fall, the drop impact dynamics may additionally include electrohydrodynamic surface wettability effects. To date there has been little work in general on drop impacts outside of two regimes: (1) very low $\mathbb{R}\mbox{e}$ viscous drop spreading driven by capillary forces at the contact line and (2) impacts at `high' Weber numbers. Models for dynamic contact lines in general remain controversial, even for ordinary spreading of liquids, despite decades of work in the area. 
+
+If we naively neglect the contact line dynamics, the dimensionless groups for isothermal drop impacts are the Ohnesorge number $\mathbb{O}\mbox{h} \equiv \mu/\sqrt{\rho \gamma R_d}$, the Weber number $\mathbb{W}\mbox{e}$, and Bond number $\mathbb{B}\mbox{o}$. The Weber number scales the driving force of drop spreading. In the well-studied case of high $\mathbb{W}\mbox{e}$ impacts the drop bulk is driven radially outward by the impact induced pressure gradient, whereas in the case of small $\mathbb{W}\mbox{e}$ wetting impacts the liquid is driven outwards by capillary force. The Ohnesorge number, by contrast, is a measure of viscous effects in an inertial-capillary flow and scales the force that resists spreading. Previous empirical work for low $\mathbb{O}\mbox{h}$ and low $\mathbb{W}\mbox{e}$ impacts includes that of Schiaffino and Sonin \cite{schiaffino_molten_1997} with wetting and non-wetting impacts of molten metal drops on cold surfaces. Mol\'{a}\u{c}ek and Bush \cite{molacek_quasi-static_2012}, Gopinath and Koch \cite{gopinath_collision_2002}, and Okamura \cite{okumura_water_2003} have all developed analytical models of drop impacts at low $\mathbb{W}\mbox{e}$ and low $\mathbb{B}\mbox{o}$. These works show increasing dimensionless contact time $\tau$ as Weber number decreases, in opposition to the results of Richard and Qu\'{e}r\'{e} \cite{richard_surface_2002} which show experimentally that the dimensionless contact time is approximately a constant $\tau \approx 2.6(\rho R^3_d/\sigma)^{1/2}$ with respect to $\mathbb{W}\mbox{e}$ at large $\mathbb{W}\mbox{e}$. Mol\'{a}\u{c}ek's work also shows that impact coefficients of restitution $C_r$ depend non-linearly on $\mathbb{B}\mbox{o}$. To date little experimental work has been performed on low $\mathbb{B}\mbox{o}$ impacts as well. An exception is provided by Duvivier \emph{et al.} \cite{duvivier_drop_2012} who studied regimes of aqueous ferrofluid drop impacts on superhydrophobic substrates under the influence of an external magnetic field. In this case the magnetic body force acts as an ersatz gravity.
+
+When the electro-drop bounce occurs, if the drop has enough time to return a non-wetting impact occurs on the charged substrate usually followed by rebound. We observe average drop impact $\mathbb{O}\mbox{h} \approx 2.18 \pm 0.36$ and  $\mathbb{W}\mbox{e} \approx 0.28 \pm 0.22$. Thus impact velocity plays little role in the spreading dynamics of the bounces and viscous effects are important but do not dominate inertia. Notably we observe underdamped oscillations of drop interfaces during impact. Access to such relatively low $\mathbb{O}\mbox{h}$ and low $\mathbb{W}\mbox{e}$ drop impacts enabled by the low-gravity environment raises an interesting possibilities for new work on the basic science of drop impacts. This work also intersects the burgeoning field which spans the intersection of electrowetting on patterned surfaces and drop impacts. Various authors \cite{bartolo_bouncing_2006, reyssat_bouncing_2006} have suggested that a wetting transition called Fakir impalement can occur during impacts on patterned hydrophobic surfaces if a certain critical pressure $p_c \sim \gamma h/l$ is exceeded, where $h/l$ is the pillar aspect ratio of the patterned surface. This pressure can result from fluid inertia in a high $\mathbb{W}\mbox{e}$ impact regime, or can result from an electrostatic pressure due to an external electric field. The latter case is responsible for the irreversiblity that notoriously plagues static EWOD experiments. There is hope that additional work in this area could produce engineered surfaces that are tuneably wetting under drop impacts by leveraging electrostatic forces.
+ 
+Our preliminary results showing the influence of $\mathbb{W}\mbox{e}$ and electrostatic Bond number $\mathbb{B}\mbox{o}_e \equiv \epsilon E_0^2 R_d/\gamma $ on drop impact dimensionless contact time $\tau$ and coefficient of restitution $C_r$ are shown in Figures \ref{fig:contact} and \ref{fig:restitution}.
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/contact2.pgf}}
+    \caption{Dimensionless contact time $t_j/\tau$ compared with impact $\mathbb{W}\mbox{e}$ and $\mathbb{B}\mbox{o}_e$.\label{fig:contact}}
+\end{figure}
+
+\begin{figure}[htb]
+    \centering
+    \resizebox{0.5\textwidth}{!}{\input{../figures/restitution.pgf}}
+    \caption{Impact coefficient of restitution $C_r$ compared with impact $\mathbb{W}\mbox{e}$ and $\mathbb{B}\mbox{o}_e$.\label{fig:restitution}}
+\end{figure}
+
+\begin{acknowledgments}
+This work was supported by NASA Cooperative Agreement NNX12A047A. I am also greatly indebted to Andrew Greenberg for his frequent and sage technical advice, and to Joe Shields for his assistance with drop tower experiments.
+\end{acknowledgments}
+
+% If in two-column mode, this environment will change to single-column format so that long equations can be displayed. 
+% Use only when necessary.
+%\begin{widetext}
+%$$\mbox{put long equation here}$$
+%\end{widetext}
+
+% Figures should be put into the text as floats. 
+% Use the graphics or graphicx packages (distributed with LaTeX2e).
+% See the LaTeX Graphics Companion by Michel Goosens, Sebastian Rahtz, and Frank Mittelbach for examples. 
+%
+% Here is an example of the general form of a figure:
+% Fill in the caption in the braces of the \caption{} command. 
+% Put the label that you will use with \ref{} command in the braces of the \label{} command.
+%
+% \begin{figure}
+% \includegraphics{}%
+% \caption{\label{}}%
+% \end{figure}
+
+% Tables may be be put in the text as floats.
+% Here is an example of the general form of a table:
+% Fill in the caption in the braces of the \caption{} command. Put the label
+% that you will use with \ref{} command in the braces of the \label{} command.
+% Insert the column specifiers (l, r, c, d, etc.) in the empty braces of the
+% \begin{tabular}{} command.
+%
+% \begin{table}
+% \caption{\label{} }
+% \begin{tabular}{}
+% \end{tabular}
+% \end{table}
+
+% If you have acknowledgments, this puts in the proper section head.
+%\begin{acknowledgments}
+% Put your acknowledgments here.
+%\end{acknowledgments}
+
+% Create the reference section using BibTeX:
+\bibliography{thesis}
+
+\end{document}
+%
+% ****** End of file aiptemplate.tex ******
