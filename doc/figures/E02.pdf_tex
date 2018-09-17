@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{393.82000732bp}%
+    \setlength{\unitlength}{595.27559055bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,11 +48,27 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.67330252)%
+  \begin{picture}(1,1.41428571)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{E02.pdf}}%
-    \put(0.63085757,0.61729073){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1\\ }}}%
+    \put(0.40399791,0.35984555){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{10}}}%
+    \put(0.43020426,0.36952137){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{−}}}%
+    \put(0.44471828,0.36952137){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
+    \put(0.60778409,0.35984555){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{10}}}%
+    \put(0.63399048,0.36952137){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{0}}}%
+    \put(0.50264962,0.32779309){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{y/L}}}%
+    \put(0.18185196,0.45091422){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{10}}}%
+    \put(0.20805831,0.46059004){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{−}}}%
+    \put(0.22257233,0.46059004){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0.18185203,0.5902444){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{10}}}%
+    \put(0.20805838,0.59992087){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{−}}}%
+    \put(0.2225724,0.59992087){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
+    \put(0.19643173,0.72957669){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{10}}}%
+    \put(0.22263808,0.73925316){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{0}}}%
+    \put(0.16327427,0.53872557){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{E/E}}}}%
+    \put(0.16730603,0.59214616){\color[rgb]{0,0,0}\rotatebox{90}{\makebox(0,0)[lb]{\smash{0}}}}%
     \put(0,0){\includegraphics[width=\unitlength,page=2]{E02.pdf}}%
-    \put(0.81174864,0.18269996){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
-    \put(0.85878029,0.13205045){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
+    \put(0.59090275,0.49577876){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{}}}%
+    \put(0.60192711,0.4834945){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{E02.pdf}}%
   \end{picture}%
 \endgroup%

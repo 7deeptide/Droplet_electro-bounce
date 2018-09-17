@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{393.82000732bp}%
+    \setlength{\unitlength}{399.20860471bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,10 +48,8 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.67330252)%
+  \begin{picture}(1,0.67339286)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{E0.pdf}}%
-    \put(0.62217033,0.61021345){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
-    \put(0.77425096,0.14549684){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{1}}}%
-    \put(0.71579238,0.21027397){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0.72224422,0.2323481){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
   \end{picture}%
 \endgroup%
