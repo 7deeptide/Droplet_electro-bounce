@@ -51,5 +51,6 @@
   \begin{picture}(1,0.67339286)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{E0.pdf}}%
     \put(0.72224422,0.2323481){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{2}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{E0.pdf}}%
   \end{picture}%
 \endgroup%
