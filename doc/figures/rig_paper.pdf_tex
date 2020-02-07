@@ -36,7 +36,7 @@
   }%
   \providecommand\rotatebox[2]{#2}%
   \ifx\svgwidth\undefined%
-    \setlength{\unitlength}{970.78620971bp}%
+    \setlength{\unitlength}{905.14644593bp}%
     \ifx\svgscale\undefined%
       \relax%
     \else%
@@ -48,11 +48,11 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.81954188)%
+  \begin{picture}(1,0.87897373)%
     \put(0,0){\includegraphics[width=\unitlength,page=1]{rig_paper.pdf}}%
-    \put(0.11218546,0.59976702){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.24014351\unitlength}\raggedright $b$\end{minipage}}}%
-    \put(0.02215653,0.58740591){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.26959301\unitlength}\raggedright $a$\end{minipage}}}%
-    \put(0.91946814,0.58848656){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.26207253\unitlength}\raggedright $c$\end{minipage}}}%
-    \put(0.91946814,0.4928302){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.28024008\unitlength}\raggedright $d$\end{minipage}}}%
+    \put(0.08014506,0.46629062){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.25755833\unitlength}\raggedright b\end{minipage}}}%
+    \put(-0.00199113,0.2795182){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.28914347\unitlength}\raggedright a\end{minipage}}}%
+    \put(0.98197106,0.62784827){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.28107761\unitlength}\raggedright c\end{minipage}}}%
+    \put(0.98197106,0.52856945){\color[rgb]{0,0,0}\makebox(0,0)[lt]{\begin{minipage}{0.30056265\unitlength}\raggedright d\end{minipage}}}%
   \end{picture}%
 \endgroup%
