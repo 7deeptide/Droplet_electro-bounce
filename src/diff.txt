@@ -1,0 +1,1013 @@
+nbdiff parameter_estimation (copy).ipynb parameter_estimation.ipynb
+--- parameter_estimation (copy).ipynb  2020-02-06 01:53:28.954253
++++ parameter_estimation.ipynb  2020-02-06 20:26:56.624396
+[34m## replaced /cells/1/execution_count:[0m
+[31m-  1
+[32m+  35
+
+[0m[34m## replaced /cells/2/execution_count:[0m
+[31m-  2
+[32m+  36
+
+[0m[34m## replaced /cells/2/metadata/scrolled:[0m
+[31m-  True
+[32m+  False
+
+[0m[34m## replaced /cells/4/execution_count:[0m
+[31m-  3
+[32m+  37
+
+[0m[34m## replaced /cells/6/execution_count:[0m
+[31m-  4
+[32m+  38
+
+[0m[34m## modified /cells/6/source:[0m
+[36m@@ -46,7 +46,7 @@[m [mplt.rc('text', usetex=True)[m
+ plt.rc('font', family='serif')[m
+ #plt.rc('legend', frameon=False)[m
+ [m
+[31m-plt.rcParams['figure.dpi'] = 100[m
+[31m-plt.rc('font', size=16)[m
+[32m+[m[32mplt.rcParams['figure.dpi'] = 300[m
+[32m+[m[32mplt.rc('font', size=14)[m
+ %config InlineBackend.figure_format = 'retina'[m
+[31m-pics = False[m
+[m
+[32m+[m[32mpics = True[m
+[m
+
+[0m[34m## replaced /cells/7/execution_count:[0m
+[31m-  5
+[32m+  39
+
+[0m[34m## modified /cells/7/source:[0m
+[36m@@ -1,5 +1,5 @@[m
+ def savefig(filename, pics):[m
+     if pics == True:[m
+[31m-        plt.savefig('../doc/figures/{}.eps'.format(filename), bbox_inches='tight')[m
+[32m+[m[32m        plt.savefig('../doc/figures/{}.pgf'.format(filename), bbox_inches='tight')[m
+     else:[m
+         pass[m
+[m
+
+[0m[34m## replaced /cells/8/execution_count:[0m
+[31m-  6
+[32m+  40
+
+[0m[34m## modified /cells/8/source:[0m
+[36m@@ -3,10 +3,10 @@[m [mdef plot_single(drop, args_for_components=['YM'], kwargs_for_plot={'color':'k'},[m
+     Plots a given variable over the trajectory of a single drop.[m
+     """[m
+     #plt.xlabel('t ($s$)')[m
+[31m-    (ym, t, dt, contact_mask, y_parted, [m
+[31m-        dy_parted, ddy_parted, t_parted, ind_parted) = get_data(drop, param_est=False)[m
+[31m-    component = {'y_parted': y_parted, 'dy_parted':dy_parted, 'ddy_parted':ddy_parted}[m
+     if 'parted' in kwargs.keys() and kwargs['parted']==True:[m
+[32m+[m[32m        (ym, t, dt, contact_mask, y_parted,[m[41m [m
+[32m+[m[32m        dy_parted, ddy_parted, t_parted, ind_parted) = get_data(drop, param_est=False)[m
+[32m+[m[32m        component = {'y_parted': y_parted, 'dy_parted':dy_parted, 'ddy_parted':ddy_parted}[m
+         if 'sub' in kwargs.keys():[m
+             i = kwargs['i'][m
+             fig = kwargs['fig'][m
+[36m@@ -53,29 +53,14 @@[m [mdef plot_single(drop, args_for_components=['YM'], kwargs_for_plot={'color':'k'},[m
+             elif 'qm' in kwargs.keys() and kwargs['qm']==True:[m
+                 eu, t0, y0, im = kwargs['qmvals'][m
+                 if 'dimless' in kwargs.keys() and kwargs['dimless']==True:[m
+[31m-                    y, t = y_parted, t_parted[m
+                     try:[m
+                         y00 = y/y0[m
+[31m-                        minm = signal.argrelextrema(y, np.less, order=2)[0][::][m
+[31m-                        minmm = minm[0][m
+[31m-                        #plt.plot(t/t0, y00-np.abs(y00[minmm]),#radius(volume=drop.result.x[1])/y0, [m
+[31m-                        #     label=drop.name, **kwargs_for_plot)[m
+[31m-                        [m
+[31m-                        #plt.plot(t/t0, (y-np.abs(y[minmm]) - radius(volume=drop.result.x[1]))/y0,#radius(volume=drop.result.x[1])/y0, [m
+[31m-                        #     label=drop.name, **kwargs_for_plot)[m
+[31m-                        plt.plot(t/t0, (y-radius(volume=drop.result.x[1]))/y0[m
+[31m-                                 , label=drop.name, **kwargs_for_plot)[m
+[31m-                        #plt.scatter(t[minm], y[minm]-radius(volume=drop.result.x[1]) - y[minmm], **kwargs_for_plot)[m
+[32m+[m[32m                        minmm = signal.argrelextrema(y, np.less, order=4)[0][::][1][m
+[32m+[m[32m                        plt.plot(t/t0, y00-np.abs(y00[minmm]),#radius(volume=drop.result.x[1])/y0,[m[41m [m
+[32m+[m[32m                             label=drop.name, **kwargs_for_plot)[m
+                     except IndexError:[m
+[31m-                        print('uh oh')[m
+[31m-                        try:[m
+[31m-                            minm = signal.argrelextrema(y, np.less, order=2)[0][::][m
+[31m-                            minmm = minm[0][m
+[31m-                            plt.plot(t/t0, (y-radius(volume=drop.result.x[1]))/y0[m
+[31m-                                     , label=drop.name, **kwargs_for_plot)[m
+[31m-                            #plt.scatter(t[minm], y[minm]-radius(volume=drop.result.x[1]) - y[minmm], **kwargs_for_plot)[m
+[31m-                        except IndexError:[m
+[31m-                            pass[m
+[32m+[m[32m                        plt.plot(t/t0, y/(y0) - radius(volume=drop.result.x[1])/y0,[m
+[32m+[m[32m                             label=drop.name, **kwargs_for_plot)[m
+                 else:[m
+                     plt.plot(t, y,label=drop.name, **kwargs_for_plot)[m
+             else:[m
+[36m@@ -135,7 +120,7 @@[m [mdef plot_series(dataset, component='YM', **kwargs):[m
+         if 'dimless' in kwargs.keys() and kwargs['dimless']==True:[m
+             if 'reg' in kwargs.keys() and (kwargs['reg']=='s'):# or kwargs['reg']=='m'):[m
+                 tn = get_data(drop, param_est=True)[0][-1][m
+[31m-                plt.xlim(xmin=0, xmax = 4)[m
+[32m+[m[32m                plt.xlim(xmin=0, xmax = 3.5)[m
+                 #plt.ylim(ymin=0, ymax=2)[m
+     else:[m
+         total_time=[][m
+
+[0m[34m## deleted /cells/9:[0m
+[31m-  code cell:
+[31m-    execution_count: 7
+[31m-    source:
+[31m-      n = -4
+[31m-      m = -1
+[31m-      sorted_vals = [alldrops[x] for x in sorted_keys[:n]]
+[31m-      sorted_drops = dict(zip(sorted_keys, sorted_vals))
+[31m-      plot_series(sorted_drops, component='YM', qm=True, label=[r'$t^*$', r'$y^*$'], 
+[31m-                  savefig=True, reg = 's', dimless = True, name='series_s_ds', col=col)
+[31m-    outputs:
+[31m-      output 0:
+[31m-        output_type: error
+[31m-        ename: NameError
+[31m-        evalue: name 'sorted_keys' is not defined
+[31m-        traceback:
+[31m-          item[0]: [0;31m---------------------------------------------------------------------------[0m
+[31m-          item[1]: [0;31mNameError[0m                                 Traceback (most recent call last)
+[31m-          item[2]:
+[31m-            [0;32m<ipython-input-7-e668522d7d61>[0m in [0;36m<module>[0;34m[0m
+[31m-            [1;32m      1[0m [0mn[0m [0;34m=[0m [0;34m-[0m[0;36m4[0m[0;34m[0m[0;34m[0m[0m
+[31m-            [1;32m      2[0m [0mm[0m [0;34m=[0m [0;34m-[0m[0;36m1[0m[0;34m[0m[0;34m[0m[0m
+[31m-            [0;32m----> 3[0;31m [0msorted_vals[0m [0;34m=[0m [0;34m[[0m[0malldrops[0m[0;34m[[0m[0mx[0m[0;34m][0m [0;32mfor[0m [0mx[0m [0;32min[0m [0msorted_keys[0m[0;34m[[0m[0;34m:[0m[0mn[0m[0;34m][0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[31m-            [0m[1;32m      4[0m [0msorted_drops[0m [0;34m=[0m [0mdict[0m[0;34m([0m[0mzip[0m[0;34m([0m[0msorted_keys[0m[0;34m,[0m [0msorted_vals[0m[0;34m)[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[31m-            [1;32m      5[0m plot_series(sorted_drops, component='YM', qm=True, label=[r'$t^*$', r'$y^*$'], 
+[31m-          item[3]: [0;31mNameError[0m: name 'sorted_keys' is not defined
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/10/execution_count:[0m
+[31m-  None
+[32m+  41
+
+[0m[34m## inserted before /cells/10/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=085621b71b94c57b...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1485
+[32m+        width: 1586
+[32m+      needs_background: light
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      name drop07336
+[32m+      volume 0.05 mL
+[32m+      surfaceV [800. 700.] V
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=68b24db639b645f4...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1046
+[32m+        width: 1569
+[32m+      needs_background: light
+
+[0m[34m## replaced /cells/11/execution_count:[0m
+[31m-  8
+[32m+  42
+
+[0m[34m## replaced /cells/12/execution_count:[0m
+[31m-  9
+[32m+  43
+
+[0m[34m## replaced /cells/14/execution_count:[0m
+[31m-  10
+[32m+  44
+
+[0m[34m## replaced /cells/15/execution_count:[0m
+[31m-  11
+[32m+  45
+
+[0m[34m## replaced /cells/17/execution_count:[0m
+[31m-  12
+[32m+  46
+
+[0m[34m## replaced /cells/17/outputs/0/execution_count:[0m
+[31m-  12
+[32m+  46
+
+[0m[34m## modified /cells/17/source:[0m
+[36m@@ -1,15 +1,13 @@[m
+ #inputs[m
+ d = 6.47/100[m
+ [m
+[31m-import numpy as np[m
+ #physical constants[m
+ eta_0 = 8.85E-12       # vacuum permitivity[m
+ eta_r = 3.4            # relative permitivity[m
+ k = 1/(4*np.pi*eta_0)  # Coulomb's constant[m
+ #global k, eta_0, d[m
+ [m
+[31m-[m
+ eta_a=eta_r[m
+ susceptibility = eta_a - 1[m
+[31m-kk = susceptibility/(susceptibility + 2)[m
+[31m-k[m
+[m
+[32m+[m[32mbig_k = susceptibility/(susceptibility + 2)[m
+[32m+[m[32mbig_k[m
+[m
+
+[0m[34m## replaced /cells/18/execution_count:[0m
+[31m-  13
+[32m+  47
+
+[0m[34m## replaced /cells/19/execution_count:[0m
+[31m-  14
+[32m+  48
+
+[0m[34m## replaced /cells/20/execution_count:[0m
+[31m-  15
+[32m+  49
+
+[0m[34m## modified /cells/20/source:[0m
+[36m@@ -6,12 +6,12 @@[m [mdef force_ep(q, Ef):[m
+     return q * Ef[m
+ [m
+ def force_image(z, q, R_drop):[m
+[31m-    eta_a=eta_r[m
+[31m-    susceptibility = eta_a - 1[m
+[31m-    k = susceptibility/(susceptibility + 2)[m
+[32m+[m[32m    #eta_a=eta_r[m
+[32m+[m[32m    #susceptibility = eta_a - 1[m
+[32m+[m[32m    #k = susceptibility/(susceptibility + 2)[m
+     if z.any() <= 0:[m
+         z[z <= 0] = R_drop[m
+[31m-    return 1/(16*np.pi*eta_0)*k*q**2/z**2[m
+[32m+[m[32m    return 1/(16*np.pi*eta_0)*big_k*q**2/z**2[m
+ [m
+ def force_dep(z, R_drop, del_Ef):[m
+     """[m
+
+[0m[34m## replaced /cells/21/execution_count:[0m
+[31m-  16
+[32m+  50
+
+[0m[34m## replaced /cells/22/execution_count:[0m
+[31m-  17
+[32m+  51
+
+[0m[34m## replaced /cells/23/execution_count:[0m
+[31m-  18
+[32m+  52
+
+[0m[34m## replaced /cells/24/execution_count:[0m
+[31m-  19
+[32m+  53
+
+[0m[34m## replaced /cells/25/execution_count:[0m
+[31m-  20
+[32m+  54
+
+[0m[34m## replaced /cells/26/execution_count:[0m
+[31m-  21
+[32m+  55
+
+[0m[34m## replaced /cells/27/execution_count:[0m
+[31m-  22
+[32m+  56
+
+[0m[34m## replaced /cells/28/execution_count:[0m
+[31m-  23
+[32m+  57
+
+[0m[34m## inserted before /cells/28/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=2346aa42837eff92...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1631
+[32m+      needs_background: light
+
+[0m[34m## deleted /cells/28/outputs/0:[0m
+[31m-  output:
+[31m-    output_type: display_data
+[31m-    data:
+[31m-      image/png: iVBORw0K...<snip base64, md5=2e929780b70b6977...>
+[31m-      text/plain: <Figure size 432x288 with 1 Axes>
+[31m-    metadata (unknown keys):
+[31m-      image/png:
+[31m-        height: 261
+[31m-        width: 382
+[31m-      needs_background: light
+
+[0m[34m## modified /cells/28/source:[0m
+[36m@@ -5,6 +5,8 @@[m [mname = 'bounce_series'[m
+ pics= True[m
+ plt.ylabel(r'$y$ (cm)')[m
+ plt.xlabel(r'$t$ (s)')[m
+[32m+[m[32mplt.rcParams['figure.dpi'] = 300[m
+[32m+[m[32mplt.rc('font', size=14)[m
+ savefig(name, pics)[m
+ plt.show()[m
+ #param_est_plot(drop, sub=False, method='nelder-mead', a=a, test=True) [m
+[m
+
+[0m[34m## replaced /cells/33/execution_count:[0m
+[31m-  32
+[32m+  27
+
+[0m[34m## deleted /cells/33/outputs/0:[0m
+[31m-  output:
+[31m-    output_type: stream
+[31m-    name: stdout
+[31m-    text: drop0729...<snip base64, md5=9bddadfc88c04b1a...>
+
+[0m[34m## modified /cells/33/source:[0m
+[36m@@ -1,8 +1,9 @@[m
+[31m-i = 0[m
+[31m-a = 0.72*2.3 #2.2[m
+[31m-for drop in alldrops:[m
+[31m-    print(drop)[m
+[31m-    (alldrops[drop].result, alldrops[drop].sim,[m
+[31m-    alldrops[drop].fsim, alldrops[drop].error)  = res(alldrops[drop], a=a)[m
+[31m-    param_est_plot(alldrops[drop], sub=True, adding=True)[m
+[31m-    i += 1[m
+[32m+[m[32m#i = 0[m
+[32m+[m[32m#a = 0.72*2.3 #2.2[m
+[32m+[m[32m#for drop in alldrops:[m
+[32m+[m[32m#    print(drop)[m
+[32m+[m[32m#    (alldrops[drop].result, alldrops[drop].sim,[m
+[32m+[m[32m#    alldrops[drop].fsim, alldrops[drop].error)  = res(alldrops[drop], a=a)[m
+[32m+[m[32m#    param_est_plot(alldrops[drop], sub=True, adding=True)[m
+[32m+[m[32m#    i += 1[m
+[32m+[m[32m#[m
+[m
+
+[0m[34m## replaced /cells/34/execution_count:[0m
+[31m-  35
+[32m+  28
+
+[0m[34m## modified /cells/34/source:[0m
+[36m@@ -1,4 +1,4 @@[m
+[31m-#import pickle[m
+[32m+[m[32mimport pickle[m
+ #with open('../data/pickles/sorted_data.pkl', 'wb') as f:[m
+ #    pickle.dump(alldrops, f)[m
+ #alldrops_ba = alldrops[m
+[m
+
+[0m[34m## replaced /cells/35/execution_count:[0m
+[31m-  36
+[32m+  29
+
+[0m[34m## modified /cells/35/source:[0m
+[36m@@ -1,6 +1,6 @@[m
+[31m-#with open('../data/pickles/sorted_data.pkl', 'rb') as f:[m
+[31m-#    alldrops = pickle.load(f)[m
+[31m-#sorted_keys = [elements[1] for elements in \[m
+[31m-#                 sorted([[vals.y_soln.max(), keys] for keys, vals in alldrops.items()])][m
+[31m-#sorted_vals = [alldrops[x] for x in sorted_keys][m
+[31m-#sorted_drops = dict(zip(sorted_keys, sorted_vals))[m
+[m
+[32m+[m[32mwith open('../data/pickles/sorted_data.pkl', 'rb') as f:[m
+[32m+[m[32m    alldrops = pickle.load(f)[m
+[32m+[m[32msorted_keys = [elements[1] for elements in \[m
+[32m+[m[32m                 sorted([[vals.y_soln.max(), keys] for keys, vals in alldrops.items()])][m
+[32m+[m[32msorted_vals = [alldrops[x] for x in sorted_keys][m
+[32m+[m[32msorted_drops = dict(zip(sorted_keys, sorted_vals))[m
+[m
+
+[0m[34m## replaced /cells/36/execution_count:[0m
+[31m-  37
+[32m+  30
+
+[0m[34m## inserted before /cells/36/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=91e386b27bcd54be...>
+[32m+      text/plain: <Figure size 3600x3000 with 16 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 3073
+[32m+        width: 3667
+
+[0m[34m## deleted /cells/36/outputs/0:[0m
+[31m-  output:
+[31m-    output_type: display_data
+[31m-    data:
+[31m-      image/png: iVBORw0K...<snip base64, md5=87746e5b281a86b4...>
+[31m-      text/plain: <Figure size 864x720 with 16 Axes>
+[31m-    metadata (unknown keys):
+[31m-      image/png:
+[31m-        height: 741
+[31m-        width: 888
+
+[0m[34m## replaced /cells/37/execution_count:[0m
+[31m-  38
+[32m+  31
+
+[0m[34m## inserted before /cells/37/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=d1bc821328534686...>
+[32m+      text/plain: <Figure size 3600x3000 with 16 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 3073
+[32m+        width: 3664
+
+[0m[34m## deleted /cells/37/outputs/0:[0m
+[31m-  output:
+[31m-    output_type: display_data
+[31m-    data:
+[31m-      image/png: iVBORw0K...<snip base64, md5=55b666de9fb9af83...>
+[31m-      text/plain: <Figure size 864x720 with 16 Axes>
+[31m-    metadata (unknown keys):
+[31m-      image/png:
+[31m-        height: 741
+[31m-        width: 885
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/38/execution_count:[0m
+[31m-  None
+[32m+  32
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/39/execution_count:[0m
+[31m-  None
+[32m+  33
+
+[0m[34m## inserted before /cells/39/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stderr
+[32m+    text:
+[32m+      /home/erin/anaconda3/lib/python3.6/site-packages/numpy/ma/core.py:6666: RuntimeWarning: overflow encountered in power
+[32m+        result = np.where(m, fa, umath.power(fa, fb)).view(basetype)
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=1e8175383ab52289...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1662
+[32m+      needs_background: light
+
+[0m[34m## modified /cells/39/source:[0m
+[36m@@ -1,7 +1,7 @@[m
+ plt.figure()[m
+ for drop in sorted_drops:[m
+     param_est_plot(sorted_drops[drop], sub=False, method='Nelder-Mead', forces=True)[m
+[31m-plt.ylim(ymin=5E-3)[m
+[32m+[m[32mplt.ylim(ymin=1E-3)[m
+ plt.xlabel(r'$y/L$')[m
+ plt.ylabel('Dimensionless force')[m
+ plt.semilogy([],[],'r', label='Coulomb force', markevery=10)[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/40/execution_count:[0m
+[31m-  None
+[32m+  35
+
+[0m[34m## modified /cells/40/source:[0m
+[36m@@ -1,5 +1,5 @@[m
+ #likely outliers[m
+[31m-#outliers = {#'drop07294':alldrops.pop('drop07294'),[m
+[31m-#            'drop07334':alldrops.pop('drop07334')}[m
+[32m+[m[32moutliers = {#'drop07294':alldrops.pop('drop07294'),[m
+[32m+[m[32m            'drop07334':alldrops.pop('drop07334')}[m
+ #alldrops['drop07334'] = outliers.pop('drop07334')[m
+     #surfaceV, volume, q, dy0[m
+[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/41/execution_count:[0m
+[31m-  None
+[32m+  36
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/42/execution_count:[0m
+[31m-  None
+[32m+  37
+
+[0m[34m## modified /cells/42/source:[0m
+[36m@@ -44,5 +44,5 @@[m [mdef drop_planning_plots(surfaceVs, vol, qs, **kwargs):[m
+         savefig(name, pics)[m
+     plt.show()[m
+     [m
+[31m-drop_planning_plots(surfaceVs, vols, qs, savefig=True)[m
+[32m+[m[32m#drop_planning_plots(surfaceVs, vols, qs, savefig=True)[m
+ #print(qs)[m
+[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/43/execution_count:[0m
+[31m-  None
+[32m+  38
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/44/execution_count:[0m
+[31m-  None
+[32m+  39
+
+[0m[34m## inserted before /cells/44/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=aef6220fab4e3e88...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1115
+[32m+        width: 1623
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/45/execution_count:[0m
+[31m-  None
+[32m+  40
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/46/execution_count:[0m
+[31m-  None
+[32m+  41
+
+[0m[34m## inserted before /cells/46/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      [ 1.09700115 23.43978231 31.77987908  9.16378928 15.47209923 11.51309153
+[32m+        1.11395403  5.11567485  3.14940943  1.61956991 10.84570367  3.08121722
+[32m+        0.87077079 10.05929072  4.71579356]
+[32m+      [4.07852772e-04 7.77723934e-02 1.43745400e-01 3.36844814e-03
+[32m+       9.86631075e-03 2.22749594e-03 1.23092807e-05 6.08507590e-03
+[32m+       1.34410921e-03 2.21244173e-04 2.72363969e-02 3.47189094e-04
+[32m+       3.38802169e-05 1.16547724e-02 3.61791493e-04]
+[32m+      [1.21117971e-09 2.86844188e-10 2.80988007e-10 1.58823309e-10
+[32m+       1.91000951e-10 7.93910102e-11 7.62691741e-11 5.81024038e-10
+[32m+       4.49335358e-10 4.44090969e-10 5.16455259e-10 1.78800330e-10
+[32m+       2.15698026e-10 4.23648968e-10 1.26974136e-10]
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/47/execution_count:[0m
+[31m-  None
+[32m+  42
+
+[0m[34m## inserted before /cells/47/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      drop07294 [0.64030092]
+[32m+      drop07295 []
+[32m+      drop07296 []
+[32m+      drop07297 [0.54395677]
+[32m+      drop07298 []
+[32m+      drop07299 [0.53198451]
+[32m+      drop07300 [0.59182721]
+[32m+      drop07319 [0.55354135 0.67648944]
+[32m+      drop07325 [0.61341148 0.35076624]
+[32m+      drop07326 [0.3936598]
+[32m+      drop07327 []
+[32m+      drop07328 [0.40307404]
+[32m+      drop07329 [0.48576237 0.69442293]
+[32m+      drop07335 []
+[32m+      drop07336 [0.68137044 0.61123356 0.59528561 0.46463839 0.77489371]
+[32m+      0.282319704511251 0.21653152995068908
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=c5cb6b8cf8471ace...>
+[32m+      text/plain: <Figure size 1800x1200 with 2 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1125
+[32m+        width: 1634
+[32m+      needs_background: light
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=ecb66b002d0f5e17...>
+[32m+      text/plain: <Figure size 1800x1200 with 2 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1125
+[32m+        width: 1669
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/48/execution_count:[0m
+[31m-  None
+[32m+  43
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/49/execution_count:[0m
+[31m-  None
+[32m+  44
+
+[0m[34m## inserted before /cells/49/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stderr
+[32m+    text:
+[32m+      No handles with labels found to put in legend.
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=8d0827723a4af8c4...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1599
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/50/execution_count:[0m
+[31m-  None
+[32m+  45
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/51/execution_count:[0m
+[31m-  None
+[32m+  46
+
+[0m[34m## inserted before /cells/51/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=077463cc9d3b28cc...>
+[32m+      text/plain: <Figure size 1800x1200 with 2 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1115
+[32m+        width: 1638
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/52/execution_count:[0m
+[31m-  None
+[32m+  47
+
+[0m[34m## inserted before /cells/52/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=d9be49eec8e88144...>
+[32m+      text/plain: <Figure size 1800x1200 with 2 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1138
+[32m+        width: 1601
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/53/execution_count:[0m
+[31m-  None
+[32m+  48
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/54/execution_count:[0m
+[31m-  None
+[32m+  49
+
+[0m[34m## inserted before /cells/54/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      0.4804455638376169
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=7a3e526832e0948e...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1669
+[32m+      needs_background: light
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/55/execution_count:[0m
+[31m-  None
+[32m+  50
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/56/execution_count:[0m
+[31m-  None
+[32m+  51
+
+[0m[34m## inserted before /cells/56/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: execute_result
+[32m+    execution_count: 51
+[32m+    data:
+[32m+      text/plain:
+[32m+        array([133588.30080398,  57288.6077812 ,  49273.68097281,  77376.8422471 ,
+[32m+                44374.06523583,  66736.77708966,  65495.6731094 , 156499.86498707,
+[32m+               166232.17519494, 141516.83367666,  70945.92864517, 117615.42468429,
+[32m+               103475.99353059,  65376.16866539,  91687.46291443])
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/57/execution_count:[0m
+[31m-  None
+[32m+  74
+
+[0m[34m## inserted before /cells/57/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stderr
+[32m+    text:
+[32m+      /home/erin/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1450: UserWarning: kurtosistest only valid for n>=20 ... continuing anyway, n=15
+[32m+        "anyway, n=%i" % int(n))
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+                                  OLS Regression Results                            
+[32m+      ==============================================================================
+[32m+      Dep. Variable:                 charge   R-squared:                       0.737
+[32m+      Model:                            OLS   Adj. R-squared:                  0.717
+[32m+      Method:                 Least Squares   F-statistic:                     36.52
+[32m+      Date:                Thu, 06 Feb 2020   Prob (F-statistic):           4.15e-05
+[32m+      Time:                        00:39:25   Log-Likelihood:                 318.78
+[32m+      No. Observations:                  15   AIC:                            -633.6
+[32m+      Df Residuals:                      13   BIC:                            -632.1
+[32m+      Df Model:                           1                                         
+[32m+      Covariance Type:            nonrobust                                         
+[32m+      ==============================================================================
+[32m+                       coef    std err          t      P>|t|      [0.025      0.975]
+[32m+      ------------------------------------------------------------------------------
+[32m+      Intercept   3.588e-11   6.51e-11      0.552      0.591   -1.05e-10    1.76e-10
+[32m+      prod        1.078e-10   1.78e-11      6.043      0.000    6.92e-11    1.46e-10
+[32m+      ==============================================================================
+[32m+      Omnibus:                        3.734   Durbin-Watson:                   1.243
+[32m+      Prob(Omnibus):                  0.155   Jarque-Bera (JB):                1.422
+[32m+      Skew:                           0.602   Prob(JB):                        0.491
+[32m+      Kurtosis:                       3.910   Cond. No.                         6.29
+[32m+      ==============================================================================
+[32m+      
+[32m+      Warnings:
+[32m+      [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=97e371476bd56f65...>
+[32m+      text/plain: <Figure size 1800x1200 with 16 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1098
+[32m+        width: 1587
+[32m+      needs_background: light
+
+[0m[34m## modified /cells/57/source:[0m
+[36m@@ -1,27 +1,33 @@[m
+ import pandas[m
+[31m-from statsmodels.formula.api import ols, rlm, WLS[m
+[32m+[m[32mfrom statsmodels.formula.api import ols #, rlm, WLS[m
+ from pandas import plotting[m
+ import seaborn[m
+[32m+[m[32mplt.rcParams['figure.dpi'] = 300[m
+[32m+[m[32mplt.rc('font', size=10)[m
+ [m
+ def scatter_matrix(x):[m
+[31m-    area, qs, u0s, surfaceVs, Ef0 = x[m
+[31m-    data = pandas.DataFrame({'area':area, 'charge':qs, 'u0': u0s, 'Ef0':Ef0/100/1000})[m
+[31m-    plotting.scatter_matrix(data, diagonal='density', c='k');[m
+[32m+[m[32m    vols, qs, u0s, surfaceVs, Ef0 = x[m
+[32m+[m[32m    area = (vols/1E6)**(2/3)[m
+[32m+[m[32m    data = pandas.DataFrame({'$V_d$ (mL)':vols, '$q$ (C)':qs,[m[41m [m
+[32m+[m[32m                             '$U_0$ (cm/s)': u0s*100, '$E_0$ (kV/m)':Ef0/100/1000})[m
+[32m+[m[41m    [m
+[32m+[m[32m    axes = plotting.scatter_matrix(data, diagonal='density', c='k', alpha=.8)[m
+[32m+[m
+[32m+[m[32m    for i in range(np.shape(axes)[0]):[m
+[32m+[m[32m        for j in range(np.shape(axes)[1]):[m
+[32m+[m[32m            if i < j:[m
+[32m+[m[32m                axes[i,j].set_visible(False)[m
+[32m+[m[32m    #plotting.scatter_matrix(data, diagonal='density', c='k');[m
+     prod = area*Ef0[m
+     data = pandas.DataFrame({'area':area, 'charge':qs, 'u0': u0s, 'Ef0':Ef0, 'prod': prod})[m
+[31m-    model = ols('charge ~  prod - 1', data)[m
+[32m+[m[32m    model = ols('charge ~  prod', data)[m
+     #model = rlm('charge ~  area * Ef0', data)[m
+     #r2_wls = WLS(model.endog, model.exog, weights=model.fit().weights).fit().rsquared[m
+     print(model.fit().summary())[m
+     #print(r'R^2 = {}'.format(r2_wls))[m
+ [m
+[31m-area = (vols/1E6)**(2/3)[m
+[31m-variables = (area, qs, u0s, surfaceVs, Ef0)[m
+[32m+[m[32mvariables = (vols, qs, u0s, surfaceVs, Ef0)[m
+ scatter_matrix(variables)[m
+ name = 'scatter'[m
+ savefig(name, pics)[m
+[31m-plt.show()[m
+[31m-[m
+[31m-plt.scatter(qs, area*Ef0)[m
+[31m-plt.xlim(0.25E-10, 0.6E-9)[m
+ plt.show()[m
+[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/58/execution_count:[0m
+[31m-  None
+[32m+  62
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/59/execution_count:[0m
+[31m-  None
+[32m+  63
+
+[0m[34m## inserted before /cells/59/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: execute_result
+[32m+    execution_count: 63
+[32m+    data:
+[32m+      text/plain: Ttest_indResult(statistic=4.60589755871931, pvalue=0.00040733957771183903)
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/60/execution_count:[0m
+[31m-  None
+[32m+  64
+
+[0m[34m## inserted before /cells/60/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=6fd351427c44a33c...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1085
+[32m+        width: 1590
+[32m+      needs_background: light
+
+[0m[34m## modified /cells/60/source:[0m
+[36m@@ -1,16 +1,14 @@[m
+ from statsmodels.stats.anova import anova_lm[m
+ ims = np.array([])[m
+ eus = np.array([])[m
+[31m-phis = np.array([])[m
+ plt.figure()[m
+ for drop in alldrops:[m
+     eus = np.append(eus, q_to_m(alldrops[drop])[0])[m
+     ims = np.append(ims, img(alldrops[drop]))[m
+[31m-    phis = np.append(phis, q_to_m(alldrops[drop])[4])[m
+ [m
+ # Convert the data into a Pandas DataFrame to use the formulas framework[m
+ # in statsmodels[m
+[31m-data = pandas.DataFrame({'Eu': eus, 'Im': ims, 'Phi':phis})[m
+[32m+[m[32mdata = pandas.DataFrame({'Eu': eus, 'Im': ims})[m
+ [m
+ # Fit the model[m
+ model = ols(formula="Im ~ Eu", data=data).fit()[m
+[36m@@ -24,10 +22,4 @@[m [mplt.ylabel(r'$\mathbf{I}\mbox{g}$')[m
+ plt.legend()[m
+ name = 'dnumbs'[m
+ savefig(name, pics)[m
+[31m-plt.show()[m
+[31m-[m
+[31m-# Fit the model[m
+[31m-#model = ols(formula="Im ~ Phi", data=data).fit()[m
+[31m-#offset, coef = model._results.params[m
+[31m-plt.scatter(ims, 10*phis)[m
+ plt.show()[m
+[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/61/execution_count:[0m
+[31m-  None
+[32m+  65
+
+[0m[34m## inserted before /cells/61/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+                                  OLS Regression Results                            
+[32m+      ==============================================================================
+[32m+      Dep. Variable:                     Im   R-squared:                       0.192
+[32m+      Model:                            OLS   Adj. R-squared:                  0.130
+[32m+      Method:                 Least Squares   F-statistic:                     3.094
+[32m+      Date:                Wed, 05 Feb 2020   Prob (F-statistic):              0.102
+[32m+      Time:                        23:39:43   Log-Likelihood:                 10.694
+[32m+      No. Observations:                  15   AIC:                            -17.39
+[32m+      Df Residuals:                      13   BIC:                            -15.97
+[32m+      Df Model:                           1                                         
+[32m+      Covariance Type:            nonrobust                                         
+[32m+      ==============================================================================
+[32m+                       coef    std err          t      P>|t|      [0.025      0.975]
+[32m+      ------------------------------------------------------------------------------
+[32m+      Intercept      0.3459      0.047      7.351      0.000       0.244       0.448
+[32m+      Eu             0.0067      0.004      1.759      0.102      -0.002       0.015
+[32m+      ==============================================================================
+[32m+      Omnibus:                        2.740   Durbin-Watson:                   2.416
+[32m+      Prob(Omnibus):                  0.254   Jarque-Bera (JB):                1.994
+[32m+      Skew:                           0.856   Prob(JB):                        0.369
+[32m+      Kurtosis:                       2.491   Cond. No.                         17.8
+[32m+      ==============================================================================
+[32m+      
+[32m+      Warnings:
+[32m+      [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[32m+      
+[32m+      ANOVA results
+[32m+                  df    sum_sq   mean_sq         F    PR(>F)
+[32m+      Eu         1.0  0.050219  0.050219  3.093598  0.102101
+[32m+      Residual  13.0  0.211031  0.016233       NaN       NaN
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stderr
+[32m+    text:
+[32m+      /home/erin/anaconda3/lib/python3.6/site-packages/scipy/stats/stats.py:1450: UserWarning: kurtosistest only valid for n>=20 ... continuing anyway, n=15
+[32m+        "anyway, n=%i" % int(n))
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/62/execution_count:[0m
+[31m-  None
+[32m+  71
+
+[0m[34m## inserted before /cells/62/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      1.3352162893899342
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=491a15e8110aae56...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1633
+[32m+      needs_background: light
+
+[0m[34m## modified /cells/62/source:[0m
+[36m@@ -31,6 +31,8 @@[m [mmodel = ols(formula="tof ~ tb", data=data).fit()[m
+ offset, coef = model._results.params[m
+ print(1/coef)[m
+ #plt.plot(tbl, tbl*coef + offset, 'k-')[m
+[32m+[m[32mplt.rcParams['figure.dpi'] = 300[m
+[32m+[m[32mplt.rc('font', size=14)[m
+ plt.scatter(tbl, tcl, color='None', edgecolors='k', label='$\mathcal{O}(\phi^3 \mathbf{E}\mbox{u}^3)$')[m
+ plt.scatter(tbl, tk*2, color='None', marker='s', edgecolors='r', label='$\mathcal{O}(1)$')[m
+ #cb1 = plt.colorbar()[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/63/execution_count:[0m
+[31m-  None
+[32m+  70
+
+[0m[34m## inserted before /cells/63/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      1.4427425144912187
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=ea609d7ef282ee3a...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1115
+[32m+        width: 1631
+[32m+      needs_background: light
+[32m+  output:
+[32m+    output_type: display_data
+[32m+    data:
+[32m+      image/png: iVBORw0K...<snip base64, md5=4aae798124adec05...>
+[32m+      text/plain: <Figure size 1800x1200 with 1 Axes>
+[32m+    metadata (unknown keys):
+[32m+      image/png:
+[32m+        height: 1121
+[32m+        width: 1589
+[32m+      needs_background: light
+
+[0m[34m## modified /cells/63/source:[0m
+[36m@@ -24,6 +24,8 @@[m [mmodel = ols(formula="ycl ~ ymax", data=data).fit()[m
+ offset, coef = model._results.params[m
+ print(1/coef)[m
+ [m
+[32m+[m[32mplt.rcParams['figure.dpi'] = 300[m
+[32m+[m[32mplt.rc('font', size=14)[m
+ plt.figure()[m
+ plt.scatter(eus, ybl/(yk), color='w', edgecolors='k')[m
+ plt.ylabel(r'${y_{max}}/y_c$')[m
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/64/execution_count:[0m
+[31m-  None
+[32m+  68
+
+[0m[34m## inserted before /cells/64/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: execute_result
+[32m+    execution_count: 68
+[32m+    data:
+[32m+      text/plain:
+[32m+        array([ 0.87077079,  1.09700115,  1.11395403,  1.61956991,  3.08121722,
+[32m+                3.14940943,  4.71579356,  5.11567485,  9.16378928, 10.05929072,
+[32m+               10.84570367, 11.51309153, 15.47209923, 23.43978231])
+
+[0m[34m## replaced (type changed from NoneType to int) /cells/66/execution_count:[0m
+[31m-  None
+[32m+  72
+
+[0m[34m## inserted before /cells/66/outputs/0:[0m
+[32m+  output:
+[32m+    output_type: stream
+[32m+    name: stdout
+[32m+    text:
+[32m+      6.645558385733209
+[32m+      7.796897269638771
+
+[0m
